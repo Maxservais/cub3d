@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls.c                                         :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/18 14:26:06 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/18 14:28:06 by mservais         ###   ########.fr       */
+/*   Created: 2022/01/18 15:31:24 by mservais          #+#    #+#             */
+/*   Updated: 2022/01/18 16:44:49 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int	close_win(t_param *param)
+int	free_board(t_param *p, int n)
 {
-	// free everything
-
-	// destroy window & exit
-	mlx_destroy_window(param->mlx_ptr, param->win_ptr);
-	exit(0);
-}
-
-int	deal_key(int key, t_param *param)
-{
-	if (key == ESCAPE)
-		close_win(param);
-	return (0);
+	while (n > 0)
+	{
+		free(p->map->board[n - 1]);
+		n--;
+	}
+	free(p->map->board);
+	return (1);
 }

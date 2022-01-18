@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:14 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/18 14:32:21 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:44:24 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include "./get_next_line/get_next_line.h"
+# include "./get_next_line/get_next_line.h" // is that necessary?
 # include "mlx.h"
 
 /* 1. MACROS */
@@ -43,19 +43,29 @@ typedef struct s_param
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	t_map		*map;
 }			t_param;
 
 /* 3. MAIN FUNCTIONS */
 
 
 /* 4. PARSER */
+int	check_map(t_param *param, char *filename);
+int	map_height(char *filename);
+int	map_width(char *filename, int res);
+
+
 
 
 /* 5. CONTROL FLOW */
 int	close_win(t_param *param);
 int	deal_key(int key, t_param *param);
 
-/* UTILS */
+/* 6. MEMORY (DE)ALLOCATION */
+int	init_structs(t_param *param);
+int	init_board(t_param *p);
+int	free_board(t_param *p, int n);
 
+/* 7. UTILS */
 
 #endif

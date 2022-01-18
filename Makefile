@@ -6,12 +6,18 @@
 #    By: mservais <mservais@student.s19.be >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/18 13:54:56 by mservais          #+#    #+#              #
-#    Updated: 2022/01/18 14:33:38 by mservais         ###   ########.fr        #
+#    Updated: 2022/01/18 17:38:33 by mservais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC_FILES		=	main.c \
-					controls.c \
+SRC_FILES		=	main.c							\
+					0_memory_management/free.c		\
+					0_memory_management/init.c		\
+					1_parsing/check_content.c		\
+					1_parsing/check_map.c			\
+					1_parsing/parse_file.c			\
+					1_parsing/utils.c				\
+					2_game_dynamics/controls.c		\
 
 OBJ_FILES		=	$(SRC_FILES:.c=.o)
 
@@ -23,7 +29,7 @@ MLX_LIB			=	libmlx.dylib
 
 CC				=	gcc
 
-INCLUDE			=	-Lmlx -lmlx -framework OpenGL -framework AppKit
+INCLUDE			=	-Lmlx -lmlx -framework OpenGL -framework AppKit -fsanitize=address
 
 CFLAGS			=	-Wall -Werror -Wextra
 
