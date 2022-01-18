@@ -6,7 +6,7 @@
 #    By: mservais <mservais@student.s19.be >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/18 13:54:56 by mservais          #+#    #+#              #
-#    Updated: 2022/01/18 17:38:33 by mservais         ###   ########.fr        #
+#    Updated: 2022/01/18 19:12:10 by mservais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC_FILES		=	main.c							\
 					1_parsing/parse_file.c			\
 					1_parsing/utils.c				\
 					2_game_dynamics/controls.c		\
+					2_game_dynamics/draw.c		\
 
 OBJ_FILES		=	$(SRC_FILES:.c=.o)
 

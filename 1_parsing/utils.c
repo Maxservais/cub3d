@@ -6,12 +6,13 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:52:47 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/18 16:53:10 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:24:59 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+// need to find biggest column
 int	map_height(char *filename)
 {
 	int		fd;
@@ -33,6 +34,7 @@ int	map_height(char *filename)
 	return (count_height);
 }
 
+// need to find longest row. Not all rows need to have the same length
 int	map_width(char *filename, int res)
 {
 	int		count_width;

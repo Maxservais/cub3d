@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:10 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/18 17:46:36 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/18 19:11:27 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,23 @@ static int	game_start(t_param *param)
 {
 	param->mlx_ptr = mlx_init();
 	if (!param->mlx_ptr)
-		return (1); // Free everything that was malloced
+		return (1); // Free everything that was malloced - free_board_and_structs()
 	param->win_ptr = mlx_new_window(param->mlx_ptr,
 			1200, 960, "CUB3D");
 	if (!param->win_ptr)
-		return (1); // Free everything that was malloced
+		return (1); // Free everything that was malloced - free_board_and_structs
+	param->img_ptr = mlx_new_image(param->mlx_ptr, 1200, 960);
+	param->img_addr = mlx_get_data_addr(param->img_ptr, &param->bits_per_pixel, &param->line_length, &param->endian);
+	
 	return (0);
 }
 
 /*
 Our main function:
 - returns an error when our executable file (./cub3d) isn't called with the right command-line argument;
-- calls a function to parse the file that contains information on the map as well
-as the floor, ceiling and walls' colors;
+- returns an error when there is an issue allocating memory on the Heap
+- calls a function to parse the file that contains information on the map, the floor,
+ceiling and walls' colors;
 - launches the game;
 - hooks into events to capture users' input.
 */
@@ -46,7 +50,6 @@ int	main(int argc, char **argv)
 {
 	t_param	param;
 
-	// Deal with input errors and memory allocation problems
 	if (argc != 2 || init_structs(&param) == -1)
 	{
 		printf("Usage: ./cub3d file_name\n");

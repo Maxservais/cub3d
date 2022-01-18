@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:32:02 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/18 17:45:47 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/18 19:13:55 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ int	init_structs(t_param *param)
 	param->map = malloc(sizeof(t_map));
 	if (!param->map)
 		return (-1);
-	// param->player = malloc(sizeof(t_player));
-	// if (!param->player)
-	// {
-	// 	free(param->map);
-	// 	return (-1);
-	// }
+	param->player = malloc(sizeof(t_player));
+	if (!param->player)
+	{
+		free(param->map);
+		return (-1);
+	}
+	param->player->x = 50;
+	param->player->y = 50;
 	// param->sprite = malloc(sizeof(t_sprite));
 	// if (!param->sprite)
 	// {
