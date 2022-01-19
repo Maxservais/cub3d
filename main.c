@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:10 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/18 19:11:27 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:17:17 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ static int	game_start(t_param *param)
 	param->mlx_ptr = mlx_init();
 	if (!param->mlx_ptr)
 		return (1); // Free everything that was malloced - free_board_and_structs()
-	param->win_ptr = mlx_new_window(param->mlx_ptr,
-			1200, 960, "CUB3D");
+	param->win_ptr = mlx_new_window(param->mlx_ptr, param->map->width * BLOC_SIZE, param->map->height * BLOC_SIZE, "CUB3D");
 	if (!param->win_ptr)
 		return (1); // Free everything that was malloced - free_board_and_structs
-	param->img_ptr = mlx_new_image(param->mlx_ptr, 1200, 960);
+	param->img_ptr = mlx_new_image(param->mlx_ptr, param->map->width * BLOC_SIZE, param->map->height * BLOC_SIZE);
 	param->img_addr = mlx_get_data_addr(param->img_ptr, &param->bits_per_pixel, &param->line_length, &param->endian);
-	
 	return (0);
 }
 
@@ -63,6 +61,8 @@ int	main(int argc, char **argv)
 	// Launch game
 	if (game_start(&param) == 1)
 		return (EXIT_FAILURE);
+
+	draw_map2d(&param);
 
 	// Hook into events
 	mlx_hook(param.win_ptr, 2, 1L << 0, &deal_key, &param);

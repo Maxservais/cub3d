@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:26:06 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/18 19:15:53 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:18:51 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,25 @@ int	deal_key(int key, t_param *p)
 	if (key == ESCAPE)
 		close_win(p);
 	if (key == UP /*&& !try_move(p, p->player->x, p->player->y - 1, 0)*/)
-		p->player->y -= 10;
+	{
+		erase_player(p);
+		p->player->y -= BLOC_SIZE;
+	}
 	else if (key == DOWN /*&& !try_move(p, p->player->x, p->player->y + 1, 0)*/)
-		p->player->y += 10;
+	{
+		erase_player(p);
+		p->player->y += BLOC_SIZE;
+	}	
 	else if (key == LEFT /*&& !try_move(p, p->player->x - 1, p->player->y, 0)*/)
-		p->player->x -= 10;
+	{
+		erase_player(p);
+		p->player->x -= BLOC_SIZE;
+	}
 	else if (key == RIGHT /*&& !try_move(p, p->player->x + 1, p->player->y, 0)*/)
-		p->player->x += 10;
+	{
+		erase_player(p);
+		p->player->x += BLOC_SIZE;
+	}
 	display(p);
 	return (0);
 }

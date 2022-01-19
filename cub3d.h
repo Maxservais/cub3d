@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:14 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/18 19:11:45 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:33:11 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 /* 1. MACROS */
 
 # define ERROR_MSG "Error\nRelaunch the game please!\n"
+# define BLOC_SIZE 30
 # define ESCAPE 53
 # define UP 13
 # define DOWN 1
@@ -69,9 +70,17 @@ int	check_map(t_param *param, char *filename);
 int	map_height(char *filename);
 int	map_width(char *filename, int res);
 
-/* 5. Game dynamics (displaying, moving player, etc.) */
+/* 5. GAME DYNAMICS */
+
+/* 5.0 Hooking into events */
 int	close_win(t_param *param);
 int	deal_key(int key, t_param *param);
+
+/* Frame rendering */
+void	my_mlx_pixel_put(t_param *param, int x, int y, int color);
+void	draw_map2d(t_param *param);
+void	draw_player(t_param *param);
+void	erase_player(t_param *param);
 void	display(t_param *p);
 
 /* 6. MEMORY (DE)ALLOCATION */
