@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:14 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/19 17:33:11 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:57:20 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "./get_next_line/get_next_line.h" // is that necessary?
 # include "mlx.h"
 
@@ -30,6 +31,9 @@
 # define DOWN 1
 # define LEFT 0
 # define RIGHT 2
+# define RIGHT_ARROW 124
+# define LEFT_ARROW 123
+# define PI	3.14159265358
 
 /* 2. CUSTOM STRUCTS */
 
@@ -45,8 +49,11 @@ typedef struct s_player
 	// int		img_width;
 	// int		img_height;
 	// void	*player;
-	int		x;
-	int		y;
+	float	pdx;
+	float	pdy;
+	float	pa;
+	float		px;
+	float		py;
 }			t_player;
 
 typedef struct s_param

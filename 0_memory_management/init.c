@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:32:02 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/19 16:23:41 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:43:36 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@ int	init_structs(t_param *param)
 		free(param->map);
 		return (-1);
 	}
-	param->player->x = BLOC_SIZE / 2 - 5; // starting position of player should be elsewhere!
-	param->player->y = BLOC_SIZE / 2 - 5;
+	// param->player->px = BLOC_SIZE / 2 - 5; // starting position of player should be elsewhere!
+	// param->player->py = BLOC_SIZE / 2 - 5;
+	param->player->px = 300;
+	param->player->py = 300;
+	param->player->pa = 0;
+	param->player->pdx = cos(param->player->pa) * 5;
+	param->player->pdy = sin(param->player->pa) * 5;
 	// param->sprite = malloc(sizeof(t_sprite));
 	// if (!param->sprite)
 	// {

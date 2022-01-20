@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 18:37:53 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/19 18:21:37 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/20 10:33:28 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_player(t_param *param)
 		x_len = 0;
 		while (x_len < 10)
 		{
-			my_mlx_pixel_put(param, param->player->x + x_len, param->player->y + y_len, 0x000000FF);
+			my_mlx_pixel_put(param, param->player->px + x_len, param->player->py + y_len, 0x000000FF);
 			x_len++;
 		}
 		y_len++;
@@ -53,7 +53,7 @@ void	erase_player(t_param *param)
 		x_len = 0;
 		while (x_len < 10)
 		{
-			my_mlx_pixel_put(param, param->player->x + x_len, param->player->y + y_len, 0x00FFFFFF);
+			my_mlx_pixel_put(param, param->player->px + x_len, param->player->py + y_len, 0x00FFFFFF);
 			x_len++;
 		}
 		y_len++;
