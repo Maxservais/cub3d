@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:14 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/25 10:08:40 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:55:46 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 /* 1. MACROS */
 
 # define ERROR_MSG "Error\nRelaunch the game please!\n"
+# define TRUE 1
+# define FALSE 0
 # define BLOC_SIZE 30
 # define ESCAPE 53
 # define UP 13
@@ -36,6 +38,8 @@
 # define RIGHT_ARROW 124
 # define LEFT_ARROW 123
 # define PI	3.14159265358
+# define P2	PI / 2
+# define P3	3 * PI / 2
 
 /* 2. CUSTOM STRUCTS */
 
@@ -48,15 +52,33 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	// int		img_width;
-	// int		img_height;
-	// void	*player;
 	float	pdx;
 	float	pdy;
 	float	pa;
-	float		px;
-	float		py;
+	float	px;
+	float	py;
 }			t_player;
+
+typedef struct s_ray
+{
+	float	start_x;
+	float	start_y;
+	float	dir_x;
+	float	dir_y;
+	float	step_size_x;
+	float	step_size_y;
+	float	distance;
+	float	intersect_x;
+	float	intersect_y;
+	int		map_check_x;
+	int		map_check_y;
+	int		length_x;
+	int		length_y;
+	int		step_x;
+	int		step_y;
+	int		collision_detected;
+	int		vertical;
+}			t_ray;
 
 typedef struct s_param
 {
@@ -88,10 +110,11 @@ int	deal_key(int key, t_param *param);
 /* Frame rendering */
 void	my_mlx_pixel_put(t_param *param, int x, int y, int color);
 void	draw_line(t_param *param, int x0, int y0, int x1, int y1);
+void	draw_rays(t_param *param, t_ray *ray, float angle);
 void	draw_map2d(t_param *param);
 void	draw_player(t_param *param);
 void	erase_player(t_param *param);
-void	display(t_param *p);
+void	display(t_param *p, t_ray *ray);
 
 /* 6. MEMORY (DE)ALLOCATION */
 int	init_structs(t_param *param);

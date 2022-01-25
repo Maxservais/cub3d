@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 18:37:53 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/25 10:40:55 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/25 18:13:31 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	draw_line(t_param *param, int x0, int y0, int x1, int y1)
 	err = dx + dy;
 	while (1)
 	{
-		my_mlx_pixel_put(param, x0, y0, 0x00FFFFFF);
+		my_mlx_pixel_put(param, x0, y0, 0x006A0DAD);
 		e2 = 2 * err;
 		if (e2 >= dy)
 		{
@@ -125,69 +125,95 @@ void	draw_map2d(t_param *param)
 	mlx_put_image_to_window(param->mlx_ptr, param->win_ptr, param->img_ptr, 0, 0);
 }
 
-// void	draw_rays(t_param *param)
-// {
-// 	int		r;
-// 	int		mx;
-// 	int		my;
-// 	int		mp;
-// 	int		dof;
-// 	float	rx;
-// 	float	ry;
-// 	float	ra;
-// 	float	xo;
-// 	float	yo;
-// 	float	a_tan;
+/* 
+Credit:
+1) https://lodev.org/cgtutor/raycasting.html
+2) https://www.youtube.com/watch?v=NbSee-XM7WA
+*/
 
-// 	ra = param->player->pa;
-// 	r = 0;
-// 	while (r < 1)
-// 	{
-// 		dof = 0;
-// 		a_tan = -1 / tan(ra);
-// 		if (ra > PI)
-// 		{
-// 			ry = (((int)param->player->py>>6)<<6) - 0.0001;
-// 			rx = (param->player->py - ry) * a_tan + param->player->px;
-// 			yo = -64;
-// 			xo = -yo * a_tan;
-// 		}
-// 		if (ra < PI)
-// 		{
-// 			ry = (((int)param->player->py>>6)<<6) + 64;
-// 			rx = (param->player->py - ry) * a_tan + param->player->px;
-// 			yo = 64;
-// 			xo = -yo * a_tan;
-// 		}
-// 		if (ra == 0 || ra == PI)
-// 		{
-// 			rx = param->player->px;
-// 			ry = param->player->py;
-// 			dof = 8;
-// 		}
-// 		while (dof < 8)
-// 		{
-// 			mx = (int) (rx) >>6;
-// 			my = (int) (ry) >>6;
-// 			mp = my * param->map->width + mx;
-// 			if (mp < param->map->width * param->map->height && param->map->board[0][mp] == 1)
-// 				dof = 8;
-// 			else
-// 			{
-// 				rx += xo;
-// 				ry += yo;
-// 				dof++;
-// 			}
-// 		}
-// 		r++;
-// 	}
-// }
+void	draw_rays(t_param *param, t_ray *ray, float angle)
+{
+	float	dist_max;
 
-void	display(t_param *p)
+	// ray' starting position is the location of the player
+	ray->start_x = param->player->px + 5;
+	ray->start_y = param->player->py + 5;
+	// direction of the ray
+	ray->dir_x = cos(angle);
+	ray->dir_y = sin(angle);
+	// Scaling factor that links our hypotenus to a step change of unit in either direction
+	ray->step_size_x = sqrt(1.0 + pow(ray->dir_y / ray->dir_x, 2));
+	ray->step_size_y = sqrt(1.0 + pow(ray->dir_x / ray->dir_y, 2));
+	// Keep track of tile I am located in
+	ray->map_check_x = (int)ray->start_x;
+	ray->map_check_y = (int)ray->start_y;
+	ray->distance = 0;
+	ray->collision_detected = FALSE;
+	ray->vertical = FALSE;
+	if (ray->dir_x < 0)
+	{
+		ray->step_x = -1;
+		ray->length_x = (ray->start_x - (float)ray->map_check_x) * ray->step_size_x;		
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->length_x = ((float)(ray->map_check_x + 1) - ray->start_x) * ray->step_size_x;		
+	}
+	if (ray->dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->length_y = (ray->start_y - (float)ray->map_check_y) * ray->step_size_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->length_y = ((float)(ray->map_check_y + 1) - ray->start_y) * ray->step_size_y;
+	}
+	if (param->map->width > param->map->height)
+		dist_max = param->map->width * BLOC_SIZE;
+	else
+		dist_max = param->map->height * BLOC_SIZE;
+	while (ray->collision_detected == FALSE && ray->distance < dist_max)
+	{
+		// Walk along shortest path
+		if (ray->length_x < ray->length_y)
+		{
+			ray->map_check_x += ray->step_x;
+			ray->distance = ray->length_x;
+			ray->length_x += ray->step_size_x;
+			ray->vertical = TRUE;
+		}
+		else
+		{
+			ray->map_check_y += ray->step_y;
+			ray->distance = ray->length_y;
+			ray->length_y += ray->step_size_y;
+			ray->vertical = FALSE;
+		}
+		// Test tile at new test point
+		if (ray->map_check_x >= 0 && ray->map_check_x < param->map->width * BLOC_SIZE && ray->map_check_y >= 0 && ray->map_check_y < param->map->height * BLOC_SIZE)
+		{
+			if (param->map->board[ray->map_check_y / BLOC_SIZE][ray->map_check_x / BLOC_SIZE] == '1')
+			{
+				ray->collision_detected = TRUE;
+			}
+		}
+	}
+	if (ray->collision_detected == TRUE)
+	{
+		ray->intersect_x = ray->start_x + (ray->dir_x * ray->distance);
+		ray->intersect_y = ray->start_y + (ray->dir_y * ray->distance);
+	}
+	draw_line(param, param->player->px + 5, param->player->py + 5, ray->intersect_x, ray->intersect_y);
+}
+
+void	display(t_param *p, t_ray *ray)
 {
 	ft_bzero(p->img_addr, p->map->width * BLOC_SIZE * p->map->height * BLOC_SIZE * (p->bits_per_pixel / 8));
 	draw_map2d(p);
 	draw_player(p);
-	draw_line(p, p->player->px + 5, p->player->py + 5, 5 + p->player->px + cos(p->player->pa) * 30, 5 + p->player->py + sin(p->player->pa) * 30);
+	draw_rays(p, ray, p->player->pa);
+	// draw_line(p, p->player->px + 5, p->player->py + 5, 5 + p->player->px + cos(p->player->pa) * 30, 5 + p->player->py + sin(p->player->pa) * 30);
 	mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr, 0, 0);
 }

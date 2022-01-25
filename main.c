@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:10 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/25 10:07:10 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:19:23 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ ceiling and walls' colors;
 int	main(int argc, char **argv)
 {
 	t_param	param;
+	// t_ray	ray;
 
 	if (argc != 2 || init_structs(&param) == -1)
 	{
@@ -65,6 +66,8 @@ int	main(int argc, char **argv)
 	// Draw map & player
 	draw_map2d(&param);
 	draw_player(&param);
+	// draw_rays(&param, &ray, param.player->pa);
+
 
 	// Hook into events
 	mlx_hook(param.win_ptr, 2, 1L << 0, &deal_key, &param);

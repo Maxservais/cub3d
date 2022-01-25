@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:26:06 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/25 10:15:38 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:54:54 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	close_win(t_param *param)
 
 int	deal_key(int key, t_param *p)
 {
+	t_ray	*ray;
+
+	ray = malloc(sizeof(t_ray)); // Change that and initialize ray on stack
+	if (!ray)
+		exit (1);
 	if (key == ESCAPE)
 		close_win(p);
 	if (key == UP /*&& !try_move(p, p->player->x, p->player->y - 1, 0)*/)
@@ -52,7 +57,7 @@ int	deal_key(int key, t_param *p)
 	else if (key == LEFT_ARROW /*&& !try_move(p, p->player->x - 1, p->player->y, 0)*/)
 	{
 		p->player->pa-=0.1;
-		if (p->player->pa < 0) 
+		if (p->player->pa < 0)
 			p->player->pa += 2 * PI;
 		p->player->pdx = cos(p->player->pa) * 5;
 		p->player->pdy = sin(p->player->pa) * 5;
@@ -65,6 +70,6 @@ int	deal_key(int key, t_param *p)
 		p->player->pdx = cos(p->player->pa) * 5;
 		p->player->pdy = sin(p->player->pa) * 5;
 	}
-	display(p);
+	display(p, ray);
 	return (0);
 }
