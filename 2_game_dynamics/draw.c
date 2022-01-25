@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 18:37:53 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/20 18:05:50 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/25 10:40:55 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,81 +42,44 @@ void	draw_player(t_param *param)
 	}
 }
 
-void	erase_player(t_param *param)
-{
-	int	x_len;
-	int	y_len;
-
-	y_len = 0;
-	while (y_len < 10)
-	{
-		x_len = 0;
-		while (x_len < 10)
-		{
-			my_mlx_pixel_put(param, param->player->px + x_len, param->player->py + y_len, 0x00FFFFFF);
-			x_len++;
-		}
-		y_len++;
-	}
-}
-
-// void	draw_line(t_param *p, int x1, int y1)
-// {
-// 	int	dx;
-// 	int	dy;
-// 	int	c;
-// 	int	x;
-// 	int	y;
-
-// 	dx = x1 - p->player->px;
-// 	dy = y1 - p->player->py;
-// 	x = p->player->px;
-// 	y = p->player->py;
-// 	c = 2 * dy - dx;
-// 	while (x < x1)
-// 	{
-// 		if (c >= 0)
-// 		{
-// 			my_mlx_pixel_put(p, x, y, 0x00FF7F00);
-// 			y = y + 1;
-// 			c = c + 2 * dy - 2 * dx;
-// 		}
-// 		else
-// 		{
-// 			my_mlx_pixel_put(p, x, y, 0x00FF7F00);
-// 			c = c + 2 * dy;
-// 			x = x + 1;
-// 		}
-// 	}
-// }
-
 void	draw_line(t_param *param, int x0, int y0, int x1, int y1)
 {
 	int	dx;
 	int	dy;
-	int	c;
-	int	x;
-	int	y;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
 
-	dx = x1 - x0;
-	dy = y1 - y0;
-	x = x0;
-	y = y0;
-	c = 2 * dy - dx;
-	while (x < x1)
+	dx = abs (x1 - x0);
+	if (x0 < x1)
+		sx = 1;
+	else
+		sx = -1;
+	dy = -abs (y1 - y0);
+	if (y0 < y1)
+		sy = 1;
+	else
+		sy = -1;
+	err = dx + dy;
+	while (1)
 	{
-		if (c >= 0)
+		my_mlx_pixel_put(param, x0, y0, 0x00FFFFFF);
+		e2 = 2 * err;
+		if (e2 >= dy)
 		{
-			my_mlx_pixel_put(param, x, y, 0x00FFFFFF);
-			y = y + 1;
-			c = c + 2 * dy - 2 * dx;
+			if (x0 == x1)
+				break;
+			err += dy;
+			x0 += sx;
 		}
-		else
+		if (e2 <= dx)
 		{
-			my_mlx_pixel_put(param, x, y, 0x00FFFFFF);
-			c = c + 2 * dy;
+			if (y0 == y1)
+				break;
+			err += dx;
+			y0 += sy;
 		}
-		x = x + 1;
 	}
 }
 
@@ -160,12 +123,71 @@ void	draw_map2d(t_param *param)
 		row++;
 	}
 	mlx_put_image_to_window(param->mlx_ptr, param->win_ptr, param->img_ptr, 0, 0);
-
 }
+
+// void	draw_rays(t_param *param)
+// {
+// 	int		r;
+// 	int		mx;
+// 	int		my;
+// 	int		mp;
+// 	int		dof;
+// 	float	rx;
+// 	float	ry;
+// 	float	ra;
+// 	float	xo;
+// 	float	yo;
+// 	float	a_tan;
+
+// 	ra = param->player->pa;
+// 	r = 0;
+// 	while (r < 1)
+// 	{
+// 		dof = 0;
+// 		a_tan = -1 / tan(ra);
+// 		if (ra > PI)
+// 		{
+// 			ry = (((int)param->player->py>>6)<<6) - 0.0001;
+// 			rx = (param->player->py - ry) * a_tan + param->player->px;
+// 			yo = -64;
+// 			xo = -yo * a_tan;
+// 		}
+// 		if (ra < PI)
+// 		{
+// 			ry = (((int)param->player->py>>6)<<6) + 64;
+// 			rx = (param->player->py - ry) * a_tan + param->player->px;
+// 			yo = 64;
+// 			xo = -yo * a_tan;
+// 		}
+// 		if (ra == 0 || ra == PI)
+// 		{
+// 			rx = param->player->px;
+// 			ry = param->player->py;
+// 			dof = 8;
+// 		}
+// 		while (dof < 8)
+// 		{
+// 			mx = (int) (rx) >>6;
+// 			my = (int) (ry) >>6;
+// 			mp = my * param->map->width + mx;
+// 			if (mp < param->map->width * param->map->height && param->map->board[0][mp] == 1)
+// 				dof = 8;
+// 			else
+// 			{
+// 				rx += xo;
+// 				ry += yo;
+// 				dof++;
+// 			}
+// 		}
+// 		r++;
+// 	}
+// }
 
 void	display(t_param *p)
 {
+	ft_bzero(p->img_addr, p->map->width * BLOC_SIZE * p->map->height * BLOC_SIZE * (p->bits_per_pixel / 8));
+	draw_map2d(p);
 	draw_player(p);
-	draw_line(p, p->player->px, p->player->py, 400, 400);
+	draw_line(p, p->player->px + 5, p->player->py + 5, 5 + p->player->px + cos(p->player->pa) * 30, 5 + p->player->py + sin(p->player->pa) * 30);
 	mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr, 0, 0);
 }

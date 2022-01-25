@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:10 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/20 18:05:58 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/25 10:07:10 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static int	game_start(t_param *param)
 {
 	param->mlx_ptr = mlx_init();
 	if (!param->mlx_ptr)
-		return (1); // Free everything that was malloced - free_board_and_structs()
+		return (-1); // Free everything that was malloced - free_board_and_structs()
 	param->win_ptr = mlx_new_window(param->mlx_ptr, param->map->width * BLOC_SIZE, param->map->height * BLOC_SIZE, "CUB3D");
 	if (!param->win_ptr)
-		return (1); // Free everything that was malloced - free_board_and_structs
+		return (-1); // Free everything that was malloced - free_board_and_structs
 	param->img_ptr = mlx_new_image(param->mlx_ptr, param->map->width * BLOC_SIZE, param->map->height * BLOC_SIZE);
 	param->img_addr = mlx_get_data_addr(param->img_ptr, &param->bits_per_pixel, &param->line_length, &param->endian);
 	return (0);
@@ -59,14 +59,16 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE); // return (free_structs(p));
 	
 	// Launch game
-	if (game_start(&param) == 1)
+	if (game_start(&param) == -1)
 		return (EXIT_FAILURE);
 
+	// Draw map & player
 	draw_map2d(&param);
+	draw_player(&param);
 
 	// Hook into events
 	mlx_hook(param.win_ptr, 2, 1L << 0, &deal_key, &param);
 	mlx_hook(param.win_ptr, 17, 1L << 17, &close_win, &param);
 	mlx_loop(param.mlx_ptr);
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

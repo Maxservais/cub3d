@@ -6,7 +6,7 @@
 #    By: mservais <mservais@student.s19.be >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/18 13:54:56 by mservais          #+#    #+#              #
-#    Updated: 2022/01/18 19:12:10 by mservais         ###   ########.fr        #
+#    Updated: 2022/01/25 10:12:55 by mservais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,12 +37,14 @@ CFLAGS			=	-Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
+	@$(MAKE) -s -C libft
+	@cp libft/libft.a .
 	@$(MAKE) -s -C mlx
 	cp mlx/$(MLX_LIB) $(MLX_LIB)
 	@$(MAKE) -s -C get_next_line
 	cp get_next_line/libgnl.a $(CUB3D_LIB)
 	ar -rcs $(CUB3D_LIB) $^
-	$(CC) $(CFLAGS) main.c $(CUB3D_LIB) $(INCLUDE) -o $(NAME)
+	$(CC) $(CFLAGS) main.c libft.a $(CUB3D_LIB) $(INCLUDE) -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $<

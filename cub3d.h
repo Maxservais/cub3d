@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:14 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/20 12:57:20 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/25 10:08:40 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
+# include <string.h> // A SUPPRIMER
+# include "./libft/libft.h"
 # include "./get_next_line/get_next_line.h" // is that necessary?
 # include "mlx.h"
 
@@ -85,6 +87,7 @@ int	deal_key(int key, t_param *param);
 
 /* Frame rendering */
 void	my_mlx_pixel_put(t_param *param, int x, int y, int color);
+void	draw_line(t_param *param, int x0, int y0, int x1, int y1);
 void	draw_map2d(t_param *param);
 void	draw_player(t_param *param);
 void	erase_player(t_param *param);
