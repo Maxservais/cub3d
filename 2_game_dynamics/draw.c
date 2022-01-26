@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 18:37:53 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/25 18:13:31 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/26 10:19:08 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,9 @@ Credit:
 2) https://www.youtube.com/watch?v=NbSee-XM7WA
 */
 
-void	draw_rays(t_param *param, t_ray *ray, float angle)
+float	draw_rays(t_param *param, t_ray *ray, float angle)
 {
+	float	len;
 	float	dist_max;
 
 	// ray' starting position is the location of the player
@@ -206,14 +207,29 @@ void	draw_rays(t_param *param, t_ray *ray, float angle)
 		ray->intersect_y = ray->start_y + (ray->dir_y * ray->distance);
 	}
 	draw_line(param, param->player->px + 5, param->player->py + 5, ray->intersect_x, ray->intersect_y);
+	len = sqrt(pow(ray->intersect_x - ray->start_x, 2) + pow(ray->intersect_y - ray->start_y, 2));
+	return (len);
 }
 
 void	display(t_param *p, t_ray *ray)
 {
+	int		i;
+	float	ra;
+
+	ra = p->player->pa - DR * 30;
+	if (ra < 0)
+		ra += 2 * PI;
+	if (ra > 2 * PI)
+		ra -= 2 * PI;
 	ft_bzero(p->img_addr, p->map->width * BLOC_SIZE * p->map->height * BLOC_SIZE * (p->bits_per_pixel / 8));
 	draw_map2d(p);
 	draw_player(p);
-	draw_rays(p, ray, p->player->pa);
-	// draw_line(p, p->player->px + 5, p->player->py + 5, 5 + p->player->px + cos(p->player->pa) * 30, 5 + p->player->py + sin(p->player->pa) * 30);
+	i = 0;
+	while (i < 60)
+	{
+		draw_rays(p, ray, ra);
+		ra += DR;
+		i++;
+	}
 	mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr, 0, 0);
 }

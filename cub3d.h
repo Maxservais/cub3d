@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:14 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/25 17:55:46 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/26 10:44:56 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # define PI	3.14159265358
 # define P2	PI / 2
 # define P3	3 * PI / 2
+# define DR	0.0174533
+
 
 /* 2. CUSTOM STRUCTS */
 
@@ -72,8 +74,8 @@ typedef struct s_ray
 	float	intersect_y;
 	int		map_check_x;
 	int		map_check_y;
-	int		length_x;
-	int		length_y;
+	float		length_x;
+	float		length_y;
 	int		step_x;
 	int		step_y;
 	int		collision_detected;
@@ -110,7 +112,7 @@ int	deal_key(int key, t_param *param);
 /* Frame rendering */
 void	my_mlx_pixel_put(t_param *param, int x, int y, int color);
 void	draw_line(t_param *param, int x0, int y0, int x1, int y1);
-void	draw_rays(t_param *param, t_ray *ray, float angle);
+float	draw_rays(t_param *param, t_ray *ray, float angle);
 void	draw_map2d(t_param *param);
 void	draw_player(t_param *param);
 void	erase_player(t_param *param);

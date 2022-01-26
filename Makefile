@@ -6,7 +6,7 @@
 #    By: mservais <mservais@student.s19.be >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/18 13:54:56 by mservais          #+#    #+#              #
-#    Updated: 2022/01/25 10:12:55 by mservais         ###   ########.fr        #
+#    Updated: 2022/01/26 11:08:23 by mservais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ NAME			= 	cub3d
 
 CUB3D_LIB		=	libcub3d.a
 
+LIBFT_LIB		=	libft.a
+
 MLX_LIB			=	libmlx.dylib
 
 CC				=	gcc
@@ -44,7 +46,7 @@ $(NAME): $(OBJ_FILES)
 	@$(MAKE) -s -C get_next_line
 	cp get_next_line/libgnl.a $(CUB3D_LIB)
 	ar -rcs $(CUB3D_LIB) $^
-	$(CC) $(CFLAGS) main.c libft.a $(CUB3D_LIB) $(INCLUDE) -o $(NAME)
+	$(CC) $(CFLAGS) main.c $(LIBFT_LIB) $(CUB3D_LIB) $(INCLUDE) -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $<
@@ -58,6 +60,7 @@ fclean: clean
 	rm -rf $(NAME)
 	rm -rf $(CUB3D_LIB)
 	rm -rf $(MLX_LIB)
+	rm -rf $(LIBFT_LIB)
 	$(MAKE) fclean -C get_next_line
 
 re: fclean all
