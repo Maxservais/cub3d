@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 14:26:06 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/25 17:54:54 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:24:18 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,12 @@ int	close_win(t_param *param)
 
 int	deal_key(int key, t_param *p)
 {
-	t_ray	*ray;
-
-	ray = malloc(sizeof(t_ray)); // Change that and initialize ray on stack
-	if (!ray)
-		exit (1);
 	if (key == ESCAPE)
 		close_win(p);
 	if (key == UP /*&& !try_move(p, p->player->x, p->player->y - 1, 0)*/)
 	{
 		p->player->px += p->player->pdx;
 		p->player->py += p->player->pdy;
-		// p->player->py -= BLOC_SIZE;
 	}
 	else if (key == DOWN /*&& !try_move(p, p->player->x, p->player->y + 1, 0)*/)
 	{
@@ -43,33 +37,30 @@ int	deal_key(int key, t_param *p)
 	}	
 	else if (key == LEFT /*&& !try_move(p, p->player->x - 1, p->player->y, 0)*/)
 	{
-		p->player->px -= cos(p->player->pa + PI / 2) * 5;
-		p->player->py -= sin(p->player->pa + PI / 2) * 5;
-		// p->player->px -= BLOC_SIZE;
+		p->player->px -= cos(p->player->pa + PI / 2) * 0.1;
+		p->player->py -= sin(p->player->pa + PI / 2) * 0.1;
 	}
 	else if (key == RIGHT /*&& !try_move(p, p->player->x + 1, p->player->y, 0)*/)
 	{
-		p->player->px += cos(p->player->pa + PI / 2) * 5;
-		p->player->py += sin(p->player->pa + PI / 2) * 5;
-		
-		// p->player->px += BLOC_SIZE;
+		p->player->px += cos(p->player->pa + PI / 2) * 0.1;
+		p->player->py += sin(p->player->pa + PI / 2) * 0.1;
 	}
 	else if (key == LEFT_ARROW /*&& !try_move(p, p->player->x - 1, p->player->y, 0)*/)
 	{
-		p->player->pa-=0.1;
+		p->player->pa -= 0.1;
 		if (p->player->pa < 0)
 			p->player->pa += 2 * PI;
-		p->player->pdx = cos(p->player->pa) * 5;
-		p->player->pdy = sin(p->player->pa) * 5;
+		p->player->pdx = cos(p->player->pa) * 0.1;
+		p->player->pdy = sin(p->player->pa) * 0.1;
 	}
 	else if (key == RIGHT_ARROW /*&& !try_move(p, p->player->x + 1, p->player->y, 0)*/)
 	{
-		p->player->pa+=0.1;
+		p->player->pa += 0.1;
 		if (p->player->pa > 2 * PI)
 			p->player->pa -= 2 * PI;
-		p->player->pdx = cos(p->player->pa) * 5;
-		p->player->pdy = sin(p->player->pa) * 5;
+		p->player->pdx = cos(p->player->pa) * 0.1;
+		p->player->pdy = sin(p->player->pa) * 0.1;
 	}
-	display(p, ray);
+	display(p);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:14 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/26 10:44:56 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:24:33 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@
 # define ERROR_MSG "Error\nRelaunch the game please!\n"
 # define TRUE 1
 # define FALSE 0
-# define BLOC_SIZE 30
+# define FOV 60
+# define BLOC_SIZE 30.0
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define ESCAPE 53
 # define UP 13
 # define DOWN 1
@@ -72,10 +75,11 @@ typedef struct s_ray
 	float	distance;
 	float	intersect_x;
 	float	intersect_y;
+	float	length_x;
+	float	length_y;
+	float	line_height;
 	int		map_check_x;
 	int		map_check_y;
-	float		length_x;
-	float		length_y;
 	int		step_x;
 	int		step_y;
 	int		collision_detected;
@@ -112,11 +116,13 @@ int	deal_key(int key, t_param *param);
 /* Frame rendering */
 void	my_mlx_pixel_put(t_param *param, int x, int y, int color);
 void	draw_line(t_param *param, int x0, int y0, int x1, int y1);
-float	draw_rays(t_param *param, t_ray *ray, float angle);
 void	draw_map2d(t_param *param);
+void	draw_minimap(t_param *p, t_ray *ray);
 void	draw_player(t_param *param);
 void	erase_player(t_param *param);
-void	display(t_param *p, t_ray *ray);
+int		display(void *p);
+void	draw_rays(t_param *param, t_ray *ray);
+float	len_ray(t_param *param, t_ray *ray, float angle);
 
 /* 6. MEMORY (DE)ALLOCATION */
 int	init_structs(t_param *param);
