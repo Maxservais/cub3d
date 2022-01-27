@@ -6,7 +6,7 @@
 /*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 13:54:14 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/26 17:24:33 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:32:58 by mservais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_param
 
 /* 3. MAIN FUNCTIONS */
 
+// add here necessary function's prototypes
 
 /* 4. PARSER */
 int	check_map(t_param *param, char *filename);
@@ -113,21 +114,28 @@ int	map_width(char *filename, int res);
 int	close_win(t_param *param);
 int	deal_key(int key, t_param *param);
 
-/* Frame rendering */
-void	my_mlx_pixel_put(t_param *param, int x, int y, int color);
-void	draw_line(t_param *param, int x0, int y0, int x1, int y1);
-void	draw_map2d(t_param *param);
-void	draw_minimap(t_param *p, t_ray *ray);
+/* 5.1 Draw minimap */
 void	draw_player(t_param *param);
-void	erase_player(t_param *param);
-int		display(void *p);
-void	draw_rays(t_param *param, t_ray *ray);
+void	draw_tile(t_param *param, int x, int y, int color);
+void	draw_map2d(t_param *param);
+void	draw_rays(t_param *p, t_ray *ray);
+void	draw_minimap(t_param *p, t_ray *ray);
+
+/* 5.2 Draw game 3D */
+void	draw_vert_line(t_param *p, t_ray *ray, int i);
+int		display(void *param);
+
+/* 5.3 Raycasting */
 float	len_ray(t_param *param, t_ray *ray, float angle);
 
+/* 5.4 Utils */
+void	my_mlx_pixel_put(t_param *param, int x, int y, int color);
+void	draw_line(t_param *param, int x0, int y0, int x1, int y1);
+
 /* 6. MEMORY (DE)ALLOCATION */
-int	init_structs(t_param *param);
-int	init_board(t_param *p);
-int	free_board(t_param *p, int n);
+int		init_structs(t_param *param);
+int		init_board(t_param *p);
+int		free_board(t_param *p, int n);
 
 /* 7. UTILS */
 
