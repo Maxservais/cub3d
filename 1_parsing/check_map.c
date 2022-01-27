@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
+/*   By: ybrutout <ybrutout@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:48:22 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/26 16:07:46 by mservais         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:37:21 by ybrutout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-/* 
-- The map must be composed of only 6 possible characters: 0 for an empty space, 1 for a wall, and 
+/*
+- The map must be composed of only 6 possible characters: 0 for an empty space, 1 for a wall, and
 N, S, E or W for the player’s start position and spawning orientation.
 - The map must be closed/surrounded by walls, if not the program must return an error.
 - The map must be parsed as it looks in the file. Spaces are a valid part of the map and are up to you to handle.
@@ -48,7 +48,7 @@ N, S, E or W for the player’s start position and spawning orientation.
 // 	return (res);
 // }
 
-/* 
+/*
 Checks if the map is surrounded by walls (note: map isn't always rectangular !!!)
 */
 
@@ -84,7 +84,7 @@ Checks if the map is surrounded by walls (note: map isn't always rectangular !!!
 // 	return (0);
 // }
 
-/* 
+/*
 fill_board() fills the board with the map's content.
 */
 
@@ -114,7 +114,7 @@ static int	fill_board(t_param *p, char *filename, int row, int col)
 	return (0);
 }
 
-/* 
+/*
 check_map() checks that the map is valid and that the game can be launched
 */
 
@@ -138,3 +138,5 @@ int	check_map(t_param *param, char *filename)
 	// }
 	return (0);
 }
+
+///heyy 
