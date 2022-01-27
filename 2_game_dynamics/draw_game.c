@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/18 18:37:53 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/27 10:25:18 by mservais         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../cub3d.h"
 
@@ -18,7 +7,7 @@ draw_vert_line() draws a series of vertical line, giving the impression that a '
 
 void	draw_vert_line(t_param *p, t_ray *ray, int i)
 {
-	
+
 	int	j;
 
 	j = (int)((WINDOW_HEIGHT / 2.0) - (ray->line_height / 2.0));

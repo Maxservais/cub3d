@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mservais <mservais@student.s19.be >        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/12 17:29:50 by mservais          #+#    #+#              #
-#    Updated: 2021/12/23 17:53:11 by mservais         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 SRC_FILES		= ft_atoi.c \
 				ft_bzero.c \
@@ -52,7 +41,7 @@ SRC_FILES		= ft_atoi.c \
 				ft_strtrim.c \
 				ft_substr.c \
 				ft_tolower.c \
-				ft_toupper.c	
+				ft_toupper.c
 
 SRC_FILES_BONUS	= ${SRC_FILES} \
 				ft_lstnew.c \
