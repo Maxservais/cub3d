@@ -19,9 +19,9 @@
 # define TRUE 1
 # define FALSE 0
 # define FOV 60
-# define BLOC_SIZE 30.0
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define BLOC_SIZE 10.0
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 720
 # define ESCAPE 53
 # define UP 13
 # define DOWN 1
@@ -112,6 +112,7 @@ void	draw_minimap(t_param *p, t_ray *ray);
 
 /* 5.2 Draw game 3D */
 void	draw_vert_line(t_param *p, t_ray *ray, int i);
+void	draw_walls(t_param *p, t_ray *ray);
 int		display(void *param);
 
 /* 5.3 Raycasting */

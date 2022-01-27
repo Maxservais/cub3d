@@ -30,6 +30,7 @@ Our main function:
 - calls a function to parse the file that contains information on the map, the floor,
 ceiling and walls' colors;
 - launches the game;
+- calls a function to draw the 2D minimap in the top-left corner;
 - hooks into events to capture users' input.
 */
 
