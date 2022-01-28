@@ -20,11 +20,11 @@ CUB3D_LIB		=	libcub3d.a
 
 LIBFT_LIB		=	libft.a
 
-MLX_LIB			=	libmlx.dylib
+MLX_LIB			=	libmlx.a
 
 CC				=	gcc
 
-INCLUDE			=	-Lmlx -lmlx -framework OpenGL -framework AppKit -fsanitize=address -g
+INCLUDE			=	-lmlx -framework OpenGL -framework AppKit -fsanitize=address -g
 
 CFLAGS			=	-Wall -Werror -Wextra
 

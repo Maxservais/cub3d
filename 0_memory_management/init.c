@@ -6,6 +6,15 @@ int	init_structs(t_param *param)
 	param->map = malloc(sizeof(t_map));
 	if (!param->map)
 		return (-1);
+	param->key = malloc(sizeof(t_key));
+	if (!param->key)
+		return (-1);
+	param->key->key_up = 0;
+	param->key->key_down = 0;
+	param->key->key_left = 0;
+	param->key->key_right = 0;
+	param->key->key_arrow_left = 0;
+	param->key->key_arrow_right = 0;
 	param->player = malloc(sizeof(t_player));
 	if (!param->player)
 	{
@@ -13,8 +22,8 @@ int	init_structs(t_param *param)
 		return (-1);
 	}
 	param->player->pa = 0;
-	param->player->pdx = cos(param->player->pa) * 0.1;
-	param->player->pdy = sin(param->player->pa) * 0.1;
+	param->player->pdx = cos(param->player->pa) * SPEED;
+	param->player->pdy = sin(param->player->pa) * SPEED;
 	// param->sprite = malloc(sizeof(t_sprite));
 	// if (!param->sprite)
 	// {

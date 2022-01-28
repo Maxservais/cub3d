@@ -8,20 +8,25 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include <string.h> // A SUPPRIMER
+# include <string.h> // A SUPPRIMER?
 # include "./libft/libft.h"
 # include "./get_next_line/get_next_line.h" // is that necessary?
 # include "mlx.h"
 
 /* 1. MACROS */
 
-# define ERROR_MSG "Error\nRelaunch the game please!\n"
 # define TRUE 1
 # define FALSE 0
+# define BLACK 0x000000
+# define WHITE 0x00FFFFFF
+# define CEILING 0x000000
+# define FLOOR 0x00FFFF00
+# define PLAYER 0x000000FF
+# define LINE 0x006A0DAD
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 600
 # define FOV 60
-# define BLOC_SIZE 10.0
-# define WINDOW_WIDTH 1280
-# define WINDOW_HEIGHT 720
+# define SPEED 0.05
 # define ESCAPE 53
 # define UP 13
 # define DOWN 1
@@ -33,7 +38,7 @@
 # define P2	PI / 2
 # define P3	3 * PI / 2
 # define DR	0.0174533
-
+# define ERROR_MSG "Error\nRelaunch the game please!\n"
 
 /* 2. CUSTOM STRUCTS */
 
@@ -43,6 +48,16 @@ typedef struct s_map
 	int		height;
 	char	**board;
 }			t_map;
+
+typedef struct s_key
+{
+	int		key_up;
+	int		key_down;
+	int		key_left;
+	int		key_right;
+	int		key_arrow_left;
+	int		key_arrow_right;
+}			t_key;
 
 typedef struct s_player
 {
@@ -84,7 +99,9 @@ typedef struct s_param
     int			bits_per_pixel;
     int			line_length;
 	int			endian;
+	int			tile_size;
 	t_map		*map;
+	t_key		*key;
 	t_player	*player;
 }			t_param;
 
@@ -93,15 +110,17 @@ typedef struct s_param
 // add here necessary function's prototypes
 
 /* 4. PARSER */
-int	check_map(t_param *param, char *filename);
-int	map_height(char *filename);
-int	map_width(char *filename, int res);
+int		check_map(t_param *param, char *filename);
+int		map_height(char *filename);
+int		map_width(char *filename, int res);
 
 /* 5. GAME DYNAMICS */
 
 /* 5.0 Hooking into events */
-int	close_win(t_param *param);
-int	deal_key(int key, t_param *param);
+int		close_win(t_param *param);
+int		key_press(int key, t_param *p);
+int		key_unpress(int key, t_param *p);
+int		update_pos(t_param *p);
 
 /* 5.1 Draw minimap */
 void	draw_player(t_param *param);
@@ -128,5 +147,7 @@ int		init_board(t_param *p);
 int		free_board(t_param *p, int n);
 
 /* 7. UTILS */
+
+// add here necessary function's prototypes
 
 #endif

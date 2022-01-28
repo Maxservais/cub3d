@@ -20,6 +20,10 @@ static int	game_start(t_param *param)
 		return (-1); // Free everything that was malloced - free_board_and_structs
 	param->img_ptr = mlx_new_image(param->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	param->img_addr = mlx_get_data_addr(param->img_ptr, &param->bits_per_pixel, &param->line_length, &param->endian);
+	if (param->map->width > param->map->height)
+		param->tile_size = (WINDOW_WIDTH * 0.4) / param->map->width;
+	else
+		param->tile_size = (WINDOW_HEIGHT * 0.4) / param->map->height;
 	return (0);
 }
 
@@ -37,29 +41,20 @@ ceiling and walls' colors;
 int	main(int argc, char **argv)
 {
 	t_param	param;
-	t_ray	ray;
 
 	if (argc != 2 || init_structs(&param) == -1)
 	{
 		printf("Usage: ./cub3d file_name\n");
 		return (EXIT_FAILURE);
 	}
-
-	// Parse file and deal with errors (for elements + map)
 	if (check_map(&param, argv[1]))
 		return (EXIT_FAILURE); // return (free_structs(p));
-
-	// Launch game
 	if (game_start(&param) == -1)
 		return (EXIT_FAILURE);
-
-	// Draw minimap with player
 	param.player->px = 5 + 0.25; // NEED TO INITILIAZE PLAYER'S STARTING POSITION ELSEWHERE!!!
-	param.player->py = 11 + 0.25;
-	draw_minimap(&param, &ray);
-
-	// Hook into events
-	mlx_hook(param.win_ptr, 2, 1L << 0, &deal_key, &param);
+	param.player->py = 11 + 0.25; // NEED TO INITILIAZE PLAYER'S STARTING POSITION ELSEWHERE!!
+	mlx_hook(param.win_ptr, 2, 1L << 0, &key_press, &param);
+	mlx_hook(param.win_ptr, 3, 1L << 0, &key_unpress, &param);
 	mlx_hook(param.win_ptr, 17, 1L << 17, &close_win, &param);
 	mlx_loop_hook(param.mlx_ptr, display, &param);
 	mlx_loop(param.mlx_ptr);

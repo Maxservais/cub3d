@@ -11,12 +11,12 @@ void	draw_player(t_param *param)
 	int	p_height;
 
 	p_height = 0;
-	while (p_height < 10)
+	while (p_height < 0.5 * param->tile_size)
 	{
 		p_width = 0;
-		while (p_width < 10)
+		while (p_width < 0.5 * param->tile_size)
 		{
-			my_mlx_pixel_put(param, param->player->px * BLOC_SIZE + p_width, param->player->py * BLOC_SIZE + p_height, 0x000000FF);
+			my_mlx_pixel_put(param, param->player->px * param->tile_size + p_width, param->player->py * param->tile_size + p_height, PLAYER);
 			p_width++;
 		}
 		p_height++;
@@ -33,12 +33,15 @@ void	draw_tile(t_param *param, int x, int y, int color)
 	int	height;
 
 	height = 0;
-	while (height < BLOC_SIZE - 1)
+	while (height < param->tile_size)
 	{
 		width = 0;
-		while (width < BLOC_SIZE - 1)
+		while (width < param->tile_size)
 		{
-			my_mlx_pixel_put(param, x * BLOC_SIZE + width, y * BLOC_SIZE + height, color);
+			if (width == param->tile_size - 1 || height == param->tile_size - 1)
+				my_mlx_pixel_put(param, x * param->tile_size + width, y * param->tile_size + height, BLACK);
+			else
+				my_mlx_pixel_put(param, x * param->tile_size + width, y * param->tile_size + height, color);
 			width++;
 		}
 		height++;
@@ -61,9 +64,9 @@ void	draw_map2d(t_param *param)
 		while (col < param->map->width)
 		{
 			if (param->map->board[row][col] == '1')
-				draw_tile(param, col, row, 0x00FF0000);
+				draw_tile(param, col, row, BLACK);
 			else // (param->map->board[row][col] == '0')
-				draw_tile(param, col, row, 0x00FFFFFF);
+				draw_tile(param, col, row, WHITE);
 			col++;
 		}
 		row++;
@@ -79,16 +82,16 @@ void	draw_rays(t_param *p, t_ray *ray)
 	int		i;
 	float	ra;
 
-	ra = p->player->pa - DR * 30.0;
+	ra = p->player->pa - DR * 15.0;
 	if (ra < 0)
 		ra += 2 * PI;
 	if (ra > 2 * PI)
 		ra -= 2 * PI;
-	i = 0 - FOV / 2;
-	while (i < FOV / 2)
+	i = 0 - 15;
+	while (i < 15)
 	{
 		len_ray(p, ray, ra);
-		draw_line(p, p->player->px * BLOC_SIZE + 5, p->player->py * BLOC_SIZE + 5, ray->intersect_x * BLOC_SIZE, ray->intersect_y * BLOC_SIZE);
+		draw_line(p, p->player->px * p->tile_size + p->tile_size / 4, p->player->py * p->tile_size + p->tile_size / 4, ray->intersect_x * p->tile_size, ray->intersect_y * p->tile_size);
 		ra += DR;
 		i++;
 	}
@@ -103,5 +106,5 @@ void	draw_minimap(t_param *p, t_ray *ray)
 	draw_map2d(p);
 	draw_player(p);
 	draw_rays(p, ray);
-	mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr, 0, 0);
 }
+

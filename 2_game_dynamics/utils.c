@@ -10,8 +10,19 @@ void	my_mlx_pixel_put(t_param *param, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = param->img_addr + (y * param->line_length + x * (param->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
+	{
+		dst = param->img_addr + (y * param->line_length + x * (param->bits_per_pixel / 8));
+		*(unsigned int*)dst = color;
+	}
+	// int	i;
+	// if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
+	// {
+	// 	i = (x * param->bits_per_pixel / 8) + (y * param->line_length);
+	// 	param->img_addr[i] = color;
+	// 	param->img_addr[++i] = color >> 8;
+	// 	param->img_addr[++i] = color >> 16;
+	// }
 }
 
 /*
@@ -41,7 +52,7 @@ void	draw_line(t_param *param, int x0, int y0, int x1, int y1)
 	err = dx + dy;
 	while (1)
 	{
-		my_mlx_pixel_put(param, x0, y0, 0x006A0DAD);
+		my_mlx_pixel_put(param, x0, y0, LINE);
 		e2 = 2 * err;
 		if (e2 >= dy)
 		{

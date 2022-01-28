@@ -14,7 +14,7 @@ void	draw_vert_line(t_param *p, t_ray *ray, int i)
 	j = (int)((WINDOW_HEIGHT / 2.0) - (ray->line_height / 2.0));	
 	while (k < j)
 	{
-		my_mlx_pixel_put(p, i, k, 0x00000000);
+		my_mlx_pixel_put(p, i, k, CEILING);
 		k++;
 	}
 	while (j < (int)((WINDOW_HEIGHT / 2.0) + (ray->line_height / 2.0)))
@@ -30,7 +30,7 @@ void	draw_vert_line(t_param *p, t_ray *ray, int i)
 	}
 	while (j < WINDOW_HEIGHT)
 	{
-		my_mlx_pixel_put(p, i, j, 0x00FFFF00);
+		my_mlx_pixel_put(p, i, j, FLOOR);
 		j++;
 	}
 }
@@ -45,7 +45,7 @@ void	draw_walls(t_param *p, t_ray *ray)
 	float	ra;
 	float	len;
 
-	ra = p->player->pa - DR * 30;
+	ra = p->player->pa - DR * FOV / 2;
 	if (ra < 0)
 		ra += 2 * PI;
 	if (ra > 2 * PI)
@@ -54,7 +54,7 @@ void	draw_walls(t_param *p, t_ray *ray)
 	while (i < WINDOW_WIDTH / 2)
 	{
 		len = len_ray(p, ray, ra);
-		ray->line_height = (int)(WINDOW_HEIGHT / len); // Why cast to int?
+		ray->line_height = (WINDOW_HEIGHT / len); // Why cast to int?
 		draw_vert_line(p, ray, i + WINDOW_WIDTH / 2);
 		ra += ((float)FOV / (float)WINDOW_WIDTH) * PI / 180.0;
 		i++;
@@ -71,7 +71,8 @@ int	display(void *param)
 	t_ray	ray;
 
 	p = (t_param *)param;
-	draw_walls(param, &ray);
+	update_pos(p);
+	draw_walls(p, &ray);
 	draw_minimap(p, &ray);
 	mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr, 0, 0);
 	return (0);

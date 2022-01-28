@@ -1,5 +1,9 @@
-
 #include "../cub3d.h"
+
+/*
+close_win() closes the window whenever the player presses the ESC key 
+or clicks on the red-cross of the window.
+*/
 
 int	close_win(t_param *param)
 {
@@ -10,46 +14,91 @@ int	close_win(t_param *param)
 	exit(0);
 }
 
-int	deal_key(int key, t_param *p)
+/*
+key_press() records which key was pressed by the player.
+*/
+
+int	key_press(int key, t_param *p)
 {
 	if (key == ESCAPE)
 		close_win(p);
-	if (key == UP /*&& !try_move(p, p->player->x, p->player->y - 1, 0)*/)
+	if (key == UP)
+		p->key->key_up = 1;
+	else if (key == DOWN)
+		p->key->key_down = 1;
+	else if (key == LEFT)
+		p->key->key_left = 1;
+	else if (key == RIGHT)
+		p->key->key_right = 1;
+	else if (key == LEFT_ARROW)
+		p->key->key_arrow_left = 1;
+	else if (key == RIGHT_ARROW)
+		p->key->key_arrow_right = 1;
+	return (0);
+}
+
+/*
+key_unpress() records which key was unpressed by the player.
+*/
+
+int	key_unpress(int key, t_param *p)
+{
+	if (key == UP)
+		p->key->key_up = 0;
+	else if (key == DOWN)
+		p->key->key_down = 0;
+	else if (key == LEFT)
+		p->key->key_left = 0;
+	else if (key == RIGHT)
+		p->key->key_right = 0;
+	else if (key == LEFT_ARROW)
+		p->key->key_arrow_left = 0;
+	else if (key == RIGHT_ARROW)
+		p->key->key_arrow_right = 0;
+	return (0);
+}
+
+/*
+update_pos() updates the position of the player in the game.
+*/
+
+int	update_pos(t_param *p)
+{
+	if (p->key->key_up)
 	{
 		p->player->px += p->player->pdx;
 		p->player->py += p->player->pdy;
 	}
-	else if (key == DOWN /*&& !try_move(p, p->player->x, p->player->y + 1, 0)*/)
+	if (p->key->key_down)
 	{
 		p->player->px -= p->player->pdx;
 		p->player->py -= p->player->pdy;
 	}
-	else if (key == LEFT /*&& !try_move(p, p->player->x - 1, p->player->y, 0)*/)
+	if (p->key->key_left)
 	{
-		p->player->px -= cos(p->player->pa + PI / 2) * 0.1;
-		p->player->py -= sin(p->player->pa + PI / 2) * 0.1;
+		p->player->px -= cos(p->player->pa + PI / 2) * SPEED;
+		p->player->py -= sin(p->player->pa + PI / 2) * SPEED;
 	}
-	else if (key == RIGHT /*&& !try_move(p, p->player->x + 1, p->player->y, 0)*/)
+	if (p->key->key_right)
 	{
-		p->player->px += cos(p->player->pa + PI / 2) * 0.1;
-		p->player->py += sin(p->player->pa + PI / 2) * 0.1;
+		p->player->px += cos(p->player->pa + PI / 2) * SPEED;
+		p->player->py += sin(p->player->pa + PI / 2) * SPEED;
 	}
-	else if (key == LEFT_ARROW /*&& !try_move(p, p->player->x - 1, p->player->y, 0)*/)
+	if (p->key->key_arrow_left)
 	{
-		p->player->pa -= 0.1;
+		p->player->pa -= SPEED;
 		if (p->player->pa < 0)
 			p->player->pa += 2 * PI;
-		p->player->pdx = cos(p->player->pa) * 0.1;
-		p->player->pdy = sin(p->player->pa) * 0.1;
+		p->player->pdx = cos(p->player->pa) * SPEED;
+		p->player->pdy = sin(p->player->pa) * SPEED;
 	}
-	else if (key == RIGHT_ARROW /*&& !try_move(p, p->player->x + 1, p->player->y, 0)*/)
+	if (p->key->key_arrow_right)
 	{
-		p->player->pa += 0.1;
+		p->player->pa += SPEED;
 		if (p->player->pa > 2 * PI)
 			p->player->pa -= 2 * PI;
-		p->player->pdx = cos(p->player->pa) * 0.1;
-		p->player->pdy = sin(p->player->pa) * 0.1;
+		p->player->pdx = cos(p->player->pa) * SPEED;
+		p->player->pdy = sin(p->player->pa) * SPEED;
 	}
-	display(p);
 	return (0);
 }
