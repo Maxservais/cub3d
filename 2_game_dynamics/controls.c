@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   controls.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/18 14:26:06 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/26 17:24:18 by mservais         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../cub3d.h"
 
@@ -34,7 +23,7 @@ int	deal_key(int key, t_param *p)
 	{
 		p->player->px -= p->player->pdx;
 		p->player->py -= p->player->pdy;
-	}	
+	}
 	else if (key == LEFT /*&& !try_move(p, p->player->x - 1, p->player->y, 0)*/)
 	{
 		p->player->px -= cos(p->player->pa + PI / 2) * 0.1;

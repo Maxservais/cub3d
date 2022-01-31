@@ -1,22 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/18 13:54:10 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/26 17:21:16 by mservais         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "cub3d.h"
 
 /*
 Function's goal is to launch the game:
-- mlx_init() initializes the connection and returns an identifier 
+- mlx_init() initializes the connection and returns an identifier
 of the connection that is established with the graphical server;
-- The  mlx_new_window() function creates a new window on the screen, 
+- The  mlx_new_window() function creates a new window on the screen,
 using the size_x and size_y parameters to determine its size, and title
 as the text that should be displayed in the window's title bar.
 */
@@ -58,7 +47,7 @@ int	main(int argc, char **argv)
 	// Parse file and deal with errors (for elements + map)
 	if (check_map(&param, argv[1]))
 		return (EXIT_FAILURE); // return (free_structs(p));
-	
+
 	// Launch game
 	if (game_start(&param) == -1)
 		return (EXIT_FAILURE);

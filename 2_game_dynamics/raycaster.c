@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   raycaster.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mservais <mservais@student.s19.be >        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 10:24:10 by mservais          #+#    #+#             */
-/*   Updated: 2022/01/27 10:26:36 by mservais         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../cub3d.h"
 
@@ -42,12 +31,12 @@ float	len_ray(t_param *param, t_ray *ray, float angle)
 	if (ray->dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->length_x = (ray->start_x - (float)ray->map_check_x) * ray->step_size_x;		
+		ray->length_x = (ray->start_x - (float)ray->map_check_x) * ray->step_size_x;
 	}
 	else
 	{
 		ray->step_x = 1;
-		ray->length_x = ((float)(ray->map_check_x + 1) - ray->start_x) * ray->step_size_x;		
+		ray->length_x = ((float)(ray->map_check_x + 1) - ray->start_x) * ray->step_size_x;
 	}
 	if (ray->dir_y < 0)
 	{
