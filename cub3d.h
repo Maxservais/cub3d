@@ -9,6 +9,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <string.h> // A SUPPRIMER
+# include <stdio.h> // A SUPPRIMER
 # include "./libft/libft.h"
 # include "./get_next_line/get_next_line.h" // is that necessary?
 # include "mlx.h"
@@ -33,6 +34,11 @@
 # define P2	PI / 2
 # define P3	3 * PI / 2
 # define DR	0.0174533
+
+/* 1.1 MACROS ERROR */
+
+# define FILE_ERROR 10
+# define MALLOC_ER 11
 
 
 /* 2. CUSTOM STRUCTS */
@@ -127,5 +133,6 @@ int		init_board(t_param *p);
 int		free_board(t_param *p, int n);
 
 /* 7. UTILS */
+void	ft_error(int nb);//se trouve pour le moment dans 1_parsing/utils.c
 
 #endif

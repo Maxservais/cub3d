@@ -12,12 +12,12 @@ int	map_height(char *filename)
 	if (fd < 0)
 		return (-1);
 	count_height = 0;
-	line = get_next_line(fd);
+	get_next_line(fd, &line);
 	while (line != NULL)
 	{
 		count_height++;
 		free(line);
-		line = get_next_line(fd);
+		get_next_line(fd, &line);
 	}
 	close(fd);
 	return (count_height);
@@ -34,11 +34,11 @@ int	map_width(char *filename, int res)
 	if (fd < 0)
 		return (-1);
 	res = 0;
-	line = get_next_line(fd);
+	get_next_line(fd, &line);
 	while (line && line[res] != '\0' && line[res] != '\n')
 		res++;
 	free(line);
-	line = get_next_line(fd);
+	get_next_line(fd, &line);
 	while (line != NULL)
 	{
 		count_width = 0;
@@ -47,9 +47,17 @@ int	map_width(char *filename, int res)
 		if (res != count_width)
 			return (-1);
 		free(line);
-		line = get_next_line(fd);
+		get_next_line(fd, &line);
 	}
 	close(fd);
 	return (res);
 }
 
+void	ft_error(int nb)
+{
+	if (nb == FILE_ERROR)
+		write(1, "Error with the file\n", 20);
+	if (nb == MALLOC_ER)
+		write(1, "Error Malloc\n", 13);
+	exit(EXIT_FAILURE);
+}
