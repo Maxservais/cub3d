@@ -69,4 +69,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 
+int		ft_my_strncmp(char *s1, char *s2, unsigned int nb);
+char	*ft_my_strlcpy(char *str);
+
 #endif

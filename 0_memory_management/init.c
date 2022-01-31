@@ -1,11 +1,25 @@
 
 #include "../cub3d.h"
 
+static void	init_map(t_map *map)
+{
+	map->width = 0;
+	map->height = 0;
+	map->board = NULL;
+	map->NO_texture = NULL;
+	map->SO_texture = NULL;
+	map->EA_texture = NULL;
+	map->WE_texture = NULL;
+	map->Floor_color = NULL;
+	map->ceilling_color = NULL;
+}
+
 int	init_structs(t_param *param)
 {
 	param->map = malloc(sizeof(t_map));
 	if (!param->map)
 		return (-1);
+	init_map(param->map);
 	param->player = malloc(sizeof(t_player));
 	if (!param->player)
 	{
