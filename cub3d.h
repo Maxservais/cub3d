@@ -25,6 +25,7 @@
 # define LINE 0x006A0DAD
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
+# define GAP 0.3
 # define FOV 60
 # define SPEED 0.05
 # define ESCAPE 53

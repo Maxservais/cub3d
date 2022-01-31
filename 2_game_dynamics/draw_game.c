@@ -45,7 +45,7 @@ void	draw_walls(t_param *p, t_ray *ray)
 	float	ra;
 	float	len;
 
-	ra = p->player->pa - DR * FOV / 2;
+	ra = p->player->pa - DR * (FOV / 2);
 	if (ra < 0)
 		ra += 2 * PI;
 	if (ra > 2 * PI)
@@ -54,7 +54,7 @@ void	draw_walls(t_param *p, t_ray *ray)
 	while (i < WINDOW_WIDTH / 2)
 	{
 		len = len_ray(p, ray, ra);
-		ray->line_height = (WINDOW_HEIGHT / len); // Why cast to int?
+		ray->line_height = (WINDOW_HEIGHT / len);
 		draw_vert_line(p, ray, i + WINDOW_WIDTH / 2);
 		ra += ((float)FOV / (float)WINDOW_WIDTH) * PI / 180.0;
 		i++;
