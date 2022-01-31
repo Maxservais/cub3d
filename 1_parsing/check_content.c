@@ -14,3 +14,44 @@ order in the file.
 // {
 // 	return (0);
 // }
+
+/*
+	Cette fonction va comparer a partir de la string envoyer si les characteres correspondent a des identifieurs.
+	Si c'est bon il enregistrera l'informations dans la struct map aussi non il renverra une erreur.
+*/
+void	identifier_element(t_map *map, char *line, int i)
+{
+	if (ft_strncmp(line, "NO ", 3) != 0)
+		ft_error(ELEMENT_ER);
+	else
+		map->NO_texture = line;
+	printf("%d\n", i);
+}
+
+
+/*
+the fonction check_content retrieves the e texture path for each element.
+*/
+int	check_content(t_map *map, t_list *lstmap)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = lstmap;
+	while (tmp)
+	{
+		i = 0;
+		while (tmp->line[i])
+		{
+			if (ft_is_wspace(tmp->line[i]))
+				i++;
+			else
+			{
+				identifier_element(map, &(tmp->line[i]), i);
+				break;
+			}
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}

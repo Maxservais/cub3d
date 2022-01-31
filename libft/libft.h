@@ -23,6 +23,7 @@ int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isnegative(long long nbr);
 int		ft_isprint(int c);
+int		ft_is_wspace(char c);
 char	*ft_itoa(int n);
 int		ft_long_len(unsigned long int nbr, char *base);
 void	ft_lstadd_back(t_list **lst, t_list *new);

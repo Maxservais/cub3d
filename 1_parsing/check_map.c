@@ -77,78 +77,15 @@ Checks if the map is surrounded by walls (note: map isn't always rectangular !!!
 fill_board() fills the board with the map's content.
 */
 
-static int	fill_board(t_param *p, char *filename, int row, int col)
-{
-	int		fd;
-	char	*line;
-
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (-1);
-	if (init_board(p))
-		return (-1);
-	while (row < p->map->height)
-	{
-		col = 0;
-		get_next_line(fd, &line);
-		while (col < p->map->width)
-		{
-			p->map->board[row][col] = line[col];
-			col++;
-		}
-		free(line);
-		row++;
-	}
-	close(fd);
-	return (0);
-}
-
-t_list	*file_to_lst(char *filename)
-{
-	int	fd;
-	int	ret;
-	t_list	*new;
-	t_list	*lstmap;
-	char	*line;
-
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		ft_error(FILE_ERROR);
-	ret = 1;
-	lstmap = NULL;
-	while (ret == 1)
-	{
-		ret = get_next_line(fd, &line);
-		if (ret != 1)
-			break;
-		new = ft_lstnew(line);
-		if (!new)
-			ft_error(MALLOC_ER);
-		ft_lstadd_back(&lstmap, new);
-	}
-	if (ret == -1)
-		ft_error(FILE_ERROR);
-	new = ft_lstnew(line);
-	if (!new)
-		ft_error(MALLOC_ER);
-	ft_lstadd_back(&lstmap, new);
-	close (fd);
-	return (lstmap);
-}
-
 /*
 check_map() checks that the map is valid and that the game can be launched
 */
-int	check_map(t_param *param, char *filename)
+/*int	check_map(t_param *param, char *filename)
 {
 	t_list	*lstmap;
 
 	lstmap = file_to_lst(filename);
-	while (lstmap)
-	{
-		printf("%s\n", lstmap->line);
-		lstmap = lstmap->next;
-	}
+
 	printf("juste avant d'exit\n");
 	exit(EXIT_SUCCESS);
 	param->map->height = map_height(filename);
@@ -168,6 +105,6 @@ int	check_map(t_param *param, char *filename)
 	// 	return (-1);
 	// }
 	return (0);
-}
+}*/
 
 ///heyy

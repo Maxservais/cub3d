@@ -39,6 +39,8 @@
 
 # define FILE_ERROR 10
 # define MALLOC_ER 11
+# define ELEMENT_ER 12
+# define FILENAME_ER 13
 
 
 /* 2. CUSTOM STRUCTS */
@@ -48,6 +50,12 @@ typedef struct s_map
 	int		width;
 	int		height;
 	char	**board;
+	char	*NO_texture;
+	char	*SO_texture;
+	char	*EA_texture;
+	char	*WE_texture;
+	char	*Floor_color;
+	char	*ceilling_color;
 }			t_map;
 
 typedef struct s_player
@@ -102,6 +110,10 @@ typedef struct s_param
 int	check_map(t_param *param, char *filename);
 int	map_height(char *filename);
 int	map_width(char *filename, int res);
+
+/* 4.0 PARSE FILE */
+int	parse_file(t_param *param, char *filename);
+int	check_content(t_map *map, t_list *lstmap);
 
 /* 5. GAME DYNAMICS */
 
