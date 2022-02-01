@@ -16,7 +16,7 @@ void	draw_player(t_param *param)
 		p_width = 0;
 		while (p_width < 0.5 * param->tile_size)
 		{
-			my_mlx_pixel_put(param, param->player->px * param->tile_size + p_width, param->player->py * param->tile_size + p_height, PLAYER);
+			my_mlx_pixel_put(param, (param->player->px - PLAYER_OFFSET) * param->tile_size + p_width, (param->player->py - PLAYER_OFFSET) * param->tile_size + p_height, PLAYER);
 			p_width++;
 		}
 		p_height++;
@@ -82,16 +82,16 @@ void	draw_rays(t_param *p, t_ray *ray)
 	int		i;
 	float	ra;
 
-	ra = p->player->pa - DR * 15.0;
+	ra = p->player->pa - DR * FOV / 2;
 	if (ra < 0)
 		ra += 2 * PI;
 	if (ra > 2 * PI)
 		ra -= 2 * PI;
-	i = 0 - 15;
-	while (i < 15)
+	i = 0 - FOV / 2;
+	while (i < FOV / 2)
 	{
 		len_ray(p, ray, ra);
-		draw_line(p, p->player->px * p->tile_size + p->tile_size / 4, p->player->py * p->tile_size + p->tile_size / 4, ray->intersect_x * p->tile_size, ray->intersect_y * p->tile_size);
+		draw_line(p, p->player->px * p->tile_size, p->player->py * p->tile_size, ray->intersect_x * p->tile_size, ray->intersect_y * p->tile_size);
 		ra += DR;
 		i++;
 	}

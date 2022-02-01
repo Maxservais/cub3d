@@ -51,8 +51,8 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE); // return (free_structs(p));
 	if (game_start(&param) == -1)
 		return (EXIT_FAILURE);
-	param.player->px = 5 + 0.25; // NEED TO INITILIAZE PLAYER'S STARTING POSITION ELSEWHERE!!!
-	param.player->py = 11 + 0.25; // NEED TO INITILIAZE PLAYER'S STARTING POSITION ELSEWHERE!!
+	param.player->px = 5.0 + PLAYER_OFFSET; // NEED TO INITILIAZE PLAYER'S STARTING POSITION ELSEWHERE!!!
+	param.player->py = 11.0 + PLAYER_OFFSET; // NEED TO INITILIAZE PLAYER'S STARTING POSITION ELSEWHERE!!
 	mlx_hook(param.win_ptr, 2, 1L << 0, &key_press, &param);
 	mlx_hook(param.win_ptr, 3, 1L << 0, &key_unpress, &param);
 	mlx_hook(param.win_ptr, 17, 1L << 17, &close_win, &param);

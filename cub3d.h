@@ -26,6 +26,7 @@
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
 # define GAP 0.3
+# define PLAYER_OFFSET 0.25
 # define FOV 60
 # define SPEED 0.05
 # define ESCAPE 53

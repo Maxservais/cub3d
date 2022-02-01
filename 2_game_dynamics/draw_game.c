@@ -53,7 +53,7 @@ void	draw_walls(t_param *p, t_ray *ray)
 	i = 0 - WINDOW_WIDTH / 2;
 	while (i < WINDOW_WIDTH / 2)
 	{
-		len = len_ray(p, ray, ra);
+		len = len_ray(p, ray, ra) * cos(ra - p->player->pa);
 		ray->line_height = (WINDOW_HEIGHT / len);
 		draw_vert_line(p, ray, i + WINDOW_WIDTH / 2);
 		ra += ((float)FOV / (float)WINDOW_WIDTH) * PI / 180.0;
