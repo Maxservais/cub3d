@@ -19,11 +19,14 @@ static int	game_start(t_param *param)
 	if (!param->win_ptr)
 		return (-1); // Free everything that was malloced - free_board_and_structs
 	param->img_ptr = mlx_new_image(param->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	// check if img_ptr est NULL ou non?
 	param->img_addr = mlx_get_data_addr(param->img_ptr, &param->bits_per_pixel, &param->line_length, &param->endian);
 	if (param->map->width > param->map->height)
 		param->tile_size = (WINDOW_WIDTH * 0.4) / param->map->width;
 	else
 		param->tile_size = (WINDOW_HEIGHT * 0.4) / param->map->height;
+	// load textures
+	load_textures(param->texture);
 	return (0);
 }
 

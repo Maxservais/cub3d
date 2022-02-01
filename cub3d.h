@@ -40,6 +40,7 @@
 # define P2	PI / 2
 # define P3	3 * PI / 2
 # define DR	0.0174533
+# define PATH_TO_TEXTURE "textures/wall.xpm" // temporary solution
 # define ERROR_MSG "Error\nRelaunch the game please!\n"
 
 /* 2. CUSTOM STRUCTS */
@@ -50,6 +51,17 @@ typedef struct s_map
 	int		height;
 	char	**board;
 }			t_map;
+
+typedef struct s_texture
+{
+	void	*img_ptr;
+	char	*img_addr;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+    int		line_length;
+	int		endian;
+}			t_texture;
 
 typedef struct s_key
 {
@@ -105,6 +117,7 @@ typedef struct s_param
 	t_map		*map;
 	t_key		*key;
 	t_player	*player;
+	t_texture	*texture;
 }			t_param;
 
 /* 3. MAIN FUNCTIONS */
