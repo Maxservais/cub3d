@@ -68,7 +68,7 @@ int	load_textures(t_param *p)
 		p->texture[i].img_ptr = mlx_xpm_file_to_image(p->mlx_ptr, PATH_TO_TEXTURE, &p->texture[i].width, &p->texture[i].height);
 		if (!p->texture[i].img_ptr)
 			return (-1); // ERROR LOADING TEXTURE, PRINT TO STDERR, FREE EVERYTHING AND EXIT
-		p->texture[i].img_addr = mlx_get_data_addr(p->texture[i].img_ptr, p->texture[i].bits_per_pixel, p->texture[i].line_length, p->texture[i].endian);
+		p->texture[i].img_addr = mlx_get_data_addr(p->texture[i].img_ptr, &p->texture[i].bits_per_pixel, &p->texture[i].line_length, &p->texture[i].endian);
 		i++;
 	}
 	return (0);

@@ -10,8 +10,8 @@
 # include <math.h>
 # include <string.h> // A SUPPRIMER?
 # include "./libft/libft.h"
-# include "./get_next_line/get_next_line.h" // is that necessary?
-# include "mlx.h"
+# include "./get_next_line/get_next_line.h"
+# include "./mlx/mlx.h"
 
 /* 1. MACROS */
 
@@ -19,13 +19,13 @@
 # define FALSE 0
 # define BLACK 0x000000
 # define WHITE 0x00FFFFFF
-# define CEILING 0x000000
-# define FLOOR 0x00FFFF00
+# define CEILING 0x0087CEEB
+# define FLOOR 0x00696969
 # define PLAYER 0x000000FF
 # define LINE 0x006A0DAD
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
-# define GAP 0.3
+# define GAP 0.6
 # define PLAYER_OFFSET 0.25
 # define FOV 60
 # define SPEED 0.05
@@ -40,7 +40,7 @@
 # define P2	PI / 2
 # define P3	3 * PI / 2
 # define DR	0.0174533
-# define PATH_TO_TEXTURE "textures/wall.xpm" // temporary solution
+# define PATH_TO_TEXTURE "textures/wall_dark_red.xpm" // temporary solution
 # define ERROR_MSG "Error\nRelaunch the game please!\n"
 
 /* 2. CUSTOM STRUCTS */
@@ -154,11 +154,13 @@ float	len_ray(t_param *param, t_ray *ray, float angle);
 
 /* 5.4 Utils */
 void	my_mlx_pixel_put(t_param *param, int x, int y, int color);
+int		get_color(t_texture *text, int x, int y);
 void	draw_line(t_param *param, int x0, int y0, int x1, int y1);
 
 /* 6. MEMORY (DE)ALLOCATION */
 int		init_structs(t_param *param);
 int		init_board(t_param *p);
+int		load_textures(t_param *p);
 int		free_board(t_param *p, int n);
 
 /* 7. UTILS */

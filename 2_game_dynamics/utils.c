@@ -25,6 +25,16 @@ void	my_mlx_pixel_put(t_param *param, int x, int y, int color)
 	// }
 }
 
+int		get_color(t_texture *text, int x, int y)
+{
+	int		color;
+	char	*dst;
+
+	dst = text->img_addr + (y * text->line_length + x * (text->bits_per_pixel / 8));
+	color = *(unsigned int *)dst;
+	return (color);
+}
+
 /*
 draw_line() draws a straight line from a point located at (x0, y0) to a point located at (x1, y1).
 It is implemented as Bresenham's line algorithm.

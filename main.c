@@ -26,7 +26,7 @@ static int	game_start(t_param *param)
 	else
 		param->tile_size = (WINDOW_HEIGHT * 0.4) / param->map->height;
 	// load textures
-	load_textures(param->texture);
+	load_textures(param);
 	return (0);
 }
 
