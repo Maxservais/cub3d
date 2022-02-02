@@ -5,27 +5,46 @@
 get_col() gets the texel's column (the x position)
 */
 
-int	get_col(t_param *p, t_ray *ray)
+int	get_col(t_param *p, t_ray *ray, int *col, float angle)
 {
-	int	col;
+	int	wall_id;
 
+	wall_id = 0;
 	if (ray->vertical == TRUE)
-		col = (int)((1.0 - (ray->intersect_y - (int)ray->intersect_y)) * (float)p->texture[0].width);
+	{
+		if (cos(angle) > 0)
+			wall_id = WEST;
+		else
+			wall_id = EAST;
+	}
 	else
-		col = (int)((ray->intersect_x - (int)ray->intersect_x) * (float)p->texture[0].width);
-	return (col);
+	{
+		if (sin(angle) > 0)
+			wall_id = NORTH;
+		else
+			wall_id = SOUTH;
+	}
+	if (ray->vertical == TRUE && cos(angle) > 0)
+		*col = (int)((1.0 - (ray->intersect_y - (int)ray->intersect_y)) * (float)p->texture[0].width);
+	else if (ray->vertical == TRUE && cos(angle) < 0)
+		*col = (int)((ray->intersect_y - (int)ray->intersect_y) * (float)p->texture[0].width);
+	else if (ray->vertical == FALSE && sin(angle) > 0)
+		*col = (int)((1.0 - (ray->intersect_x - (int)ray->intersect_x)) * (float)p->texture[0].width);
+	else
+		*col = (int)((ray->intersect_x - (int)ray->intersect_x) * (float)p->texture[0].width);
+	return (wall_id);
 }
 
 /*
 draw_vert_line() draws a single vertical line.
 */
 
-void	draw_vert_line(t_param *p, t_ray *ray, int i)
+void	draw_vert_line(t_param *p, t_ray *ray, int i, float angle)
 {
 	int		k;
 	int		j;
 	int		col;
-	// int		wall; // used to find which texture (north, south, west, east) should be displayed
+	int		wall_id;
 	float	row;
 	float	step;
 
@@ -37,13 +56,12 @@ void	draw_vert_line(t_param *p, t_ray *ray, int i)
 		k++;
 	}
 	row = 0.0;
-	col = get_col(p, ray);
-	// How much to increase the texture coordinate per screen pixel
-	step = p->texture[0].height / ray->line_height;
+	wall_id = get_col(p, ray, &col, angle);
+	step = p->texture[wall_id].height / ray->line_height;
 	while (j <= (int)((WINDOW_HEIGHT / 2.0) + (ray->line_height / 2.0)))
 	{
 		if (j <= WINDOW_HEIGHT && j >= 0)
-			my_mlx_pixel_put(p, i, j, get_color(&p->texture[0], col, row));
+			my_mlx_pixel_put(p, i, j, get_color(&p->texture[wall_id], col, row));
 		j++;
 		row += step;
 	}
@@ -74,7 +92,7 @@ void	draw_walls(t_param *p, t_ray *ray)
 	{
 		len = len_ray(p, ray, ra) * cos(ra - p->player->pa);
 		ray->line_height = (WINDOW_HEIGHT / len);
-		draw_vert_line(p, ray, i + WINDOW_WIDTH / 2);
+		draw_vert_line(p, ray, i + WINDOW_WIDTH / 2, ra);
 		ra += ((float)FOV / (float)WINDOW_WIDTH) * PI / 180.0;
 		i++;
 	}

@@ -17,6 +17,10 @@
 
 # define TRUE 1
 # define FALSE 0
+# define WEST 0
+# define EAST 1
+# define NORTH 2
+# define SOUTH 3
 # define BLACK 0x000000
 # define WHITE 0x00FFFFFF
 # define CEILING 0x0087CEEB
@@ -40,7 +44,6 @@
 # define P2	PI / 2
 # define P3	3 * PI / 2
 # define DR	0.0174533
-# define PATH_TO_TEXTURE "textures/wall_dark_red.xpm" // temporary solution
 # define ERROR_MSG "Error\nRelaunch the game please!\n"
 
 /* 2. CUSTOM STRUCTS */
@@ -145,7 +148,7 @@ void	draw_rays(t_param *p, t_ray *ray);
 void	draw_minimap(t_param *p, t_ray *ray);
 
 /* 5.2 Draw game 3D */
-void	draw_vert_line(t_param *p, t_ray *ray, int i);
+void	draw_vert_line(t_param *p, t_ray *ray, int i, float angle);
 void	draw_walls(t_param *p, t_ray *ray);
 int		display(void *param);
 

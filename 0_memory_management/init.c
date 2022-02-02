@@ -59,13 +59,20 @@ int	init_board(t_param *p)
 
 int	load_textures(t_param *p)
 {
-	int	i;
+	int		i;
+	char	**files;
 
+	files = malloc(sizeof(char *) * 4);
+	if (!files)
+		return (-1); // free everything and exit
+	files[WEST] = "textures/west.xpm";
+	files[EAST] = "textures/east.xpm";
+	files[NORTH] = "textures/north.xpm";
+	files[SOUTH] = "textures/south.xpm";
 	i = 0;
 	while (i < 4)
 	{
-		// replace PATH_TO_TEXTURE ONCE PARSING IS DONE
-		p->texture[i].img_ptr = mlx_xpm_file_to_image(p->mlx_ptr, PATH_TO_TEXTURE, &p->texture[i].width, &p->texture[i].height);
+		p->texture[i].img_ptr = mlx_xpm_file_to_image(p->mlx_ptr, files[i], &p->texture[i].width, &p->texture[i].height);
 		if (!p->texture[i].img_ptr)
 			return (-1); // ERROR LOADING TEXTURE, PRINT TO STDERR, FREE EVERYTHING AND EXIT
 		p->texture[i].img_addr = mlx_get_data_addr(p->texture[i].img_ptr, &p->texture[i].bits_per_pixel, &p->texture[i].line_length, &p->texture[i].endian);
