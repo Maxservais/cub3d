@@ -9,14 +9,14 @@
 # include <fcntl.h>
 # include <math.h>
 # include <string.h> // A SUPPRIMER?
+# include "./mlx/mlx.h"
 # include "./libft/libft.h"
 # include "./get_next_line/get_next_line.h"
-# include "./mlx/mlx.h"
 
 /* 1. MACROS */
 
-# define TRUE 1
 # define FALSE 0
+# define TRUE 1
 # define WEST 0
 # define EAST 1
 # define NORTH 2
@@ -33,11 +33,11 @@
 # define PLAYER_OFFSET 0.25
 # define FOV 60
 # define SPEED 0.05
-# define ESCAPE 53
 # define UP 13
 # define DOWN 1
 # define LEFT 0
 # define RIGHT 2
+# define ESCAPE 53
 # define RIGHT_ARROW 124
 # define LEFT_ARROW 123
 # define PI	3.14159265358
@@ -165,6 +165,8 @@ int		init_structs(t_param *param);
 int		init_board(t_param *p);
 int		load_textures(t_param *p);
 int		free_board(t_param *p, int n);
+int		free_structs(t_param *param);
+int		free_all(t_param *param);
 
 /* 7. UTILS */
 

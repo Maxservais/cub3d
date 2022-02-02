@@ -2,6 +2,30 @@
 #include "../cub3d.h"
 
 /*
+draw_drays() draws the rays around the player on the minimap.
+*/
+
+void	draw_rays(t_param *p, t_ray *ray)
+{
+	int		i;
+	float	ra;
+
+	ra = p->player->pa - DR * FOV / 2;
+	if (ra < 0)
+		ra += 2 * PI;
+	if (ra > 2 * PI)
+		ra -= 2 * PI;
+	i = 0 - FOV / 2;
+	while (i < FOV / 2)
+	{
+		len_ray(p, ray, ra);
+		draw_line(p, p->player->px * p->tile_size, p->player->py * p->tile_size, ray->intersect_x * p->tile_size, ray->intersect_y * p->tile_size);
+		ra += DR;
+		i++;
+	}
+}
+
+/*
 draw_player() draws our player on the 2D minimap.
 */
 
@@ -65,35 +89,11 @@ void	draw_map2d(t_param *param)
 		{
 			if (param->map->board[row][col] == '1')
 				draw_tile(param, col, row, BLACK);
-			else // (param->map->board[row][col] == '0')
+			else
 				draw_tile(param, col, row, WHITE);
 			col++;
 		}
 		row++;
-	}
-}
-
-/*
-draw_drays() draws the rays around the player on the minimap.
-*/
-
-void	draw_rays(t_param *p, t_ray *ray)
-{
-	int		i;
-	float	ra;
-
-	ra = p->player->pa - DR * FOV / 2;
-	if (ra < 0)
-		ra += 2 * PI;
-	if (ra > 2 * PI)
-		ra -= 2 * PI;
-	i = 0 - FOV / 2;
-	while (i < FOV / 2)
-	{
-		len_ray(p, ray, ra);
-		draw_line(p, p->player->px * p->tile_size, p->player->py * p->tile_size, ray->intersect_x * p->tile_size, ray->intersect_y * p->tile_size);
-		ra += DR;
-		i++;
 	}
 }
 
@@ -107,4 +107,3 @@ void	draw_minimap(t_param *p, t_ray *ray)
 	draw_player(p);
 	draw_rays(p, ray);
 }
-

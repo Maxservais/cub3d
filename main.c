@@ -14,19 +14,20 @@ static int	game_start(t_param *param)
 {
 	param->mlx_ptr = mlx_init();
 	if (!param->mlx_ptr)
-		return (-1); // Free everything that was malloced - free_board_and_structs()
+		return (-1);
 	param->win_ptr = mlx_new_window(param->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "CUB3D");
 	if (!param->win_ptr)
-		return (-1); // Free everything that was malloced - free_board_and_structs
+		return (-1);
 	param->img_ptr = mlx_new_image(param->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// check if img_ptr est NULL ou non?
+	if (!param->img_ptr)
+		return (-1);
 	param->img_addr = mlx_get_data_addr(param->img_ptr, &param->bits_per_pixel, &param->line_length, &param->endian);
 	if (param->map->width > param->map->height)
 		param->tile_size = (WINDOW_WIDTH * 0.4) / param->map->width;
 	else
 		param->tile_size = (WINDOW_HEIGHT * 0.4) / param->map->height;
-	// load textures
-	load_textures(param);
+	if (load_textures(param) == -1)
+		return (-1);
 	return (0);
 }
 
@@ -51,9 +52,9 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	if (check_map(&param, argv[1]))
-		return (EXIT_FAILURE); // return (free_structs(p));
+		return (free_structs(&param));
 	if (game_start(&param) == -1)
-		return (EXIT_FAILURE);
+		return (free_all(&param));
 	param.player->px = 5.0 + PLAYER_OFFSET; // NEED TO INITILIAZE PLAYER'S STARTING POSITION ELSEWHERE!!!
 	param.player->py = 11.0 + PLAYER_OFFSET; // NEED TO INITILIAZE PLAYER'S STARTING POSITION ELSEWHERE!!
 	mlx_hook(param.win_ptr, 2, 1L << 0, &key_press, &param);

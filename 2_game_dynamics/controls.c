@@ -7,9 +7,7 @@ or clicks on the red-cross of the window.
 
 int	close_win(t_param *param)
 {
-	// free everything
-
-	// destroy window & exit
+	free_all(param);
 	mlx_destroy_window(param->mlx_ptr, param->win_ptr);
 	exit(0);
 }
@@ -64,7 +62,7 @@ update_pos() updates the position of the player in the game.
 
 int	update_pos(t_param *p)
 {
-	if (p->key->key_up)
+	if (p->key->key_up == 1)
 	{
 		if (cos(p->player->pa) > 0 && p->map->board[(int)p->player->py][(int)(p->player->px + GAP)] != '1')
 			p->player->px += cos(p->player->pa) * SPEED;
@@ -75,7 +73,7 @@ int	update_pos(t_param *p)
 		else if (sin(p->player->pa) < 0 && p->map->board[(int)(p->player->py - GAP)][(int)p->player->px] != '1')
 			p->player->py += sin(p->player->pa) * SPEED;
 	}
-	if (p->key->key_down)
+	if (p->key->key_down == 1)
 	{
 		if (cos(p->player->pa) > 0 && p->map->board[(int)p->player->py][(int)(p->player->px - GAP)] != '1')
 			p->player->px -= cos(p->player->pa) * SPEED;
@@ -86,7 +84,7 @@ int	update_pos(t_param *p)
 		else if (sin(p->player->pa) < 0 && p->map->board[(int)(p->player->py + GAP)][(int)p->player->px] != '1')
 			p->player->py -= sin(p->player->pa) * SPEED;
 	}
-	if (p->key->key_left)
+	if (p->key->key_left == 1)
 	{
 		if (cos(p->player->pa + PI / 2) > 0 && p->map->board[(int)p->player->py][(int)(p->player->px - GAP)] != '1')
 			p->player->px -= cos(p->player->pa + PI / 2) * SPEED;
@@ -97,7 +95,7 @@ int	update_pos(t_param *p)
 		else if (sin(p->player->pa - PI / 2) < 0 && p->map->board[(int)(p->player->py - GAP)][(int)p->player->px] != '1')
 			p->player->py -= sin(p->player->pa + PI / 2) * SPEED;
 	}
-	if (p->key->key_right)
+	if (p->key->key_right == 1)
 	{
 		if (cos(p->player->pa - PI / 2) > 0 && p->map->board[(int)p->player->py][(int)(p->player->px - GAP)] != '1')
 			p->player->px += cos(p->player->pa + PI / 2) * SPEED;
@@ -108,13 +106,13 @@ int	update_pos(t_param *p)
 		else if (sin(p->player->pa + PI / 2) < 0 && p->map->board[(int)(p->player->py - GAP)][(int)p->player->px] != '1')
 			p->player->py += sin(p->player->pa + PI / 2) * SPEED;
 	}
-	if (p->key->key_arrow_left)
+	if (p->key->key_arrow_left == 1)
 	{
 		p->player->pa -= SPEED;
 		if (p->player->pa < 0)
 			p->player->pa += 2 * PI;
 	}
-	if (p->key->key_arrow_right)
+	if (p->key->key_arrow_right == 1)
 	{
 		p->player->pa += SPEED;
 		if (p->player->pa > 2 * PI)

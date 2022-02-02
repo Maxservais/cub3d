@@ -2,7 +2,8 @@
 #include "../cub3d.h"
 
 /*
-get_col() gets the texel's column (the x position)
+get_col() gets the texel's column (the x position) and makes sure that
+the correct wall is displayed (north, south, west or south faces).
 */
 
 int	get_col(t_param *p, t_ray *ray, int *col, float angle)

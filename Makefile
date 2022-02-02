@@ -24,7 +24,7 @@ MLX_LIB			=	libmlx.a
 
 CC				=	gcc
 
-INCLUDE			=	-lmlx -framework OpenGL -framework AppKit -fsanitize=address -g
+INCLUDE			=	-lmlx -framework OpenGL -framework AppKit
 
 CFLAGS			=	-Wall -Werror -Wextra
 
