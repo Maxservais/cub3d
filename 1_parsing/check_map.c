@@ -86,7 +86,10 @@ static int	fill_board(t_param *p, char *filename, int row, int col)
 	if (fd < 0)
 		return (-1);
 	if (init_board(p))
+	{
+		close(fd);
 		return (-1);
+	}
 	while (row < p->map->height)
 	{
 		col = 0;

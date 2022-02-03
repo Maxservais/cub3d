@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 /*
@@ -10,25 +9,35 @@ using the size_x and size_y parameters to determine its size, and title
 as the text that should be displayed in the window's title bar.
 */
 
-static int	game_start(t_param *param)
+static int	game_start(t_param *p)
 {
-	param->mlx_ptr = mlx_init();
-	if (!param->mlx_ptr)
-		return (-1); // Free everything that was malloced - free_board_and_structs()
-	param->win_ptr = mlx_new_window(param->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "CUB3D");
-	if (!param->win_ptr)
-		return (-1); // Free everything that was malloced - free_board_and_structs
-	param->img_ptr = mlx_new_image(param->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	param->img_addr = mlx_get_data_addr(param->img_ptr, &param->bits_per_pixel, &param->line_length, &param->endian);
+	p->mlx_ptr = mlx_init();
+	if (!p->mlx_ptr)
+		return (-1);
+	p->win_ptr = mlx_new_window(p->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "CUB3D");
+	if (!p->win_ptr)
+		return (-1);
+	p->img_ptr = mlx_new_image(p->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	if (!p->img_ptr)
+		return (-1);
+	p->img_addr = mlx_get_data_addr(p->img_ptr, &p->bits_per_pixel,
+			&p->line_length, &p->endian);
+	if (p->map->width > p->map->height)
+		p->tile_size = (WIN_WIDTH * 0.4) / p->map->width;
+	else
+		p->tile_size = (WIN_HEIGHT * 0.4) / p->map->height;
+	if (load_textures(p) == -1)
+		return (-1);
 	return (0);
 }
 
 /*
 Our main function:
-- returns an error when our executable file (./cub3d) isn't called with the right command-line argument;
+- returns an error when our executable file (./cub3d) isn't called with
+the right command-line argument;
 - returns an error when there is an issue allocating memory on the Heap
-- calls a function to parse the file that contains information on the map, the floor,
-ceiling and walls' colors;
+- calls a function to parse the file that contains information on the map,
+the floor, ceiling and walls' colors;
 - launches the game;
 - calls a function to draw the 2D minimap in the top-left corner;
 - hooks into events to capture users' input.
@@ -37,29 +46,19 @@ ceiling and walls' colors;
 int	main(int argc, char **argv)
 {
 	t_param	param;
-	t_ray	ray;
 
 	if (argc != 2 || init_structs(&param) == -1)
 	{
 		printf("Usage: ./cub3d file_name\n");
 		return (EXIT_FAILURE);
 	}
-
-	// Parse file and deal with errors (for elements + map)
 	if (check_map(&param, argv[1]))
-		return (EXIT_FAILURE); // return (free_structs(p));
-
-	// Launch game
+		return (free_structs(&param));
 	if (game_start(&param) == -1)
-		return (EXIT_FAILURE);
-
-	// Draw minimap with player
-	param.player->px = 5 + 0.25; // NEED TO INITILIAZE PLAYER'S STARTING POSITION ELSEWHERE!!!
-	param.player->py = 11 + 0.25;
-	draw_minimap(&param, &ray);
-
-	// Hook into events
-	mlx_hook(param.win_ptr, 2, 1L << 0, &deal_key, &param);
+		return (free_all(&param));
+	initialize_player_pos(&param, 0, 0);
+	mlx_hook(param.win_ptr, 2, 1L << 0, &key_press, &param);
+	mlx_hook(param.win_ptr, 3, 1L << 0, &key_unpress, &param);
 	mlx_hook(param.win_ptr, 17, 1L << 17, &close_win, &param);
 	mlx_loop_hook(param.mlx_ptr, display, &param);
 	mlx_loop(param.mlx_ptr);

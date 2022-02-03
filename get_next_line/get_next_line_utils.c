@@ -1,16 +1,6 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char const *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s && *(s + i) != '\0')
-		i++;
-	return (i);
-}
-
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t			i;
