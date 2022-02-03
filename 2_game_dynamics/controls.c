@@ -97,9 +97,9 @@ int	update_pos(t_param *p)
 	}
 	if (p->key->key_right == 1)
 	{
-		if (cos(p->player->pa - PI / 2) > 0 && p->map->board[(int)p->player->py][(int)(p->player->px - GAP)] != '1')
+		if (cos(p->player->pa - PI / 2) > 0 && p->map->board[(int)p->player->py][(int)(p->player->px - GAP - PLAYER_OFFSET)] != '1')
 			p->player->px += cos(p->player->pa + PI / 2) * SPEED;
-		else if (cos(p->player->pa - PI / 2) < 0 && p->map->board[(int)p->player->py][(int)(p->player->px + GAP)] != '1')
+		else if (cos(p->player->pa - PI / 2) < 0 && p->map->board[(int)p->player->py][(int)(p->player->px + GAP + PLAYER_OFFSET)] != '1')
 			p->player->px += cos(p->player->pa + PI / 2) * SPEED;
 		if (sin(p->player->pa + PI / 2) > 0 && p->map->board[(int)(p->player->py + GAP)][(int)p->player->px] != '1')
 			p->player->py += sin(p->player->pa + PI / 2) * SPEED;

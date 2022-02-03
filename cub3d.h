@@ -22,9 +22,6 @@
 # define NORTH 2
 # define SOUTH 3
 # define BLACK 0x000000
-# define WHITE 0x00FFFFFF
-# define CEILING 0x0087CEEB
-# define FLOOR 0x00696969
 # define PLAYER 0x000000FF
 # define LINE 0x006A0DAD
 # define WINDOW_WIDTH 800
@@ -52,6 +49,8 @@ typedef struct s_map
 {
 	int		width;
 	int		height;
+	int		*ceiling;
+	int		*floor;
 	char	**board;
 }			t_map;
 
@@ -128,46 +127,47 @@ typedef struct s_param
 // add here necessary function's prototypes
 
 /* 4. PARSER */
-int		check_map(t_param *param, char *filename);
-int		map_height(char *filename);
-int		map_width(char *filename, int res);
+int					check_map(t_param *param, char *filename);
+int					map_height(char *filename);
+int					map_width(char *filename, int res);
 
 /* 5. GAME DYNAMICS */
 
 /* 5.0 Hooking into events */
-int		close_win(t_param *param);
-int		key_press(int key, t_param *p);
-int		key_unpress(int key, t_param *p);
-int		update_pos(t_param *p);
+int					close_win(t_param *param);
+int					key_press(int key, t_param *p);
+int					key_unpress(int key, t_param *p);
+int					update_pos(t_param *p);
 
 /* 5.1 Draw minimap */
-void	draw_player(t_param *param);
-void	draw_tile(t_param *param, int x, int y, int color);
-void	draw_map2d(t_param *param);
-void	draw_rays(t_param *p, t_ray *ray);
-void	draw_minimap(t_param *p, t_ray *ray);
+void				draw_player(t_param *param);
+void				draw_tile(t_param *param, int x, int y, int color);
+void				draw_map2d(t_param *param);
+void				draw_rays(t_param *p, t_ray *ray);
+void				draw_minimap(t_param *p, t_ray *ray);
 
 /* 5.2 Draw game 3D */
-void	draw_vert_line(t_param *p, t_ray *ray, int i, float angle);
-void	draw_walls(t_param *p, t_ray *ray);
-int		display(void *param);
+void				draw_vert_line(t_param *p, t_ray *ray, int i, float angle);
+void				draw_walls(t_param *p, t_ray *ray);
+int					display(void *param);
 
 /* 5.3 Raycasting */
-float	len_ray(t_param *param, t_ray *ray, float angle);
+float				len_ray(t_param *param, t_ray *ray, float angle);
 
 /* 5.4 Utils */
-void	my_mlx_pixel_put(t_param *param, int x, int y, int color);
-int		get_color(t_texture *text, int x, int y);
-void	draw_line(t_param *param, int x0, int y0, int x1, int y1);
+void				my_mlx_pixel_put(t_param *param, int x, int y, int color);
+int					get_color(t_texture *text, int x, int y);
+unsigned long long	rgb_to_hex(int r, int g, int b);
+void				draw_line(t_param *param, int x0, int y0, int x1, int y1);
 
 /* 6. MEMORY (DE)ALLOCATION */
-int		init_structs(t_param *param);
-int		init_board(t_param *p);
-int		load_textures(t_param *p);
-void	initialize_player_pos(t_param *param);
-int		free_board(t_param *p, int n);
-int		free_structs(t_param *param);
-int		free_all(t_param *param);
+int					init_structs(t_param *param);
+int					init_board(t_param *p);
+int					load_textures(t_param *p);
+void				initialize_player_pos(t_param *param);
+int					free_board(t_param *p, int n);
+int					free_structs(t_param *param);
+int					free_all(t_param *param);
 
 /* 7. UTILS */
 

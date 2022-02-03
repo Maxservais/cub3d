@@ -15,15 +15,12 @@ void	my_mlx_pixel_put(t_param *param, int x, int y, int color)
 		dst = param->img_addr + (y * param->line_length + x * (param->bits_per_pixel / 8));
 		*(unsigned int*)dst = color;
 	}
-	// int	i;
-	// if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
-	// {
-	// 	i = (x * param->bits_per_pixel / 8) + (y * param->line_length);
-	// 	param->img_addr[i] = color;
-	// 	param->img_addr[++i] = color >> 8;
-	// 	param->img_addr[++i] = color >> 16;
-	// }
 }
+
+/*
+get_color() retrieves the texel 
+(a texture pixel is the fundamental unit of a texture map).
+*/
 
 int		get_color(t_texture *text, int x, int y)
 {
@@ -33,6 +30,15 @@ int		get_color(t_texture *text, int x, int y)
 	dst = text->img_addr + (y * text->line_length + x * (text->bits_per_pixel / 8));
 	color = *(unsigned int *)dst;
 	return (color);
+}
+
+/*
+rgb_to_hex() stores the appropriate bits of each color and convets it to hexadecimal
+*/
+
+unsigned long long rgb_to_hex(int r, int g, int b)
+{
+	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
 /*

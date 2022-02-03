@@ -67,7 +67,10 @@ int	load_textures(t_param *p)
 	{
 		p->texture[i].img_ptr = mlx_xpm_file_to_image(p->mlx_ptr, files[i], &p->texture[i].width, &p->texture[i].height);
 		if (!p->texture[i].img_ptr)
+		{
+			write(1, "Texture not valid\n", ft_strlen("Texture not valid\n"));
 			return (-1);
+		}
 		p->texture[i].img_addr = mlx_get_data_addr(p->texture[i].img_ptr, &p->texture[i].bits_per_pixel, &p->texture[i].line_length, &p->texture[i].endian);
 		i++;
 	}

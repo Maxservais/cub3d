@@ -88,9 +88,9 @@ void	draw_map2d(t_param *param)
 		while (col < param->map->width)
 		{
 			if (param->map->board[row][col] == '1')
-				draw_tile(param, col, row, BLACK);
+				draw_tile(param, col, row, rgb_to_hex(17, 200, 50));
 			else
-				draw_tile(param, col, row, WHITE);
+				draw_tile(param, col, row, rgb_to_hex(255, 255, 255));
 			col++;
 		}
 		row++;

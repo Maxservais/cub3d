@@ -53,7 +53,7 @@ void	draw_vert_line(t_param *p, t_ray *ray, int i, float angle)
 	j = (int)((WINDOW_HEIGHT / 2.0) - (ray->line_height / 2.0));
 	while (k <= j)
 	{
-		my_mlx_pixel_put(p, i, k, CEILING);
+		my_mlx_pixel_put(p, i, k, rgb_to_hex(135, 206, 235));
 		k++;
 	}
 	row = 0.0;
@@ -68,7 +68,7 @@ void	draw_vert_line(t_param *p, t_ray *ray, int i, float angle)
 	}
 	while (j <= WINDOW_HEIGHT)
 	{
-		my_mlx_pixel_put(p, i, j, FLOOR);
+		my_mlx_pixel_put(p, i, j, rgb_to_hex(105, 105, 105));
 		j++;
 	}
 }
