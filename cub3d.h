@@ -41,6 +41,7 @@
 # define MALLOC_ER 11
 # define ELEMENT_ER 12
 # define FILENAME_ER 13
+# define COLOR_ER 14
 
 
 /* 2. CUSTOM STRUCTS */
@@ -54,8 +55,8 @@ typedef struct s_map
 	char	*SO_texture;
 	char	*EA_texture;
 	char	*WE_texture;
-	char	*Floor_color;
-	char	*ceilling_color;
+	int		*Floor;
+	int		*Ceilling;
 }			t_map;
 
 typedef struct s_player
@@ -107,13 +108,13 @@ typedef struct s_param
 // add here necessary function's prototypes
 
 /* 4. PARSER */
-int	check_map(t_param *param, char *filename);
 int	map_height(char *filename);
 int	map_width(char *filename, int res);
 
 /* 4.0 PARSE FILE */
-int	parse_file(t_param *param, char *filename);
-int	check_content(t_map *map, t_list *lstmap);
+int		parse_file(t_param *param, char *filename);
+t_list	*check_content(t_map *map, t_list *lstmap);
+void	check_map(t_map *map, t_list *lstmap);
 
 /* 5. GAME DYNAMICS */
 

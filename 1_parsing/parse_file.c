@@ -59,6 +59,13 @@ int		parse_file(t_param *param, char *filename)
 	if (ft_strncmp(&filename[ft_strlen(filename) - 4], ".cub", 4) != 0)
 		ft_error(FILENAME_ER);
 	lstmap = file_to_lst(filename);
-	check_content(param->map, lstmap);
+	lstmap = check_content(param->map, lstmap);
+	check_map(param->map, lstmap);
+	while (lstmap)
+	{
+		printf("%s\n", lstmap->line);
+		lstmap = lstmap->next;
+	}
+	exit(EXIT_SUCCESS);
 	return (0);
 }

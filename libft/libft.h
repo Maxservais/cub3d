@@ -71,5 +71,8 @@ int		ft_toupper(int c);
 
 int		ft_my_strncmp(char *s1, char *s2, unsigned int nb);
 char	*ft_my_strlcpy(char *str);
+t_list	*ft_my_lst_delone(t_list *lst);
+int		ft_is_a_map(char *line);
+int		ft_my_lst_size(t_list *lst);
 
 #endif

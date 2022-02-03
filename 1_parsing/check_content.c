@@ -49,38 +49,51 @@ void	get_the_texture(char *line, t_map *map, int identifier)
 
 void	get_the_color(char *line, t_map *map, int identifier)
 {
-//creer la gestion pour recuperer les couleurs !
+	int		i;
+	char	**str;
+
+	while (*line && !(i = ft_isdigit(*line)))
+		line++;
+	if (!*line)
+		ft_error(COLOR_ER);
+	i = -1;
+	str = ft_split(line, ',');
+	if (!str)
+		ft_error(MALLOC_ER);
+	if (identifier == 1)
+	{
+		while (++i < 3)
+		{
+			map->Floor[i] = ft_atoi(str[i]);
+			if (map->Floor[i] < 0 || map->Floor[i] > 255)
+				ft_error(COLOR_ER);
+		}
+	}
+	if (identifier == 2)
+	{
+		while (++i < 3)
+		{
+			map->Ceilling[i] = ft_atoi(str[i]);
+			if (map->Ceilling[i] < 0 || map->Ceilling[i] > 255)
+				ft_error(COLOR_ER);
+		}
+	}
 }
 
 int	find_the_element(t_map *map, char *line)
 {
-	write(1, "je suis l2\n", 11);
 	if (ft_my_strncmp(line, "NO", 2) == 0 && !(map->NO_texture))
-	{
 		get_the_texture(line, map, 1);
-		write(1, "je suis l3\n", 11);
-	}
 	else if (ft_my_strncmp(line, "SO", 2) == 0 && !(map->SO_texture))
-	{
-		write(1, "je suis l4\n", 11);
 		get_the_texture(line, map, 2);
-	}
 	else if (ft_my_strncmp(line, "EA", 2) == 0 && !(map->EA_texture))
-	{
 		get_the_texture(line, map, 3);
-		write(1, "je suis l5\n", 11);
-	}
 	else if (ft_my_strncmp(line, "WE", 2) == 0 && !(map->WE_texture))
-	{
 		get_the_texture(line, map, 4);
-		write(1, "je suis l6\n", 11);
-	}
-	else if (ft_my_strncmp(line, "F", 1) == 0 && !(map->Floor_color))
-	{
+	else if (ft_my_strncmp(line, "F", 1) == 0 && map->Floor[0] == -1)
 		get_the_color(line, map, 1);
-	}
-	else if (ft_my_strncmp(line, "C", 1) == 0 && !(map->ceilling_color))
-		;
+	else if (ft_my_strncmp(line, "C", 1) == 0 && map->Ceilling[0] == -1)
+		get_the_color(line, map, 2);
 	else
 		return (0);
 	return (1);
@@ -89,20 +102,17 @@ int	find_the_element(t_map *map, char *line)
 /*
 the fonction check_content retrieves the e texture path for each element.
 */
-int	check_content(t_map *map, t_list *lstmap)
+t_list	*check_content(t_map *map, t_list *lstmap)
 {
 	int		ret;
 
 	ret = 0;
-	write(1, "je suis la\n", 11);
-	while (lstmap && ret < 4)//changer en 6 quand sol et ciel
+	while (lstmap && ret < 6)//changer en 6 quand sol et ciel
 	{
-		write(1, "je suis l1\n", 11);
 		ret += find_the_element(map, lstmap->line);
-		printf("ret == %d\n", ret);
-		lstmap = lstmap->next;
+		lstmap = ft_my_lst_delone(lstmap);
 	}
-	printf("NO == |%s|\nSO == |%s|\nEA == |%s|\nWE == |%s|\n", map->NO_texture, map->SO_texture, map->EA_texture, map->WE_texture);
-	exit(EXIT_FAILURE);
-	return (1);
+	printf("NO == |%s|\nSO == |%s|\nWE == |%s|\nEA == |%s|\n", map->NO_texture, map->SO_texture, map->WE_texture, map->EA_texture);
+	printf("Floor = |%d,%d,%d|\nCeilling = |%d,%d,%d|\n", map->Floor[0], map->Floor[1], map->Floor[2], map->Ceilling[0], map->Ceilling[1], map->Ceilling[2]);
+	return (lstmap);
 }

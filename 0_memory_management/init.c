@@ -10,8 +10,18 @@ static void	init_map(t_map *map)
 	map->SO_texture = NULL;
 	map->EA_texture = NULL;
 	map->WE_texture = NULL;
-	map->Floor_color = NULL;
-	map->ceilling_color = NULL;
+	map->Floor = malloc(sizeof(int) * 3);
+	if (!map->Floor)
+		ft_error(MALLOC_ER);
+	map->Floor[0] = -1;
+	map->Floor[1] = -1;
+	map->Floor[2] = -1;
+	map->Ceilling = malloc(sizeof(int) * 3);
+	if (!map->Ceilling)
+		ft_error(MALLOC_ER);
+	map->Ceilling[0] = -1;
+	map->Ceilling[1] = -1;
+	map->Ceilling[2] = -1;
 }
 
 int	init_structs(t_param *param)

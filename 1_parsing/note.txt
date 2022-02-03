@@ -1,4 +1,5 @@
 Pour la prochaine fois il faut :
 
--	Cre2er la fonction identique mais pour les color.
--	Il reste la map a recevoir puis a verifier.
+-	Il reste la map a recevoir puis a verifier:
+
+- probleme pour recupere la hauteur de la map et verifier qu'elle soit bien dernière. 
