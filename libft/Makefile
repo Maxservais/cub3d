@@ -48,7 +48,7 @@ SRC_FILES		= ft_atoi.c \
 				ft_is_wspace.c \
 				ft_my_strncmp.c \
 				ft_my_strlcpy.c \
-
+				
 SRC_FILES_BONUS	= ${SRC_FILES} \
 				ft_lstadd_front.c \
 				ft_lstsize.c \

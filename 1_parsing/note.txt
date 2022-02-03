@@ -1,5 +1,4 @@
 Pour la prochaine fois il faut :
 
--	terminer la fonction : ft_my_strlcpy (pour renvoyer une copie du path sans les espaces a assigner au bon identificateur)
 -	Cre2er la fonction identique mais pour les color.
 -	Il reste la map a recevoir puis a verifier.

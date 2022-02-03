@@ -20,36 +20,70 @@ order in the file.
 	Si c'est bon il enregistrera l'informations dans la struct map aussi non il renverra une erreur.
 */
 
-void	get_the_texture(char *line, t_map *map, int identifier, int *ret)
+void	get_the_texture(char *line, t_map *map, int identifier)
 {
-	while (str[i] && ft_is_wspace(str[i]))
-		i++;
-	if (str[i])
-		ft_error(FILE_ERROR);
 	if (identifier == 1)
-		map->NO_texture = ft_my_strlcpy(&(str[i]));
-	*ret++;
+	{
+		map->NO_texture = ft_my_strlcpy(line);
+		if (!map->NO_texture)
+			ft_error(MALLOC_ER);
+	}
+	else if (identifier == 2)
+	{
+		map->SO_texture = ft_my_strlcpy(line);
+		if (!map->SO_texture)
+			ft_error(MALLOC_ER);
+	}
+	else if (identifier == 3)
+	{
+		map->EA_texture = ft_my_strlcpy(line);
+		if (!map->EA_texture)
+			ft_error(MALLOC_ER);
+	}else if (identifier == 4)
+	{
+		map->WE_texture = ft_my_strlcpy(line);
+		if (!map->WE_texture)
+			ft_error(MALLOC_ER);
+	}
 }
 
-//ici la fonction va recevoir une string copie de la texture sans les esapces. 
-
-int	find_the_element(t_map *map, char *line, int ret)
+void	get_the_color(char *line, t_map *map, int identifier)
 {
+//creer la gestion pour recuperer les couleurs !
+}
+
+int	find_the_element(t_map *map, char *line)
+{
+	write(1, "je suis l2\n", 11);
 	if (ft_my_strncmp(line, "NO", 2) == 0 && !(map->NO_texture))
-		get_the_texture(line, map, 1, &ret);
-	else if (ft_my_strncmp(line, "SO", 2) == 0 && !(map->NO_texture))
-		get_the_texture(line, map, 2, &ret);
-	else if (ft_my_strncmp(line, "EA", 2) == 0 && !(map->NO_texture))
-		get_the_texture(line, map, 3, &ret);
-	else if (ft_my_strncmp(line, "WE", 2) == 0 && !(map->NO_texture))
-		get_the_texture(line, map, 4, &ret);
-	/*else if (ft_my_strncmp(line, "F", 1) == 0 && !(map->NO_texture))
-		get_the_texture(line, map, 5, &ret);
-	else if (ft_my_strncmp(line, "C", 1) == 0 && !(map->NO_texture)) il faut que je lasse pour les couleurs
-		get_the_texture(line, map, 6, &ret);*/
-	else if (ret != 6)
-		ft_error(FILE_ERROR);
-	return (ret);
+	{
+		get_the_texture(line, map, 1);
+		write(1, "je suis l3\n", 11);
+	}
+	else if (ft_my_strncmp(line, "SO", 2) == 0 && !(map->SO_texture))
+	{
+		write(1, "je suis l4\n", 11);
+		get_the_texture(line, map, 2);
+	}
+	else if (ft_my_strncmp(line, "EA", 2) == 0 && !(map->EA_texture))
+	{
+		get_the_texture(line, map, 3);
+		write(1, "je suis l5\n", 11);
+	}
+	else if (ft_my_strncmp(line, "WE", 2) == 0 && !(map->WE_texture))
+	{
+		get_the_texture(line, map, 4);
+		write(1, "je suis l6\n", 11);
+	}
+	else if (ft_my_strncmp(line, "F", 1) == 0 && !(map->Floor_color))
+	{
+		get_the_color(line, map, 1);
+	}
+	else if (ft_my_strncmp(line, "C", 1) == 0 && !(map->ceilling_color))
+		;
+	else
+		return (0);
+	return (1);
 }
 
 /*
@@ -60,10 +94,15 @@ int	check_content(t_map *map, t_list *lstmap)
 	int		ret;
 
 	ret = 0;
-	while (lstmap && ret < 6)
+	write(1, "je suis la\n", 11);
+	while (lstmap && ret < 4)//changer en 6 quand sol et ciel
 	{
-		ret = find_the_element(map, lstmap->line, ret);
+		write(1, "je suis l1\n", 11);
+		ret += find_the_element(map, lstmap->line);
+		printf("ret == %d\n", ret);
 		lstmap = lstmap->next;
 	}
+	printf("NO == |%s|\nSO == |%s|\nEA == |%s|\nWE == |%s|\n", map->NO_texture, map->SO_texture, map->EA_texture, map->WE_texture);
+	exit(EXIT_FAILURE);
 	return (1);
 }
