@@ -164,6 +164,7 @@ void	draw_line(t_param *param, int x0, int y0, int x1, int y1);
 int		init_structs(t_param *param);
 int		init_board(t_param *p);
 int		load_textures(t_param *p);
+void	initialize_player_pos(t_param *param);
 int		free_board(t_param *p, int n);
 int		free_structs(t_param *param);
 int		free_all(t_param *param);

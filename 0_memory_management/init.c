@@ -73,3 +73,33 @@ int	load_textures(t_param *p)
 	}
 	return (0);
 }
+
+void	initialize_player_pos(t_param *p)
+{
+	int	row;
+	int	col;
+
+	row = 0;
+	while (row < p->map->height)
+	{
+		col = 0;
+		while (col < p->map->width)
+		{
+			if (p->map->board[row][col] == 'N' || p->map->board[row][col] == 'S' || p->map->board[row][col] == 'E' || p->map->board[row][col] == 'W')
+			{
+				p->player->px = (float)col + PLAYER_OFFSET;
+				p->player->py = (float)row + PLAYER_OFFSET;
+			}
+			if (p->map->board[row][col] == 'N')
+				p->player->pa = 3 * PI / 2;
+			else if (p->map->board[row][col] == 'S')
+				p->player->pa = PI / 2;
+			else if (p->map->board[row][col] == 'W')
+				p->player->pa = PI;
+			else if (p->map->board[row][col] == 'E')
+				p->player->pa = 0.0;
+			col++;
+		}
+		row++;
+	}
+}
