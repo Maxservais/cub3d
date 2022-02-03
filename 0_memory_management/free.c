@@ -1,4 +1,3 @@
-
 #include "../cub3d.h"
 
 int	free_board(t_param *p, int n)
@@ -14,7 +13,7 @@ int	free_board(t_param *p, int n)
 
 int	free_structs(t_param *param)
 {
-	free(param->texture);
+	free(param->txt);
 	free(param->player);
 	free(param->key);
 	free(param->map);
@@ -24,7 +23,7 @@ int	free_structs(t_param *param)
 int	free_all(t_param *param)
 {
 	free_board(param, param->map->height);
-	free(param->texture);
+	free(param->txt);
 	free(param->player);
 	free(param->key);
 	free(param->map);

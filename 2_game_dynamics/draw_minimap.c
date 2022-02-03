@@ -1,4 +1,3 @@
-
 #include "../cub3d.h"
 
 /*
@@ -19,7 +18,9 @@ void	draw_rays(t_param *p, t_ray *ray)
 	while (i < FOV / 2)
 	{
 		len_ray(p, ray, ra);
-		draw_line(p, p->player->px * p->tile_size, p->player->py * p->tile_size, ray->intersect_x * p->tile_size, ray->intersect_y * p->tile_size);
+		draw_line(p, p->player->px * p->tile_size,
+			p->player->py * p->tile_size, ray->intersect_x * p->tile_size,
+			ray->intersect_y * p->tile_size);
 		ra += DR;
 		i++;
 	}
@@ -40,7 +41,10 @@ void	draw_player(t_param *param)
 		p_width = 0;
 		while (p_width < 0.5 * param->tile_size)
 		{
-			my_mlx_pixel_put(param, (param->player->px - PLAYER_OFFSET) * param->tile_size + p_width, (param->player->py - PLAYER_OFFSET) * param->tile_size + p_height, PLAYER);
+			my_mlx_pixel_put(param, (param->player->px - PLAYER_OFFSET)
+				* param->tile_size + p_width,
+				(param->player->py - PLAYER_OFFSET) * param->tile_size
+				+ p_height, 0x000000FF);
 			p_width++;
 		}
 		p_height++;
@@ -63,9 +67,11 @@ void	draw_tile(t_param *param, int x, int y, int color)
 		while (width < param->tile_size)
 		{
 			if (width == param->tile_size - 1 || height == param->tile_size - 1)
-				my_mlx_pixel_put(param, x * param->tile_size + width, y * param->tile_size + height, BLACK);
+				my_mlx_pixel_put(param, x * param->tile_size + width,
+					y * param->tile_size + height, BLACK);
 			else
-				my_mlx_pixel_put(param, x * param->tile_size + width, y * param->tile_size + height, color);
+				my_mlx_pixel_put(param, x * param->tile_size + width,
+					y * param->tile_size + height, color);
 			width++;
 		}
 		height++;
@@ -88,7 +94,7 @@ void	draw_map2d(t_param *param)
 		while (col < param->map->width)
 		{
 			if (param->map->board[row][col] == '1')
-				draw_tile(param, col, row, rgb_to_hex(17, 200, 50));
+				draw_tile(param, col, row, rgb_to_hex(135, 206, 235));
 			else
 				draw_tile(param, col, row, rgb_to_hex(255, 255, 255));
 			col++;
@@ -98,7 +104,8 @@ void	draw_map2d(t_param *param)
 }
 
 /*
-draw_minimap() draws our minimap in the top-left corner of the window with the player's rays.
+draw_minimap() draws our minimap in the top-left corner of the window
+with the player's rays.
 */
 
 void	draw_minimap(t_param *p, t_ray *ray)

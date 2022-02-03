@@ -1,4 +1,3 @@
-
 #include "../cub3d.h"
 
 int	init_structs(t_param *param)
@@ -18,11 +17,9 @@ int	init_structs(t_param *param)
 		free(param->key);
 		free(param->map);
 		return (-1);
-	}
-	// That's where I can make the player look left/right or top/down
-	param->player->pa = 0;
-	param->texture = malloc(sizeof(t_texture) * 4);
-	if (!param->texture)
+	}	
+	param->txt = malloc(sizeof(t_texture) * 4);
+	if (!param->txt)
 	{
 		free(param->player);
 		free(param->key);
@@ -65,30 +62,30 @@ int	load_textures(t_param *p)
 	i = 0;
 	while (i < 4)
 	{
-		p->texture[i].img_ptr = mlx_xpm_file_to_image(p->mlx_ptr, files[i], &p->texture[i].width, &p->texture[i].height);
-		if (!p->texture[i].img_ptr)
+		p->txt[i].img_ptr = mlx_xpm_file_to_image(p->mlx_ptr, files[i],
+				&p->txt[i].width, &p->txt[i].height);
+		if (!p->txt[i].img_ptr)
 		{
 			write(1, "Texture not valid\n", ft_strlen("Texture not valid\n"));
 			return (-1);
 		}
-		p->texture[i].img_addr = mlx_get_data_addr(p->texture[i].img_ptr, &p->texture[i].bits_per_pixel, &p->texture[i].line_length, &p->texture[i].endian);
+		p->txt[i].img_addr = mlx_get_data_addr(p->txt[i].img_ptr,
+				&p->txt[i].bpp, &p->txt[i].l_len, &p->txt[i].endian);
 		i++;
 	}
 	return (0);
 }
 
-void	initialize_player_pos(t_param *p)
+void	initialize_player_pos(t_param *p, int row, int col)
 {
-	int	row;
-	int	col;
-
-	row = 0;
 	while (row < p->map->height)
 	{
 		col = 0;
 		while (col < p->map->width)
 		{
-			if (p->map->board[row][col] == 'N' || p->map->board[row][col] == 'S' || p->map->board[row][col] == 'E' || p->map->board[row][col] == 'W')
+			if (p->map->board[row][col] == 'N' || p->map->board[row][col] == 'S'
+								|| p->map->board[row][col] == 'E'
+								|| p->map->board[row][col] == 'W')
 			{
 				p->player->px = (float)col + PLAYER_OFFSET;
 				p->player->py = (float)row + PLAYER_OFFSET;

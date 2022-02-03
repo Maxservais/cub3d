@@ -1,4 +1,3 @@
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -22,10 +21,8 @@
 # define NORTH 2
 # define SOUTH 3
 # define BLACK 0x000000
-# define PLAYER 0x000000FF
-# define LINE 0x006A0DAD
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
 # define GAP 0.6
 # define PLAYER_OFFSET 0.25
 # define FOV 60
@@ -38,10 +35,7 @@
 # define RIGHT_ARROW 124
 # define LEFT_ARROW 123
 # define PI	3.14159265358
-# define P2	PI / 2
-# define P3	3 * PI / 2
 # define DR	0.0174533
-# define ERROR_MSG "Error\nRelaunch the game please!\n"
 
 /* 2. CUSTOM STRUCTS */
 
@@ -60,8 +54,8 @@ typedef struct s_texture
 	char	*img_addr;
 	int		width;
 	int		height;
-	int		bits_per_pixel;
-    int		line_length;
+	int		bpp;
+	int		l_len;
 	int		endian;
 }			t_texture;
 
@@ -98,8 +92,8 @@ typedef struct s_ray
 	float	length_x;
 	float	length_y;
 	float	line_height;
-	int		map_check_x;
-	int		map_check_y;
+	int		map_x;
+	int		map_y;
 	int		step_x;
 	int		step_y;
 	int		collision_detected;
@@ -112,14 +106,14 @@ typedef struct s_param
 	void		*win_ptr;
 	void		*img_ptr;
 	char		*img_addr;
-    int			bits_per_pixel;
-    int			line_length;
+	int			bits_per_pixel;
+	int			line_length;
 	int			endian;
 	int			tile_size;
 	t_map		*map;
 	t_key		*key;
 	t_player	*player;
-	t_texture	*texture;
+	t_texture	*txt;
 }			t_param;
 
 /* 3. MAIN FUNCTIONS */
@@ -138,6 +132,10 @@ int					close_win(t_param *param);
 int					key_press(int key, t_param *p);
 int					key_unpress(int key, t_param *p);
 int					update_pos(t_param *p);
+void				key_up(t_param *p);
+void				key_down(t_param *p);
+void				key_left(t_param *p);
+void				key_right(t_param *p);
 
 /* 5.1 Draw minimap */
 void				draw_player(t_param *param);
@@ -164,7 +162,7 @@ void				draw_line(t_param *param, int x0, int y0, int x1, int y1);
 int					init_structs(t_param *param);
 int					init_board(t_param *p);
 int					load_textures(t_param *p);
-void				initialize_player_pos(t_param *param);
+void				initialize_player_pos(t_param *p, int row, int col);
 int					free_board(t_param *p, int n);
 int					free_structs(t_param *param);
 int					free_all(t_param *param);

@@ -1,88 +1,99 @@
-
 #include "../cub3d.h"
 
 /*
-len_ray() computes the distance that separates the player from the wall with a specified angle
+len_ray() computes the distance that separates the player
+from the wall with a specified angle.
 Credits:
 - https://lodev.org/cgtutor/raycasting.html
 - https://www.youtube.com/watch?v=NbSee-XM7WA
 */
 
-float	len_ray(t_param *param, t_ray *ray, float angle)
+void	ray_init(t_param *p, t_ray *ray, float angle)
+{
+	ray->start_x = p->player->px;
+	ray->start_y = p->player->py;
+	ray->dir_x = cos(angle);
+	ray->dir_y = sin(angle);
+	ray->step_size_x = sqrt(1.0 + pow(ray->dir_y / ray->dir_x, 2));
+	ray->step_size_y = sqrt(1.0 + pow(ray->dir_x / ray->dir_y, 2));
+	ray->map_x = (int)ray->start_x;
+	ray->map_y = (int)ray->start_y;
+	ray->distance = 0;
+	ray->collision_detected = FALSE;
+	ray->vertical = FALSE;
+}
+
+void	ray_init_bis(t_param *p, t_ray *r, float *dist_max)
+{
+	if (r->dir_x < 0)
+	{
+		r->step_x = -1;
+		r->length_x = (r->start_x - (float)r->map_x) * r->step_size_x;
+	}
+	else
+	{
+		r->step_x = 1;
+		r->length_x = ((float)(r->map_x + 1) - r->start_x) * r->step_size_x;
+	}
+	if (r->dir_y < 0)
+	{
+		r->step_y = -1;
+		r->length_y = (r->start_y - (float)r->map_y) * r->step_size_y;
+	}
+	else
+	{
+		r->step_y = 1;
+		r->length_y = ((float)(r->map_y + 1) - r->start_y) * r->step_size_y;
+	}
+	if (p->map->width > p->map->height)
+		*dist_max = p->map->width;
+	else
+		*dist_max = p->map->height;
+}
+
+void	ray_loop(t_param *p, t_ray *r, float dist_max)
+{
+	while (r->collision_detected == FALSE && r->distance < dist_max)
+	{
+		if (r->length_x < r->length_y)
+		{
+			r->map_x += r->step_x;
+			r->distance = r->length_x;
+			r->length_x += r->step_size_x;
+			r->vertical = TRUE;
+		}
+		else
+		{
+			r->map_y += r->step_y;
+			r->distance = r->length_y;
+			r->length_y += r->step_size_y;
+			r->vertical = FALSE;
+		}
+		if (r->map_x >= 0 && r->map_x < p->map->width
+			&& r->map_y >= 0 && r->map_y < p->map->height)
+		{
+			if (p->map->board[r->map_y][r->map_x] == '1')
+			{
+				r->collision_detected = TRUE;
+			}
+		}
+	}
+}
+
+float	len_ray(t_param *param, t_ray *r, float angle)
 {
 	float	len;
 	float	dist_max;
 
-	// ray' starting position is the location of the player
-	ray->start_x = param->player->px;
-	ray->start_y = param->player->py;
-	// direction of the ray
-	ray->dir_x = cos(angle);
-	ray->dir_y = sin(angle);
-	// Scaling factor that links our hypotenus to a step change of unit in either direction
-	ray->step_size_x = sqrt(1.0 + pow(ray->dir_y / ray->dir_x, 2));
-	ray->step_size_y = sqrt(1.0 + pow(ray->dir_x / ray->dir_y, 2));
-	// Keep track of tile I am located in
-	ray->map_check_x = (int)ray->start_x;
-	ray->map_check_y = (int)ray->start_y;
-	ray->distance = 0;
-	ray->collision_detected = FALSE;
-	ray->vertical = FALSE;
-	if (ray->dir_x < 0)
+	ray_init(param, r, angle);
+	ray_init_bis(param, r, &dist_max);
+	ray_loop(param, r, dist_max);
+	if (r->collision_detected == TRUE)
 	{
-		ray->step_x = -1;
-		ray->length_x = (ray->start_x - (float)ray->map_check_x) * ray->step_size_x;
+		r->intersect_x = r->start_x + (r->dir_x * r->distance);
+		r->intersect_y = r->start_y + (r->dir_y * r->distance);
 	}
-	else
-	{
-		ray->step_x = 1;
-		ray->length_x = ((float)(ray->map_check_x + 1) - ray->start_x) * ray->step_size_x;
-	}
-	if (ray->dir_y < 0)
-	{
-		ray->step_y = -1;
-		ray->length_y = (ray->start_y - (float)ray->map_check_y) * ray->step_size_y;
-	}
-	else
-	{
-		ray->step_y = 1;
-		ray->length_y = ((float)(ray->map_check_y + 1) - ray->start_y) * ray->step_size_y;
-	}
-	if (param->map->width > param->map->height)
-		dist_max = param->map->width;
-	else
-		dist_max = param->map->height;
-	while (ray->collision_detected == FALSE && ray->distance < dist_max)
-	{
-		// Walk along shortest path
-		if (ray->length_x < ray->length_y)
-		{
-			ray->map_check_x += ray->step_x;
-			ray->distance = ray->length_x;
-			ray->length_x += ray->step_size_x;
-			ray->vertical = TRUE;
-		}
-		else
-		{
-			ray->map_check_y += ray->step_y;
-			ray->distance = ray->length_y;
-			ray->length_y += ray->step_size_y;
-			ray->vertical = FALSE;
-		}
-		// Test tile at new test point
-		if (ray->map_check_x >= 0 && ray->map_check_x < param->map->width && ray->map_check_y >= 0 && ray->map_check_y < param->map->height)
-		{
-			if (param->map->board[ray->map_check_y][ray->map_check_x] == '1')
-			{
-				ray->collision_detected = TRUE;
-			}
-		}
-	}
-	if (ray->collision_detected == TRUE)
-	{
-		ray->intersect_x = ray->start_x + (ray->dir_x * ray->distance);
-		ray->intersect_y = ray->start_y + (ray->dir_y * ray->distance);
-	}
-	len = sqrt(pow(ray->intersect_x - ray->start_x, 2) + pow(ray->intersect_y - ray->start_y, 2));
+	len = sqrt(pow(r->intersect_x - r->start_x, 2)
+			+ pow(r->intersect_y - r->start_y, 2));
 	return (len);
 }
