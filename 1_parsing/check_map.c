@@ -9,33 +9,10 @@ N, S, E or W for the player’s start position and spawning orientation.
 - You must be able to parse any kind of map, as long as it respects the rules of the map.
 */
 
-/*
-void	check_map(t_map *map, t_list *lstmap)
-{
-	int		player;
-
-	player = 0;
-	while (lstmap && ft_is_a_map(lstmap->line))
-		lstmap = ft_my_lst_delone(lstmap);
-	map->height = ft_my_lst_size(lstmap);
-	while (lstmap)
-	{
-		printf("%s\n", lstmap->line);
-		lstmap = lstmap->next;
-	}
-	printf("height == %d\n", map->height); //probleme pour recupere la hauteur de la map
-
-	write(1, "couocu\n", 7);
-	exit(EXIT_SUCCESS);
-}
-*/
-
-void	check_map(t_map *map, t_list **lstmap)
+void	lst_just_map(t_map *map, t_list **lstmap)
 {
 	t_list	*tmp;
 	t_list	*tmptmp;
-	int		height;
-	int		width;
 	int		tmpw;
 
 	tmp = *lstmap;
@@ -46,14 +23,12 @@ void	check_map(t_map *map, t_list **lstmap)
 		ft_my_lst_delone(tmptmp);
 	}
 	*lstmap = tmp;
-	height = 0;
-	width = 0;
 	while (tmp && ft_is_a_map(tmp->line) == 0)
 	{
-		height++;
+		map->height++;
 		tmpw = ft_strlen(tmp->line);
-		if (tmpw > width)
-			width = tmpw;
+		if (tmpw > map->width)
+			map->width = tmpw;
 		tmp = tmp->next;
 	}
 	while (tmp)
@@ -64,16 +39,94 @@ void	check_map(t_map *map, t_list **lstmap)
 		tmp = tmp->next;
 		ft_my_lst_delone(tmptmp);
 	}
-	map->height = height;
-	map->width = width;
-	printf("height == %d\n", height);
-	printf("width == %d\n", width);
-	printf("------\n");
-	while (*lstmap)
+}
+
+char	*copy_the_line_of_the_map(int width, char *line)
+{
+	char	*str;
+	int		i;
+	int		len;
+
+	str = malloc(sizeof(char) * (width + 1));
+	if (!str)
+		ft_error(MALLOC_ER);
+	len = ft_strlen(line);
+	i = 0;
+	while (i < width)
 	{
-		printf("%s\n", (*lstmap)->line);
-		*lstmap = (*lstmap)->next;
+		if (i < len)
+		{
+			if(ft_is_wspace(line[i]))
+				str[i] = ' ';
+			else
+				str[i] = line[i];
+		}
+		else
+			str[i] = ' ';
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	**copy_the_map(t_map *map, t_list *lstmap)
+{
+	char **board;
+	int	i;
+
+	i = 0;
+	board = malloc(sizeof (char *) * (map->height + 1));
+	if (!board)
+		ft_error(MALLOC_ER);
+	while (i < map->height)
+	{
+		ft_putnbr(i);
+		write(1, "hey\n", 4);
+		board[i] = copy_the_line_of_the_map(map->width, lstmap->line);
+		write(1, "h1y\n", 4);
+		lstmap = lstmap->next;
+		write(1, "h2y\n", 4);
+		ft_my_lst_delone(lstmap->before);
+		write(1, "h3y\n", 4);
+		i++;
+		write(1, "h4y\n", 4);
+	}
+	printf("i == %d\n height == %d\n", i, map->height);
+	exit(EXIT_SUCCESS);
+	board[i] = malloc(sizeof(char));
+	board[i][0] = '\0';
+	int test_i;
+	int	test_j;
+
+	test_i = 0;
+	test_j = 0;
+	while (board[test_i])
+	{
+		test_j = 0;
+		while (board[test_i][test_j])
+		{
+			printf("%c", board[test_i][test_j]);
+			test_j++;
+		}
+		printf("\n");
+		test_i++;
+	}
+	exit(EXIT_SUCCESS);
+	return (board);
+}
+
+void	check_map(t_map *map, t_list *lstmap)
+{
+	lst_just_map(map, &lstmap);
+	map->board = copy_the_map(map, lstmap);
+
+
+	printf("------\n");
+	while (lstmap)
+	{
+		printf("%s\n", lstmap->line);
+		lstmap = lstmap->next;
 	}
 	printf("------\n");
-	map->height = 10;
+	exit(EXIT_SUCCESS);
 }

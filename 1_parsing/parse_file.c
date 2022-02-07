@@ -77,7 +77,7 @@ int		parse_file(t_param *param, char *filename)
 		tmp_lst = tmp_lst->next;
 	}*/
 	lstmap = check_content(param->map, lstmap);
-	check_map(param->map, &lstmap);
+	check_map(param->map, lstmap);
 	while (lstmap)
 	{
 		printf("%s\n", lstmap->line);
