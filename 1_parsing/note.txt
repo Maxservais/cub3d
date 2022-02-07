@@ -1,5 +1,4 @@
 Pour la prochaine fois il faut :
 
--	Il reste la map a recevoir puis a verifier:
-
-- probleme pour recupere la hauteur de la map et verifier qu'elle soit bien dernière. 
+-	changer check map en parse map puis faire les verifications de joueurs tout en copiant la lst dans un char **
+- probleme pour recupere la hauteur de la map et verifier qu'elle soit bien dernière.

@@ -114,7 +114,7 @@ int	map_width(char *filename, int res);
 /* 4.0 PARSE FILE */
 int		parse_file(t_param *param, char *filename);
 t_list	*check_content(t_map *map, t_list *lstmap);
-void	check_map(t_map *map, t_list *lstmap);
+void	check_map(t_map *map, t_list **lstmap);
 
 /* 5. GAME DYNAMICS */
 

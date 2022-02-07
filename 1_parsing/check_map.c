@@ -30,32 +30,50 @@ void	check_map(t_map *map, t_list *lstmap)
 }
 */
 
-void	check_map(t_map *map, t_list *lstmap)
+void	check_map(t_map *map, t_list **lstmap)
 {
 	t_list	*tmp;
-	int		len;
+	t_list	*tmptmp;
+	int		height;
+	int		width;
+	int		tmpw;
 
-	tmp = ft_lstlast(lstmap);
-	printf("le dernier == %s\navant == %s\n", tmp->line, tmp->before->line);
+	tmp = *lstmap;
 	while (tmp && (ft_str_iswspace(tmp->line))== 0)
 	{
-		tmp = tmp->before;
-		ft_my_lst_delone(tmp->next);
+		tmptmp = tmp;
+		tmp = tmp->next;
+		ft_my_lst_delone(tmptmp);
 	}
-	len = 0;
+	*lstmap = tmp;
+	height = 0;
+	width = 0;
 	while (tmp && ft_is_a_map(tmp->line) == 0)
 	{
-		len++;
-		tmp = tmp->before;
+		height++;
+		tmpw = ft_strlen(tmp->line);
+		if (tmpw > width)
+			width = tmpw;
+		tmp = tmp->next;
 	}
-	printf("len == %d\n", len);
-	printf("------\n");
-	while (lstmap)
+	while (tmp)
 	{
-		printf("%s\n", lstmap->line);
-		lstmap = lstmap->next;
+		if (ft_str_iswspace(tmp->line) == 1)
+			ft_error(FILE_ERROR);
+		tmptmp = tmp;
+		tmp = tmp->next;
+		ft_my_lst_delone(tmptmp);
+	}
+	map->height = height;
+	map->width = width;
+	printf("height == %d\n", height);
+	printf("width == %d\n", width);
+	printf("------\n");
+	while (*lstmap)
+	{
+		printf("%s\n", (*lstmap)->line);
+		*lstmap = (*lstmap)->next;
 	}
 	printf("------\n");
 	map->height = 10;
-	exit(EXIT_SUCCESS);
 }
