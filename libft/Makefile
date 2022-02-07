@@ -51,11 +51,12 @@ SRC_FILES		= ft_atoi.c \
 				ft_my_lst_delone.c \
 				ft_is_a_map.c \
 				ft_my_lst_size.c \
+				ft_str_iswspace.c \
+				ft_lstlast.c \
 
 SRC_FILES_BONUS	= ${SRC_FILES} \
 				ft_lstadd_front.c \
 				ft_lstsize.c \
-				ft_lstlast.c \
 				ft_lstdelone.c \
 				ft_lstclear.c \
 				ft_lstiter.c \

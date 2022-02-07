@@ -10,5 +10,6 @@ t_list	*ft_lstnew(void *line)
 		return (NULL);
 	(*node).line = line;
 	(*node).next = NULL;
+	(*node).before = NULL;
 	return (node);
 }

@@ -20,6 +20,8 @@ char	*ft_my_strlcpy(char *str)
 		i++;
 		len++;
 	}
+	if (ft_str_iswspace(&(str[i])))
+		return (NULL);
 	nw = malloc(sizeof (char) * (len + 1));
 	if (!nw)
 		return (NULL);

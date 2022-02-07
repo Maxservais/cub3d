@@ -10,6 +10,7 @@
 typedef	struct	s_list
 {
 	char			*line;
+	struct s_list	*before;
 	struct s_list	*next;
 }				t_list;
 
@@ -74,5 +75,6 @@ char	*ft_my_strlcpy(char *str);
 t_list	*ft_my_lst_delone(t_list *lst);
 int		ft_is_a_map(char *line);
 int		ft_my_lst_size(t_list *lst);
+int		ft_str_iswspace(char *line);
 
 #endif

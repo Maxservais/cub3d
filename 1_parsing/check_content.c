@@ -26,24 +26,24 @@ void	get_the_texture(char *line, t_map *map, int identifier)
 	{
 		map->NO_texture = ft_my_strlcpy(line);
 		if (!map->NO_texture)
-			ft_error(MALLOC_ER);
+			ft_error(FILE_ERROR);
 	}
 	else if (identifier == 2)
 	{
 		map->SO_texture = ft_my_strlcpy(line);
 		if (!map->SO_texture)
-			ft_error(MALLOC_ER);
+			ft_error(FILE_ERROR);
 	}
 	else if (identifier == 3)
 	{
 		map->EA_texture = ft_my_strlcpy(line);
 		if (!map->EA_texture)
-			ft_error(MALLOC_ER);
+			ft_error(FILE_ERROR);
 	}else if (identifier == 4)
 	{
 		map->WE_texture = ft_my_strlcpy(line);
 		if (!map->WE_texture)
-			ft_error(MALLOC_ER);
+			ft_error(FILE_ERROR);
 	}
 }
 
@@ -94,8 +94,10 @@ int	find_the_element(t_map *map, char *line)
 		get_the_color(line, map, 1);
 	else if (ft_my_strncmp(line, "C", 1) == 0 && map->Ceilling[0] == -1)
 		get_the_color(line, map, 2);
-	else
+	else if (ft_str_iswspace(line) == 0)
 		return (0);
+	else
+		ft_error(FILE_ERROR);
 	return (1);
 }
 
@@ -112,7 +114,7 @@ t_list	*check_content(t_map *map, t_list *lstmap)
 		ret += find_the_element(map, lstmap->line);
 		lstmap = ft_my_lst_delone(lstmap);
 	}
-	printf("NO == |%s|\nSO == |%s|\nWE == |%s|\nEA == |%s|\n", map->NO_texture, map->SO_texture, map->WE_texture, map->EA_texture);
-	printf("Floor = |%d,%d,%d|\nCeilling = |%d,%d,%d|\n", map->Floor[0], map->Floor[1], map->Floor[2], map->Ceilling[0], map->Ceilling[1], map->Ceilling[2]);
+	//printf("NO == |%s|\nSO == |%s|\nWE == |%s|\nEA == |%s|\n", map->NO_texture, map->SO_texture, map->WE_texture, map->EA_texture);
+	//printf("Floor = |%d,%d,%d|\nCeilling = |%d,%d,%d|\n", map->Floor[0], map->Floor[1], map->Floor[2], map->Ceilling[0], map->Ceilling[1], map->Ceilling[2]);
 	return (lstmap);
 }
