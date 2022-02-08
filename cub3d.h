@@ -61,6 +61,7 @@ typedef struct s_map
 
 typedef struct s_player
 {
+	int		one;
 	float	pdx;
 	float	pdy;
 	float	pa;
@@ -114,7 +115,7 @@ int	map_width(char *filename, int res);
 /* 4.0 PARSE FILE */
 int		parse_file(t_param *param, char *filename);
 t_list	*check_content(t_map *map, t_list *lstmap);
-void	check_map(t_map *map, t_list *lstmap);
+void	parse_map(t_map *map, t_list *lstmap, t_param *param);
 
 /* 5. GAME DYNAMICS */
 

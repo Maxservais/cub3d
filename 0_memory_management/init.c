@@ -39,6 +39,7 @@ int	init_structs(t_param *param)
 	param->player->pa = 0;
 	param->player->pdx = cos(param->player->pa) * 0.1;
 	param->player->pdy = sin(param->player->pa) * 0.1;
+	param->player->one = 0;
 	// param->sprite = malloc(sizeof(t_sprite));
 	// if (!param->sprite)
 	// {

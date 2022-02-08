@@ -71,6 +71,7 @@ char	*copy_the_line_of_the_map(int width, char *line)
 
 char	**copy_the_map(t_map *map, t_list *lstmap)
 {
+	write(1, "coucou\n", 7);
 	char **board;
 	int	i;
 
@@ -78,55 +79,64 @@ char	**copy_the_map(t_map *map, t_list *lstmap)
 	board = malloc(sizeof (char *) * (map->height + 1));
 	if (!board)
 		ft_error(MALLOC_ER);
-	while (i < map->height)
+	board[map->height] = NULL;
+	while (i < (map->height - 1))
 	{
-		ft_putnbr(i);
-		write(1, "hey\n", 4);
 		board[i] = copy_the_line_of_the_map(map->width, lstmap->line);
-		write(1, "h1y\n", 4);
 		lstmap = lstmap->next;
-		write(1, "h2y\n", 4);
 		ft_my_lst_delone(lstmap->before);
-		write(1, "h3y\n", 4);
 		i++;
-		write(1, "h4y\n", 4);
 	}
-	printf("i == %d\n height == %d\n", i, map->height);
-	exit(EXIT_SUCCESS);
-	board[i] = malloc(sizeof(char));
-	board[i][0] = '\0';
-	int test_i;
-	int	test_j;
-
-	test_i = 0;
-	test_j = 0;
-	while (board[test_i])
-	{
-		test_j = 0;
-		while (board[test_i][test_j])
-		{
-			printf("%c", board[test_i][test_j]);
-			test_j++;
-		}
-		printf("\n");
-		test_i++;
-	}
-	exit(EXIT_SUCCESS);
+	board[i] = copy_the_line_of_the_map(map->width, lstmap->line);
+	ft_my_lst_delone(lstmap);
 	return (board);
 }
 
-void	check_map(t_map *map, t_list *lstmap)
+void	check_around(char **board, int i, int j)
+{
+	if (i == 0)
+}
+
+void	check_map(t_param *param, char **board)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (board[++i])
+	{
+		j = -1;
+		while (board[i][++j])
+		{
+			if (board[i][j] == ' ')
+			{
+
+			}
+		}
+	}
+}
+
+void	parse_map(t_map *map, t_list *lstmap, t_param *param)
 {
 	lst_just_map(map, &lstmap);
 	map->board = copy_the_map(map, lstmap);
 
 
-	printf("------\n");
-	while (lstmap)
+	int test_i;
+	int	test_j;
+
+	test_i = 0;
+	test_j = 0;
+	while (map->board[test_i])
 	{
-		printf("%s\n", lstmap->line);
-		lstmap = lstmap->next;
+		test_j = 0;
+		while (map->board[test_i][test_j])
+		{
+			printf("%c", map->board[test_i][test_j]);
+			test_j++;
+		}
+		printf("\n");
+		test_i++;
 	}
-	printf("------\n");
 	exit(EXIT_SUCCESS);
 }
