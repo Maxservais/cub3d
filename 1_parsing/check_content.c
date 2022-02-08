@@ -52,12 +52,20 @@ void	get_the_color(char *line, t_map *map, int identifier)
 	int		i;
 	char	**str;
 
-	while (*line && !(i = ft_isdigit(*line)))
+	while (*line && !ft_isdigit(*line))
 		line++;
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] != ',' && !(ft_isdigit(line[i])) && !(ft_is_wspace(line[i])))
+			ft_error(FILE_ERROR);
+	}
 	if (!*line)
 		ft_error(COLOR_ER);
 	i = -1;
 	str = ft_split(line, ',');
+	if (str[3])
+		ft_error(FILE_ERROR);
 	if (!str)
 		ft_error(MALLOC_ER);
 	if (identifier == 1)
