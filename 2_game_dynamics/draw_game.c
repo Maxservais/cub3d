@@ -47,13 +47,13 @@ void	draw_floor_ceiling(t_param *p, t_ray *ray, int i)
 	j = (int)((WIN_HEIGHT / 2.0) - (ray->line_height / 2.0));
 	while (k < j)
 	{
-		my_mlx_pixel_put(p, i, k, rgb_to_hex(p->map->Floor[0], p->map->Floor[1], p->map->Floor[2]));
+		my_mlx_pixel_put(p, i, k, rgb_to_hex(p->map->Ceilling[0], p->map->Ceilling[1], p->map->Ceilling[2]));
 		k++;
 	}
 	j = (int)((WIN_HEIGHT / 2.0) + (ray->line_height / 2.0));
 	while (j <= WIN_HEIGHT)
 	{
-		my_mlx_pixel_put(p, i, j, rgb_to_hex(p->map->Ceilling[0], p->map->Ceilling[1], p->map->Ceilling[2]));
+		my_mlx_pixel_put(p, i, j, rgb_to_hex(p->map->Floor[0], p->map->Floor[1], p->map->Floor[2]));
 		j++;
 	}
 }

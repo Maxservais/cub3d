@@ -101,6 +101,7 @@ int	load_textures(t_param *p)
 				&p->txt[i].bpp, &p->txt[i].l_len, &p->txt[i].endian);
 		i++;
 	}
+	free(files);
 	return (0);
 }
 
