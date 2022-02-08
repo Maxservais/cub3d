@@ -23,6 +23,11 @@ static void	last_line(int ret, char *line, t_list *lstmap)
 	ft_lstadd_back(&lstmap, new);
 }
 
+void	clear_the_lst(int message, int nb, t_list *lstmap)
+{
+
+}
+
 static t_list	*file_to_lst(char *filename)
 {
 	int		fd;
