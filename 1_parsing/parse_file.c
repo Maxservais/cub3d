@@ -63,28 +63,11 @@ static t_list	*file_to_lst(char *filename)
 int		parse_file(t_param *param, char *filename)
 {
 	t_list	*lstmap;
-	t_list	*tmp_lst;
-	int		i;//test
 
-	i = 0;
 	if (ft_strncmp(&filename[ft_strlen(filename) - 4], ".cub", 4) != 0)
 		ft_error(FILENAME_ER);
 	lstmap = file_to_lst(filename);
-	tmp_lst = lstmap;//test
-	/*while (tmp_lst)
-	{
-		printf("this	=	%p	before =	%p	next =	%p	line == %s\n", tmp_lst, tmp_lst->before, tmp_lst->next, tmp_lst->line);
-		tmp_lst = tmp_lst->next;
-	}*/
 	lstmap = check_content(param->map, lstmap);
 	parse_map(param->map, lstmap, param);
-	printf("rgb == %d|%d|%d|\n", param->map->Floor[0], param->map->Floor[1], param->map->Floor[2]);
-	exit(EXIT_FAILURE);
-	// while (lstmap)
-	// {
-	// 	printf("%s\n", lstmap->line);
-	// 	lstmap = lstmap->next;
-	// }
-	// exit(EXIT_SUCCESS);
-	return (0);
+	return (1);
 }

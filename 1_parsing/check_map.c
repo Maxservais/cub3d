@@ -39,6 +39,8 @@ void	lst_just_map(t_map *map, t_list **lstmap)
 		tmp = tmp->next;
 		ft_my_lst_delone(tmptmp);
 	}
+	if (!tmp)
+		ft_error(FILE_ERROR);
 }
 
 char	*copy_the_line_of_the_map(int width, char *line)
@@ -128,7 +130,8 @@ void	parse_map(t_map *map, t_list *lstmap, t_param *param)
 	lst_just_map(map, &lstmap);
 	map->board = copy_the_map(map, lstmap);
 	check_map(param, map->board);
-
+	if (param->player->one == 0)
+		ft_error(FILE_ERROR);
 	int test_i;
 	int	test_j;
 

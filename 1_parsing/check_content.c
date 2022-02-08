@@ -114,6 +114,8 @@ t_list	*check_content(t_map *map, t_list *lstmap)
 		ret += find_the_element(map, lstmap->line);
 		lstmap = ft_my_lst_delone(lstmap);
 	}
+	if (ret < 6 || !lstmap)
+		ft_error(FILE_ERROR);
 	//printf("NO == |%s|\nSO == |%s|\nWE == |%s|\nEA == |%s|\n", map->NO_texture, map->SO_texture, map->WE_texture, map->EA_texture);
 	//printf("Floor = |%d,%d,%d|\nCeilling = |%d,%d,%d|\n", map->Floor[0], map->Floor[1], map->Floor[2], map->Ceilling[0], map->Ceilling[1], map->Ceilling[2]);
 	return (lstmap);

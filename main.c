@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 	// Parse file and deal with errors (for elements + map)
 	if (parse_file(&param, argv[1]))
 		return (EXIT_FAILURE); // return (free_structs(p));
-
+	exit(EXIT_SUCCESS);
 	// Launch game
 	if (game_start(&param) == -1)
 		return (EXIT_FAILURE);
