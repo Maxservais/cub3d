@@ -78,11 +78,13 @@ int		parse_file(t_param *param, char *filename)
 	}*/
 	lstmap = check_content(param->map, lstmap);
 	parse_map(param->map, lstmap, param);
-	while (lstmap)
-	{
-		printf("%s\n", lstmap->line);
-		lstmap = lstmap->next;
-	}
-	exit(EXIT_SUCCESS);
+	printf("rgb == %d|%d|%d|\n", param->map->Floor[0], param->map->Floor[1], param->map->Floor[2]);
+	exit(EXIT_FAILURE);
+	// while (lstmap)
+	// {
+	// 	printf("%s\n", lstmap->line);
+	// 	lstmap = lstmap->next;
+	// }
+	// exit(EXIT_SUCCESS);
 	return (0);
 }

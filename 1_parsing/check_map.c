@@ -71,7 +71,6 @@ char	*copy_the_line_of_the_map(int width, char *line)
 
 char	**copy_the_map(t_map *map, t_list *lstmap)
 {
-	write(1, "coucou\n", 7);
 	char **board;
 	int	i;
 
@@ -92,9 +91,13 @@ char	**copy_the_map(t_map *map, t_list *lstmap)
 	return (board);
 }
 
-void	check_around(char **board, int i, int j)
+int	check_around(char **board, int i, int j, t_map *map)
 {
-	if (i == 0)
+	if (i == 0 || j == 0 || i == map->height || j == map->width)
+		return (0);
+	if (board[i - 1][j] == ' ' || board[i + 1][j] == ' ' || board[i][j - 1] == ' ' || board[i][j + 1] == ' ')
+		return (0);
+	return (1);
 }
 
 void	check_map(t_param *param, char **board)
@@ -108,9 +111,13 @@ void	check_map(t_param *param, char **board)
 		j = -1;
 		while (board[i][++j])
 		{
-			if (board[i][j] == ' ')
+			if (board[i][j] == '0' && (check_around(board, i, j, param->map) == 0))
+				ft_error(FILE_ERROR);
+			else if (board[i][j] == 'N' || board[i][j] == 'E' || board[i][j] == 'S' || board[i][j] == 'W')
 			{
-
+				if (param->player->one == 1 || (check_around(board, i, j, param->map) == 0))
+					ft_error(FILE_ERROR);
+				param->player->one = 1;
 			}
 		}
 	}
@@ -120,7 +127,7 @@ void	parse_map(t_map *map, t_list *lstmap, t_param *param)
 {
 	lst_just_map(map, &lstmap);
 	map->board = copy_the_map(map, lstmap);
-
+	check_map(param, map->board);
 
 	int test_i;
 	int	test_j;
@@ -138,5 +145,4 @@ void	parse_map(t_map *map, t_list *lstmap, t_param *param)
 		printf("\n");
 		test_i++;
 	}
-	exit(EXIT_SUCCESS);
 }
