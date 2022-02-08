@@ -1,66 +1,54 @@
-
 #include "../cub3d.h"
 
-/*
-- Your program must take as a first argument a scene description file with the .cub extension.
-- If any misconfiguration of any kind is encountered in the file, the program must exit properly and
-return "Error\n" followed by an explicit error message of your choice.
-*/
-
-// Call parse_file from main function
-// int	parse_file(t_param *param, char *filename)
-// {
-
-		// check all elements (e.g. NO ./path_to_the_north_texture)
-		// check_elements(param, filename);
-
-		// check map's content and fill board
-		// check_map(param, filename);
-
-// }
-
-static t_list	*file_to_lst(char *filename)
+static int	open_the_fd(char *filename, int *ret)
 {
-	int	fd;
-	int	ret;
-	t_list	*new;
-	t_list	*lstmap;
-	char	*line;
-	//t_list	*test;
+	int		fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		ft_error(FILE_ERROR);
-	ret = 1;
-	lstmap = NULL;
-	while (ret == 1)
-	{
-		ret = get_next_line(fd, &line);
-		if (ret != 1)
-			break;
-		new = ft_lstnew(line);
-		if (!new)
-			ft_error(MALLOC_ER);
-		ft_lstadd_back(&lstmap, new);
-		/*test = lstmap;
-		while (test)
-		{
-			printf("test = before : %p | this : %p | next : %p line == %s\n",test->before, test, test->next, test->line);
-			test = test->next;
-		}
-		write(1, "\n\n", 2);*/
-	}
+	*ret = 1;
+	return (fd);
+}
+
+static void	last_line(int ret, char *line, t_list *lstmap)
+{
+	t_list	*new;
+
 	if (ret == -1)
 		ft_error(FILE_ERROR);
 	new = ft_lstnew(line);
 	if (!new)
 		ft_error(MALLOC_ER);
 	ft_lstadd_back(&lstmap, new);
+}
+
+static t_list	*file_to_lst(char *filename)
+{
+	int		fd;
+	int		ret;
+	t_list	*new;
+	t_list	*lstmap;
+	char	*line;
+
+	fd = open_the_fd(filename, &ret);
+	lstmap = NULL;
+	while (ret == 1)
+	{
+		ret = get_next_line(fd, &line);
+		if (ret != 1)
+			break ;
+		new = ft_lstnew(line);
+		if (!new)
+			ft_error(MALLOC_ER);
+		ft_lstadd_back(&lstmap, new);
+	}
+	last_line(ret, line, lstmap);
 	close (fd);
 	return (lstmap);
 }
 
-int		parse_file(t_param *param, char *filename)
+int	parse_file(t_param *param, char *filename)
 {
 	t_list	*lstmap;
 

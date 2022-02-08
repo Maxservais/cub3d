@@ -1,26 +1,6 @@
-
 #include "../cub3d.h"
 
-/*
-- Each element (except the map) first's information is the type identifier
-(composed by one or two character(s)), followed by all specific informations for each object in a strict order
-- Except for the map content, each type of element can be separated by one or more empty line(s).
-- Except for the map content which always has to be the last, each type of element can be set in any
-order in the file.
-- Except for the map, each type of information from an element can be separated by one or more space(s).
-*/
-
-// int	check_elements(t_param *param, char *filename)
-// {
-// 	return (0);
-// }
-
-/*
-	Cette fonction va comparer a partir de la string envoyer si les characteres correspondent a des identifieurs.
-	Si c'est bon il enregistrera l'informations dans la struct map aussi non il renverra une erreur.
-*/
-
-void	get_the_texture(char *line, t_map *map, int identifier)
+static void	get_the_texture(char *line, t_map *map, int identifier)
 {
 	if (identifier == 1)
 	{
@@ -39,7 +19,8 @@ void	get_the_texture(char *line, t_map *map, int identifier)
 		map->EA_texture = ft_my_strlcpy(line);
 		if (!map->EA_texture)
 			ft_error(FILE_ERROR);
-	}else if (identifier == 4)
+	}
+	else if (identifier == 4)
 	{
 		map->WE_texture = ft_my_strlcpy(line);
 		if (!map->WE_texture)
@@ -47,7 +28,20 @@ void	get_the_texture(char *line, t_map *map, int identifier)
 	}
 }
 
-void	get_the_color(char *line, t_map *map, int identifier)
+static void	color_in_floor_or_ceilling(int *get, char **str)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+	{
+		get[i] = ft_atoi(str[i]);
+		if (get[i] < 0 || get[i] > 255)
+			ft_error(COLOR_ER);
+	}
+}
+
+static void	get_the_color(char *line, t_map *map, int identifier)
 {
 	int		i;
 	char	**str;
@@ -57,38 +51,24 @@ void	get_the_color(char *line, t_map *map, int identifier)
 	i = -1;
 	while (line[++i])
 	{
-		if (line[i] != ',' && !(ft_isdigit(line[i])) && !(ft_is_wspace(line[i])))
+		if (line[i] != ',' && !(ft_isdigit(line[i])) \
+		&& !(ft_is_wspace(line[i])))
 			ft_error(FILE_ERROR);
 	}
 	if (!*line)
 		ft_error(COLOR_ER);
-	i = -1;
 	str = ft_split(line, ',');
 	if (str[3])
 		ft_error(FILE_ERROR);
 	if (!str)
 		ft_error(MALLOC_ER);
 	if (identifier == 1)
-	{
-		while (++i < 3)
-		{
-			map->Floor[i] = ft_atoi(str[i]);
-			if (map->Floor[i] < 0 || map->Floor[i] > 255)
-				ft_error(COLOR_ER);
-		}
-	}
+		color_in_floor_or_ceilling(map->Floor, str);
 	if (identifier == 2)
-	{
-		while (++i < 3)
-		{
-			map->Ceilling[i] = ft_atoi(str[i]);
-			if (map->Ceilling[i] < 0 || map->Ceilling[i] > 255)
-				ft_error(COLOR_ER);
-		}
-	}
+		color_in_floor_or_ceilling(map->Ceilling, str);
 }
 
-int	find_the_element(t_map *map, char *line)
+static int	find_the_element(t_map *map, char *line)
 {
 	if (ft_my_strncmp(line, "NO", 2) == 0 && !(map->NO_texture))
 		get_the_texture(line, map, 1);
@@ -109,22 +89,17 @@ int	find_the_element(t_map *map, char *line)
 	return (1);
 }
 
-/*
-the fonction check_content retrieves the e texture path for each element.
-*/
 t_list	*check_content(t_map *map, t_list *lstmap)
 {
 	int		ret;
 
 	ret = 0;
-	while (lstmap && ret < 6)//changer en 6 quand sol et ciel
+	while (lstmap && ret < 6)
 	{
 		ret += find_the_element(map, lstmap->line);
 		lstmap = ft_my_lst_delone(lstmap);
 	}
 	if (ret < 6 || !lstmap)
 		ft_error(FILE_ERROR);
-	//printf("NO == |%s|\nSO == |%s|\nWE == |%s|\nEA == |%s|\n", map->NO_texture, map->SO_texture, map->WE_texture, map->EA_texture);
-	//printf("Floor = |%d,%d,%d|\nCeilling = |%d,%d,%d|\n", map->Floor[0], map->Floor[1], map->Floor[2], map->Ceilling[0], map->Ceilling[1], map->Ceilling[2]);
 	return (lstmap);
 }
