@@ -22,6 +22,8 @@ void	lst_just_map(t_map *map, t_list **lstmap)
 		tmp = tmp->next;
 		ft_my_lst_delone(tmptmp);
 	}
+	if (!tmp)
+		ft_error(FILE_ERROR);
 	*lstmap = tmp;
 	while (tmp && ft_is_a_map(tmp->line) == 0)
 	{
@@ -39,8 +41,6 @@ void	lst_just_map(t_map *map, t_list **lstmap)
 		tmp = tmp->next;
 		ft_my_lst_delone(tmptmp);
 	}
-	if (!tmp)
-		ft_error(FILE_ERROR);
 }
 
 char	*copy_the_line_of_the_map(int width, char *line)
