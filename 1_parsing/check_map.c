@@ -132,20 +132,20 @@ void	parse_map(t_map *map, t_list *lstmap, t_param *param)
 	check_map(param, map->board);
 	if (param->player->one == 0)
 		ft_error(FILE_ERROR);
-	int test_i;
-	int	test_j;
+	// int test_i;
+	// int	test_j;
 
-	test_i = 0;
-	test_j = 0;
-	while (map->board[test_i])
-	{
-		test_j = 0;
-		while (map->board[test_i][test_j])
-		{
-			printf("%c", map->board[test_i][test_j]);
-			test_j++;
-		}
-		printf("\n");
-		test_i++;
-	}
+	// test_i = 0;
+	// test_j = 0;
+	// while (map->board[test_i])
+	// {
+	// 	test_j = 0;
+	// 	while (map->board[test_i][test_j])
+	// 	{
+	// 		printf("%c", map->board[test_i][test_j]);
+	// 		test_j++;
+	// 	}
+	// 	printf("\n");
+	// 	test_i++;
+	// }
 }

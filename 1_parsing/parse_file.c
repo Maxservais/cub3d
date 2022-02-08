@@ -69,5 +69,5 @@ int		parse_file(t_param *param, char *filename)
 	lstmap = file_to_lst(filename);
 	lstmap = check_content(param->map, lstmap);
 	parse_map(param->map, lstmap, param);
-	return (1);
+	return (0);
 }

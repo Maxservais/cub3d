@@ -6,7 +6,8 @@ SRC_FILES		=	main.c							\
 					1_parsing/check_map.c			\
 					1_parsing/parse_file.c			\
 					1_parsing/utils.c				\
-					2_game_dynamics/controls.c		\
+					2_game_dynamics/controls_1.c	\
+					2_game_dynamics/controls_2.c	\
 					2_game_dynamics/draw_game.c		\
 					2_game_dynamics/draw_minimap.c	\
 					2_game_dynamics/raycaster.c		\
@@ -20,11 +21,11 @@ CUB3D_LIB		=	libcub3d.a
 
 LIBFT_LIB		=	libft.a
 
-MLX_LIB			=	libmlx.dylib
+MLX_LIB			=	libmlx.a
 
 CC				=	gcc
 
-INCLUDE			=	-Lmlx -lmlx -framework OpenGL -framework AppKit #-fsanitize=address -g3
+INCLUDE			=	-lmlx -framework OpenGL -framework AppKit
 
 CFLAGS			=	-Wall -Werror -Wextra
 
