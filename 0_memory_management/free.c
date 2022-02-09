@@ -1,16 +1,5 @@
 #include "../cub3d.h"
 
-int	free_board(t_param *p, int n)
-{
-	while (n > 0)
-	{
-		free(p->map->board[n - 1]);
-		n--;
-	}
-	free(p->map->board);
-	return (1);
-}
-
 int	free_structs(t_param *param)
 {
 	free(param->txt);
@@ -22,7 +11,7 @@ int	free_structs(t_param *param)
 
 int	free_all(t_param *param)
 {
-	free_board(param, param->map->height);
+	free_board(param, NULL, FILE_ER);
 	free(param->txt);
 	free(param->player);
 	free(param->key);

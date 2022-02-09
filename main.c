@@ -47,13 +47,10 @@ int	main(int argc, char **argv)
 {
 	t_param	param;
 
-	if (argc != 2 || init_structs(&param) == -1)
-	{
-		printf("Usage: ./cub3d file_name\n");
-		return (EXIT_FAILURE);
-	}
-	if (parse_file(&param, argv[1]))
-		return (free_structs(&param));
+	if (argc != 2)
+		ft_error(FILENAME_ERROR);
+	init_structs(&param);
+	parse_file(&param, argv[1]);
 	if (game_start(&param) == -1)
 		return (free_all(&param));
 	initialize_player_pos(&param, 0, 0);

@@ -40,12 +40,13 @@
 
 /* 1.1 MACROS ERROR */
 
-# define FILE_ERROR 10
-# define MALLOC_ER 11
-# define ELEMENT_ER 12
-# define FILENAME_ER 13
-# define COLOR_ER 14
+# define MAX_STRUCT 5
 
+# define FILENAME_ERROR 10
+# define MALLOC_ER 11
+# define FD_ER 12
+# define ELEMENT_ER 13
+# define FILE_ER 14
 
 /* 2. CUSTOM STRUCTS */
 
@@ -53,15 +54,13 @@ typedef struct s_map
 {
 	int		width;
 	int		height;
-	int		*ceiling;
-	int		*floor;
 	char	**board;
-	char	*NO_texture;
-	char	*SO_texture;
-	char	*EA_texture;
-	char	*WE_texture;
-	int		*Floor;
-	int		*Ceilling;
+	char	*no_texture;
+	char	*so_texture;
+	char	*ea_texture;
+	char	*we_texture;
+	int		*floor;
+	int		*ceilling;
 }			t_map;
 
 typedef struct s_texture
@@ -138,10 +137,10 @@ typedef struct s_param
 // add here necessary function's prototypes
 
 /* 4. PARSER */
-int		parse_file(t_param *param, char *filename);
-t_list	*check_content(t_map *map, t_list *lstmap);
-void	parse_map(t_map *map, t_list *lstmap, t_param *param);
-void	check_map(t_param *param, char **board);
+void				parse_file(t_param *param, char *filename);
+t_list				*check_content(t_map *map, t_list *lstmap, t_param *param);
+void				parse_map(t_map *map, t_list *lstmap, t_param *param);
+void				check_map(t_param *param, char **board);
 
 /* 5. GAME DYNAMICS */
 
@@ -177,17 +176,18 @@ unsigned long long	rgb_to_hex(int r, int g, int b);
 void				draw_line(t_param *param, int x0, int y0, int x1, int y1);
 
 /* 6. MEMORY (DE)ALLOCATION */
-int					init_structs(t_param *param);
-int					init_board(t_param *p);
+void				init_structs(t_param *param);
+void				init_board(char **board, int nb);
 int					load_textures(t_param *p);
 void				initialize_player_pos(t_param *p, int row, int col);
-int					free_board(t_param *p, int n);
 int					free_structs(t_param *param);
 int					free_all(t_param *param);
+void				init_struct_fail(int message, int nb, t_param *param);
 
 /* 7. UTILS */
-void	ft_error(int nb);//se trouve pour le moment dans 1_parsing/utils.c
-
-// add here necessary function's prototypes
+void				ft_error(int nb);
+void				clear_the_lst(int message, t_list *lstmap, t_param *param);
+void				free_texture(t_list *lstmap, t_param *param, int message, int nb);
+void				free_board(t_param *param, t_list *lstmap, int message);
 
 #endif

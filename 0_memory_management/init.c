@@ -1,78 +1,53 @@
 #include "../cub3d.h"
 
-static void	init_map(t_map *map)
+static void	init_map(t_param *param)
 {
-	map->width = 0;
-	map->height = 0;
-	map->board = NULL;
-	map->NO_texture = NULL;
-	map->SO_texture = NULL;
-	map->EA_texture = NULL;
-	map->WE_texture = NULL;
-	map->Floor = malloc(sizeof(int) * 3);
-	if (!map->Floor)
-		ft_error(MALLOC_ER);
-	map->Floor[0] = -1;
-	map->Floor[1] = -1;
-	map->Floor[2] = -1;
-	map->Ceilling = malloc(sizeof(int) * 3);
-	if (!map->Ceilling)
-		ft_error(MALLOC_ER);
-	map->Ceilling[0] = -1;
-	map->Ceilling[1] = -1;
-	map->Ceilling[2] = -1;
+	param->map->width = 0;
+	param->map->height = 0;
+	param->map->board = NULL;
+	param->map->no_texture = NULL;
+	param->map->so_texture = NULL;
+	param->map->ea_texture = NULL;
+	param->map->we_texture = NULL;
+	param->map->floor = malloc(sizeof(int) * 3);
+	if (!param->map->floor)
+		init_struct_fail(MALLOC_ER, 0, param);
+	param->map->floor[0] = -1;
+	param->map->floor[1] = -1;
+	param->map->floor[2] = -1;
+	param->map->ceilling = malloc(sizeof(int) * 3);
+	if (!param->map->ceilling)
+		init_struct_fail(MALLOC_ER, 1, param);
+	param->map->ceilling[0] = -1;
+	param->map->ceilling[1] = -1;
+	param->map->ceilling[2] = -1;
 }
 
-int	init_structs(t_param *param)
+void	init_structs(t_param *param)
 {
 	param->map = malloc(sizeof(t_map));
 	if (!param->map)
-		return (-1);
-	init_map(param->map);
+		ft_error(MALLOC_ER);
+	init_map(param);
 	param->key = malloc(sizeof(t_key));
 	if (!param->key)
-	{
-		free(param->map);
-		return (-1);
-	}
+		init_struct_fail(MALLOC_ER, 2, param);
 	param->player = malloc(sizeof(t_player));
 	if (!param->player)
-	{
-		free(param->key);
-		free(param->map);
-		return (-1);
-	}	
+		init_struct_fail(MALLOC_ER, 3, param);
 	param->txt = malloc(sizeof(t_texture) * 4);
 	if (!param->txt)
-	{
-		free(param->player);
-		free(param->key);
-		free(param->map);
-		return (-1);
-	}
-	// param->player->pa = 0;
-	// param->player->pdx = cos(param->player->pa) * 0.1;
-	// param->player->pdy = sin(param->player->pa) * 0.1;
+		init_struct_fail(MALLOC_ER, 4, param);
 	param->player->one = 0;
-	return (0);
 }
 
-int	init_board(t_param *p)
+void	init_board(char **board, int nb)
 {
-	int	row;
+	int	i;
 
-	p->map->board = malloc(sizeof(char *) * p->map->height);
-	if (!p->map->board)
-		return (1);
-	row = 0;
-	while (row < p->map->height)
-	{
-		p->map->board[row] = malloc(sizeof(char) * p->map->width);
-		if (!p->map->board[row])
-			return (free_board(p, row));
-		row++;
-	}
-	return (0);
+	i = -1;
+	while (++i <= nb)
+		board[i] = NULL;
 }
 
 int	load_textures(t_param *p)
@@ -83,10 +58,10 @@ int	load_textures(t_param *p)
 	files = malloc(sizeof(char *) * 4);
 	if (!files)
 		return (-1);
-	files[WEST] = p->map->WE_texture;
-	files[EAST] = p->map->EA_texture;
-	files[NORTH] = p->map->NO_texture;
-	files[SOUTH] = p->map->SO_texture;
+	files[WEST] = p->map->we_texture;
+	files[EAST] = p->map->ea_texture;
+	files[NORTH] = p->map->no_texture;
+	files[SOUTH] = p->map->so_texture;
 	i = 0;
 	while (i < 4)
 	{

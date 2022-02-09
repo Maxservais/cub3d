@@ -23,13 +23,13 @@ void	check_map(t_param *param, char **board)
 		{
 			if (board[i][j] == '0' && \
 			(check_around(board, i, j, param->map) == 0))
-				ft_error(FILE_ERROR);
+				free_board(param, NULL, FILE_ER);
 			else if (board[i][j] == 'N' || board[i][j] == 'E' \
 			|| board[i][j] == 'S' || board[i][j] == 'W')
 			{
 				if (param->player->one == 1 || \
 				(check_around(board, i, j, param->map) == 0))
-					ft_error(FILE_ERROR);
+					free_board(param, NULL, FILE_ER);
 				param->player->one = 1;
 			}
 		}
