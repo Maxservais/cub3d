@@ -6,25 +6,25 @@ static void	get_the_texture(t_list *lstmap, t_param *param, int identifier)
 	{
 		param->map->no_texture = ft_my_strlcpy(lstmap->line);
 		if (!param->map->no_texture)
-			free_texture(lstmap, param, MALLOC_ER, 1);
+			free_texture(lstmap, param, FILE_ER, 1);
 	}
 	else if (identifier == 2)
 	{
 		param->map->so_texture = ft_my_strlcpy(lstmap->line);
 		if (!param->map->so_texture)
-			free_texture(lstmap, param, MALLOC_ER, 1);
+			free_texture(lstmap, param, FILE_ER, 1);
 	}
 	else if (identifier == 3)
 	{
 		param->map->ea_texture = ft_my_strlcpy(lstmap->line);
 		if (!param->map->ea_texture)
-			free_texture(lstmap, param, MALLOC_ER, 1);
+			free_texture(lstmap, param, FILE_ER, 1);
 	}
 	else if (identifier == 4)
 	{
 		param->map->we_texture = ft_my_strlcpy(lstmap->line);
 		if (!param->map->we_texture)
-			free_texture(lstmap, param, MALLOC_ER, 1);
+			free_texture(lstmap, param, FILE_ER, 1);
 	}
 }
 
