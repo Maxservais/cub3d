@@ -7,8 +7,8 @@ or clicks on the red-cross of the window.
 
 int	close_win(t_param *param)
 {
-	free_all(param);
 	mlx_destroy_window(param->mlx_ptr, param->win_ptr);
+	free_board(param, NULL, END);
 	exit(0);
 }
 

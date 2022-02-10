@@ -50,9 +50,8 @@ void	init_board(char **board, int nb)
 		board[i] = NULL;
 }
 
-int	load_textures(t_param *p)
+int	load_textures(t_param *p, int i)
 {
-	int		i;
 	char	**files;
 
 	files = malloc(sizeof(char *) * 4);
@@ -62,7 +61,6 @@ int	load_textures(t_param *p)
 	files[EAST] = p->map->ea_texture;
 	files[NORTH] = p->map->no_texture;
 	files[SOUTH] = p->map->so_texture;
-	i = 0;
 	while (i < 4)
 	{
 		p->txt[i].img_ptr = mlx_xpm_file_to_image(p->mlx_ptr, files[i],

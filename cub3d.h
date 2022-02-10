@@ -46,6 +46,7 @@
 # define MALLOC_ER 11
 # define FD_ER 12
 # define FILE_ER 13
+# define END 14
 
 /* 2. CUSTOM STRUCTS */
 
@@ -177,10 +178,8 @@ void				draw_line(t_param *param, int x0, int y0, int x1, int y1);
 /* 6. MEMORY (DE)ALLOCATION */
 void				init_structs(t_param *param);
 void				init_board(char **board, int nb);
-int					load_textures(t_param *p);
+int					load_textures(t_param *p, int i);
 void				initialize_player_pos(t_param *p, int row, int col);
-int					free_structs(t_param *param);
-int					free_all(t_param *param);
 void				init_struct_fail(int message, int nb, t_param *param);
 
 /* 7. UTILS */

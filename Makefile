@@ -1,6 +1,5 @@
 
 SRC_FILES		=	main.c							\
-					0_memory_management/free.c		\
 					0_memory_management/init.c		\
 					1_parsing/check_content.c		\
 					1_parsing/check_map.c			\

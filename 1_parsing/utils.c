@@ -2,7 +2,8 @@
 
 void	ft_error(int nb)
 {
-	write(1, "Error\n", 6);
+	if (nb < 14)
+		write(1, "Error\n", 6);
 	if (nb == FILENAME_ERROR)
 	{
 		write(1, "Usage: ./cub3d path_filename.cub\n", 33);
@@ -17,6 +18,8 @@ void	ft_error(int nb)
 		write(1, "Error with a malloc\n", 20);
 	else if (nb == FILE_ER)
 		write(1, "The document doesn't respect the required syntax.\n", 50);
+	else if (nb == END)
+		write(1, "Thank you for playing\n", 22);
 	exit(EXIT_FAILURE);
 }
 
@@ -46,7 +49,7 @@ void	init_struct_fail(int message, int nb, t_param *param)
 
 void	clear_the_lst(int message, t_list *lstmap, t_param *param)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	while (lstmap)
 	{

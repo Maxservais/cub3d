@@ -26,7 +26,7 @@ static int	game_start(t_param *p)
 		p->tile_size = (WIN_WIDTH * 0.4) / p->map->width;
 	else
 		p->tile_size = (WIN_HEIGHT * 0.4) / p->map->height;
-	if (load_textures(p) == -1)
+	if (load_textures(p, 0) == -1)
 		return (-1);
 	return (0);
 }
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 	init_structs(&param);
 	parse_file(&param, argv[1]);
 	if (game_start(&param) == -1)
-		return (free_all(&param));
+		free_board(&param, NULL, FILE_ER);
 	initialize_player_pos(&param, 0, 0);
 	mlx_hook(param.win_ptr, 2, 1L << 0, &key_press, &param);
 	mlx_hook(param.win_ptr, 3, 1L << 0, &key_unpress, &param);

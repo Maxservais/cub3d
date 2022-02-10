@@ -1,4 +1,3 @@
-
 #include "../cub3d.h"
 
 int	close_win(t_param *param)
