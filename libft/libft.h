@@ -7,7 +7,7 @@
 # include <unistd.h>
 # include <limits.h>
 
-typedef	struct	s_list
+typedef struct s_list
 {
 	char			*line;
 	struct s_list	*before;

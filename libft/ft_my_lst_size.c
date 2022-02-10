@@ -1,6 +1,6 @@
 #include "libft.h"
 
-int		ft_my_lst_size(t_list *lst)
+int	ft_my_lst_size(t_list *lst)
 {
 	int	i;
 

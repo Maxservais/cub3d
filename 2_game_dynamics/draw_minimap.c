@@ -4,33 +4,33 @@
 draw_drays() draws the rays around the player on the minimap.
 */
 
-void	draw_rays(t_param *p, t_ray *ray)
-{
-	int		i;
-	float	ra;
+// void	draw_rays(t_param *p, t_ray *ray)
+// {
+// 	int		i;
+// 	float	ra;
 
-	ra = p->player->pa - DR * FOV / 2;
-	if (ra < 0)
-		ra += 2 * PI;
-	if (ra > 2 * PI)
-		ra -= 2 * PI;
-	i = 0 - FOV / 2;
-	while (i < FOV / 2)
-	{
-		len_ray(p, ray, ra);
-		draw_line(p, p->player->px * p->tile_size,
-			p->player->py * p->tile_size, ray->intersect_x * p->tile_size,
-			ray->intersect_y * p->tile_size);
-		ra += DR;
-		i++;
-	}
-}
+// 	ra = p->player->pa - DR * FOV / 2;
+// 	if (ra < 0)
+// 		ra += 2 * PI;
+// 	if (ra > 2 * PI)
+// 		ra -= 2 * PI;
+// 	i = 0 - FOV / 2;
+// 	while (i < FOV / 2)
+// 	{
+// 		len_ray(p, ray, ra);
+// 		draw_line(p, p->player->px * p->tile_size,
+// 			p->player->py * p->tile_size, ray->intersect_x * p->tile_size,
+// 			ray->intersect_y * p->tile_size);
+// 		ra += DR;
+// 		i++;
+// 	}
+// }
 
 /*
 draw_player() draws our player on the 2D minimap.
 */
 
-void	draw_player(t_param *param)
+static void	draw_player(t_param *param)
 {
 	int	p_width;
 	int	p_height;
@@ -55,7 +55,7 @@ void	draw_player(t_param *param)
 draw_tile() draws one tile at location (x, y) of the 2D minimap.
 */
 
-void	draw_tile(t_param *param, int x, int y, int color)
+static void	draw_tile(t_param *param, int x, int y, int color)
 {
 	int	width;
 	int	height;
@@ -82,7 +82,7 @@ void	draw_tile(t_param *param, int x, int y, int color)
 draw_map2d() draws a 2D minimap with tiles and our player.
 */
 
-void	draw_map2d(t_param *param)
+static void	draw_map2d(t_param *param)
 {
 	int	row;
 	int	col;
@@ -112,7 +112,7 @@ with the player's rays.
 
 void	draw_minimap(t_param *p, t_ray *ray)
 {
+	(void)ray;
 	draw_map2d(p);
 	draw_player(p);
-	draw_rays(p, ray);
 }

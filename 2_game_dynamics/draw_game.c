@@ -5,7 +5,7 @@ get_col() gets the texel's column (the x position) and makes sure that
 the correct wall is displayed (north, south, west or south faces).
 */
 
-int	get_col(t_param *p, t_ray *ray, int *col, float angle)
+static int	get_col(t_param *p, t_ray *ray, int *col, float angle)
 {
 	int	wall_id;
 
@@ -38,7 +38,7 @@ draw_floor_ceiling() draws a line (that when put together
 with other vertical lines, makes up the floor and ceiling)
 */
 
-void	draw_floor_ceiling(t_param *p, t_ray *ray, int i)
+static void	draw_floor_ceiling(t_param *p, t_ray *ray, int i)
 {
 	int		k;
 	int		j;
@@ -47,13 +47,15 @@ void	draw_floor_ceiling(t_param *p, t_ray *ray, int i)
 	j = (int)((WIN_HEIGHT / 2.0) - (ray->line_height / 2.0));
 	while (k < j)
 	{
-		my_mlx_pixel_put(p, i, k, rgb_to_hex(p->map->ceilling[0], p->map->ceilling[1], p->map->ceilling[2]));
+		my_mlx_pixel_put(p, i, k, rgb_to_hex(p->map->ceilling[0],
+				p->map->ceilling[1], p->map->ceilling[2]));
 		k++;
 	}
 	j = (int)((WIN_HEIGHT / 2.0) + (ray->line_height / 2.0));
 	while (j <= WIN_HEIGHT)
 	{
-		my_mlx_pixel_put(p, i, j, rgb_to_hex(p->map->floor[0], p->map->floor[1], p->map->floor[2]));
+		my_mlx_pixel_put(p, i, j, rgb_to_hex(p->map->floor[0],
+				p->map->floor[1], p->map->floor[2]));
 		j++;
 	}
 }
@@ -62,7 +64,7 @@ void	draw_floor_ceiling(t_param *p, t_ray *ray, int i)
 draw_vert_line() draws a single vertical line of the texture.
 */
 
-void	draw_vert_line(t_param *p, t_ray *ray, int i, float angle)
+static void	draw_vert_line(t_param *p, t_ray *ray, int i, float angle)
 {
 	int		j;
 	int		col;
@@ -88,7 +90,7 @@ void	draw_vert_line(t_param *p, t_ray *ray, int i, float angle)
 draw_walls() draws a series of vertical line, giving the impression of walls.
 */
 
-void	draw_walls(t_param *p, t_ray *ray)
+static void	draw_walls(t_param *p, t_ray *ray)
 {
 	int		i;
 	float	ra;

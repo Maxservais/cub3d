@@ -61,7 +61,7 @@ void	clear_the_lst(int message, t_list *lstmap, t_param *param)
 	init_struct_fail(message, MAX_STRUCT, param);
 }
 
-void	free_texture(t_list *lstmap, t_param *param, int message, int nb)
+void	free_texture(t_list *lst, t_param *param, int m, int nb)
 {
 	if (param->map->no_texture)
 		free(param->map->no_texture);
@@ -72,12 +72,12 @@ void	free_texture(t_list *lstmap, t_param *param, int message, int nb)
 	if (param->map->ea_texture)
 		free(param->map->ea_texture);
 	if (nb > 0)
-		clear_the_lst(message, lstmap, param);
+		clear_the_lst(m, lst, param);
 	else
-		init_struct_fail(message, MAX_STRUCT, param);
+		init_struct_fail(m, MAX_STRUCT, param);
 }
 
-void	free_board(t_param *param, t_list *lstmap, int message)
+void	free_board(t_param *param, t_list *lst, int message)
 {
 	int	i;
 
@@ -88,7 +88,7 @@ void	free_board(t_param *param, t_list *lstmap, int message)
 		i++;
 	}
 	free(param->map->board);
-	if (!lstmap)
+	if (!lst)
 		free_texture(NULL, param, message, 0);
-	free_texture(lstmap, param, message, 1);
+	free_texture(lst, param, message, 1);
 }

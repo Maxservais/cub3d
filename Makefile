@@ -1,11 +1,11 @@
 
 SRC_FILES		=	main.c							\
 					0_memory_management/init.c		\
+					0_memory_management/free.c		\
 					1_parsing/check_content.c		\
 					1_parsing/check_map.c			\
 					1_parsing/parse_map.c			\
 					1_parsing/parse_file.c			\
-					1_parsing/utils.c				\
 					2_game_dynamics/controls_1.c	\
 					2_game_dynamics/controls_2.c	\
 					2_game_dynamics/draw_game.c		\
@@ -25,7 +25,7 @@ MLX_LIB			=	libmlx.a
 
 CC				=	gcc
 
-INCLUDE			=	-lmlx -framework OpenGL -framework AppKit -fsanitize=address -g3
+INCLUDE			=	-lmlx -framework OpenGL -framework AppKit
 
 CFLAGS			=	-Wall -Werror -Wextra
 
@@ -47,6 +47,7 @@ $(NAME): $(OBJ_FILES)
 clean:
 	rm -rf $(OBJ_FILES)
 	$(MAKE) clean -C get_next_line
+	$(MAKE) clean -C libft
 	$(MAKE) clean -C mlx
 
 fclean: clean

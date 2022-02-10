@@ -48,43 +48,43 @@ to a point located at (x1, y1).
 It is implemented as Bresenham's line algorithm.
 */
 
-void	draw_line(t_param *param, int x0, int y0, int x1, int y1)
-{
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
+// void	draw_line(t_param *param, int x0, int y0, int x1, int y1)
+// {
+// 	int	dx;
+// 	int	dy;
+// 	int	sx;
+// 	int	sy;
+// 	int	err;
+// 	int	e2;
 
-	dx = abs (x1 - x0);
-	dy = -abs (y1 - y0);
-	if (x0 < x1)
-		sx = 1;
-	else
-		sx = -1;
-	if (y0 < y1)
-		sy = 1;
-	else
-		sy = -1;
-	err = dx + dy;
-	while (1)
-	{
-		my_mlx_pixel_put(param, x0, y0, 0x006A0DAD);
-		e2 = 2 * err;
-		if (e2 >= dy)
-		{
-			if (x0 == x1)
-				break ;
-			err += dy;
-			x0 += sx;
-		}
-		if (e2 <= dx)
-		{
-			if (y0 == y1)
-				break ;
-			err += dx;
-			y0 += sy;
-		}
-	}
-}
+// 	dx = abs (x1 - x0);
+// 	dy = -abs (y1 - y0);
+// 	if (x0 < x1)
+// 		sx = 1;
+// 	else
+// 		sx = -1;
+// 	if (y0 < y1)
+// 		sy = 1;
+// 	else
+// 		sy = -1;
+// 	err = dx + dy;
+// 	while (1)
+// 	{
+// 		my_mlx_pixel_put(param, x0, y0, 0x006A0DAD);
+// 		e2 = 2 * err;
+// 		if (e2 >= dy)
+// 		{
+// 			if (x0 == x1)
+// 				break ;
+// 			err += dy;
+// 			x0 += sx;
+// 		}
+// 		if (e2 <= dx)
+// 		{
+// 			if (y0 == y1)
+// 				break ;
+// 			err += dx;
+// 			y0 += sy;
+// 		}
+// 	}
+// }

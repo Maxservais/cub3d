@@ -1,4 +1,3 @@
-
 #include "get_next_line.h"
 
 static int	get_next_line_end(char **line, char **save, int cp_len)

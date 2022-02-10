@@ -1,4 +1,4 @@
-# include "libft.h"
+#include "libft.h"
 
 int	ft_my_strncmp(char *s1, char *s2, unsigned int nb)
 {

@@ -7,8 +7,6 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include <string.h> // A SUPPRIMER
-# include <stdio.h> // A SUPPRIMER
 # include "./mlx/mlx.h"
 # include "./libft/libft.h"
 # include "./get_next_line/get_next_line.h"
@@ -41,7 +39,6 @@
 /* 1.1 MACROS ERROR */
 
 # define MAX_STRUCT 5
-
 # define FILENAME_ERROR 10
 # define MALLOC_ER 11
 # define FD_ER 12
@@ -132,19 +129,15 @@ typedef struct s_param
 	t_texture	*txt;
 }			t_param;
 
-/* 3. MAIN FUNCTIONS */
-
-// add here necessary function's prototypes
-
-/* 4. PARSER */
+/* 3. PARSER */
 void				parse_file(t_param *param, char *filename);
 t_list				*check_content(t_map *map, t_list *lstmap, t_param *param);
 void				parse_map(t_map *map, t_list *lstmap, t_param *param);
 void				check_map(t_param *param, char **board);
 
-/* 5. GAME DYNAMICS */
+/* 4. GAME DYNAMICS */
 
-/* 5.0 Hooking into events */
+/* 4.0 Hooking into events */
 int					close_win(t_param *param);
 int					key_press(int key, t_param *p);
 int					key_unpress(int key, t_param *p);
@@ -154,38 +147,30 @@ void				key_down(t_param *p);
 void				key_left(t_param *p);
 void				key_right(t_param *p);
 
-/* 5.1 Draw minimap */
-void				draw_player(t_param *param);
-void				draw_tile(t_param *param, int x, int y, int color);
-void				draw_map2d(t_param *param);
-void				draw_rays(t_param *p, t_ray *ray);
+/* 4.1 Draw minimap */
 void				draw_minimap(t_param *p, t_ray *ray);
 
-/* 5.2 Draw game 3D */
-void				draw_vert_line(t_param *p, t_ray *ray, int i, float angle);
-void				draw_walls(t_param *p, t_ray *ray);
+/* 4.2 Draw game 3D */
 int					display(void *param);
 
-/* 5.3 Raycasting */
+/* 4.3 Raycasting */
 float				len_ray(t_param *param, t_ray *ray, float angle);
 
-/* 5.4 Utils */
+/* 4.4 Utils */
 void				my_mlx_pixel_put(t_param *param, int x, int y, int color);
 int					get_color(t_texture *text, int x, int y);
 unsigned long long	rgb_to_hex(int r, int g, int b);
-void				draw_line(t_param *param, int x0, int y0, int x1, int y1);
+// void				draw_line(t_param *param, int x0, int y0, int x1, int y1);
 
-/* 6. MEMORY (DE)ALLOCATION */
+/* 5. MEMORY (DE)ALLOCATION */
 void				init_structs(t_param *param);
 void				init_board(char **board, int nb);
 int					load_textures(t_param *p, int i);
 void				initialize_player_pos(t_param *p, int row, int col);
 void				init_struct_fail(int message, int nb, t_param *param);
-
-/* 7. UTILS */
 void				ft_error(int nb);
 void				clear_the_lst(int message, t_list *lstmap, t_param *param);
-void				free_texture(t_list *lstmap, t_param *param, int message, int nb);
+void				free_texture(t_list *lst, t_param *param, int m, int nb);
 void				free_board(t_param *param, t_list *lstmap, int message);
 
 #endif

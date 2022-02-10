@@ -8,7 +8,7 @@ Credits:
 - https://www.youtube.com/watch?v=NbSee-XM7WA
 */
 
-void	ray_init(t_param *p, t_ray *ray, float angle)
+static void	ray_init(t_param *p, t_ray *ray, float angle)
 {
 	ray->start_x = p->player->px;
 	ray->start_y = p->player->py;
@@ -23,7 +23,7 @@ void	ray_init(t_param *p, t_ray *ray, float angle)
 	ray->vertical = FALSE;
 }
 
-void	ray_init_bis(t_param *p, t_ray *r, float *dist_max)
+static void	ray_init_bis(t_param *p, t_ray *r, float *dist_max)
 {
 	if (r->dir_x < 0)
 	{
@@ -51,7 +51,7 @@ void	ray_init_bis(t_param *p, t_ray *r, float *dist_max)
 		*dist_max = p->map->height;
 }
 
-void	ray_loop(t_param *p, t_ray *r, float dist_max)
+static void	ray_loop(t_param *p, t_ray *r, float dist_max)
 {
 	while (r->collision_detected == FALSE && r->distance < dist_max)
 	{

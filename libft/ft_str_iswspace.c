@@ -1,7 +1,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-int		ft_str_iswspace(char *line)
+int	ft_str_iswspace(char *line)
 {
 	int	i;
 

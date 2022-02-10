@@ -2,7 +2,7 @@
 
 t_list	*ft_my_lst_delone(t_list *lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = lst;
 	if (!(tmp->before) && !(tmp->next))

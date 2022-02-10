@@ -1,4 +1,3 @@
-
 #include "get_next_line.h"
 
 int	is_in_str(char *str, char c)
