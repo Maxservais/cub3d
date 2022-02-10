@@ -31,7 +31,7 @@ static void	lst_just_map(t_map *map, t_list **lstmap, t_param *param)
 	while (tmp)
 	{
 		if (ft_str_iswspace(tmp->line) == 1)
-			free_texture(*lstmap, param, FILE_ER, 1);
+			free_texture(tmp, param, FILE_ER, 1);
 		delete_wspace_in_the_map(&tmp);
 	}
 }

@@ -15,8 +15,6 @@ void	ft_error(int nb)
 	}
 	if (nb == MALLOC_ER)
 		write(1, "Error with a malloc\n", 20);
-	else if (nb == ELEMENT_ER)
-		write(1, "Error with one or more element\n", 31);
 	else if (nb == FILE_ER)
 		write(1, "The document doesn't respect the required syntax.\n", 50);
 	exit(EXIT_FAILURE);
@@ -48,10 +46,14 @@ void	init_struct_fail(int message, int nb, t_param *param)
 
 void	clear_the_lst(int message, t_list *lstmap, t_param *param)
 {
+	t_list *tmp;
+
 	while (lstmap)
 	{
-		free(lstmap->line);
-		free(lstmap);
+		tmp = lstmap;
+		lstmap = lstmap->next;
+		free(tmp->line);
+		free(tmp);
 	}
 	init_struct_fail(message, MAX_STRUCT, param);
 }

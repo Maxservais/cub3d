@@ -45,8 +45,7 @@
 # define FILENAME_ERROR 10
 # define MALLOC_ER 11
 # define FD_ER 12
-# define ELEMENT_ER 13
-# define FILE_ER 14
+# define FILE_ER 13
 
 /* 2. CUSTOM STRUCTS */
 
