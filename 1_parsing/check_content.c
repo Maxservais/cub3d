@@ -36,7 +36,9 @@ static void	color_in(int *get, char **str, t_list *lstmap, t_param *param)
 	while (++i < 3)
 	{
 		get[i] = ft_atoi(str[i]);
-		if (get[i] < 0 || get[i] > 255)
+		if (get[i] < 0)
+			get[i] = get[i] * (-1);
+		if (get[i] > 255)
 			free_texture(lstmap, param, FILE_ER, 1);
 	}
 }
@@ -44,22 +46,21 @@ static void	color_in(int *get, char **str, t_list *lstmap, t_param *param)
 static void	get_the_color(t_list *lstmap, t_param *param, int identifier)
 {
 	int		i;
+	int		j;
 	char	**str;
 	char	*line;
 
 	line = lstmap->line;
-	while (*line && !ft_isdigit(*line))
-		line++;
-	i = -1;
+	i = pass_the_f_or_c(line, lstmap, param);
+	j = i;
 	while (line[++i])
 	{
 		if (line[i] != ',' && !(ft_isdigit(line[i])) \
-		&& !(ft_is_wspace(line[i])))
+		&& !(ft_is_wspace(line[i])) && line[i] != '-')
 			free_texture(lstmap, param, FILE_ER, 1);
 	}
-	if (!*line)
-		free_texture(lstmap, param, FILE_ER, 1);
-	str = ft_split(line, ',');
+	i = j;
+	str = ft_split(&line[i], ',');
 	if (!str)
 		free_texture(lstmap, param, FILE_ER, 1);
 	if (str[3] || !(str[0]) || !(str[1]) || !(str[2]))

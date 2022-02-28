@@ -6,6 +6,7 @@ SRC_FILES		=	main.c							\
 					1_parsing/check_map.c			\
 					1_parsing/parse_map.c			\
 					1_parsing/parse_file.c			\
+					1_parsing/utils.c				\
 					2_game_dynamics/controls_1.c	\
 					2_game_dynamics/controls_2.c	\
 					2_game_dynamics/draw_game.c		\

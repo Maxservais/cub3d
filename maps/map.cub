@@ -4,7 +4,7 @@ NO 			./textures/north.xpm
                SO ./textures/south.xpm
 	EA             ./textures/east.xpm
 
-F      0    ,    0, 0
+F         48 ,  23 , 152
 C 			255,30,0 56
 
 

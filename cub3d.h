@@ -134,6 +134,7 @@ void				parse_file(t_param *param, char *filename);
 t_list				*check_content(t_map *map, t_list *lstmap, t_param *param);
 void				parse_map(t_map *map, t_list *lstmap, t_param *param);
 void				check_map(t_param *param, char **board);
+int					pass_the_f_or_c(char *line, t_list *lstmap, t_param *param);
 
 /* 4. GAME DYNAMICS */
 

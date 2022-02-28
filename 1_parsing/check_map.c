@@ -2,7 +2,7 @@
 
 static int	check_around(char **board, int i, int j, t_map *map)
 {
-	if (i == 0 || j == 0 || i == map->height || j == map->width)
+	if (i == 0 || j == 0 || i == (map->height -1) || j == (map->width -1))
 		return (0);
 	if (board[i - 1][j] == ' ' || board[i + 1][j] == ' ' \
 	|| board[i][j - 1] == ' ' || board[i][j + 1] == ' ')
