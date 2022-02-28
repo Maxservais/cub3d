@@ -20,16 +20,18 @@ static int	get_col(t_param *p, t_ray *ray, int *col, float angle)
 		wall_id = SOUTH;
 	if (ray->vertical == TRUE && cos(angle) > 0)
 		*col = (int)((1.0 - (ray->intersect_y - (int)ray->intersect_y))
-				* (float)p->txt[0].width);
+				* (float)p->txt[wall_id].width);
 	else if (ray->vertical == TRUE && cos(angle) < 0)
 		*col = (int)((ray->intersect_y - (int)ray->intersect_y)
-				* (float)p->txt[0].width);
+				* (float)p->txt[wall_id].width);
 	else if (ray->vertical == FALSE && sin(angle) > 0)
 		*col = (int)((1.0 - (ray->intersect_x - (int)ray->intersect_x))
-				* (float)p->txt[0].width);
+				* (float)p->txt[wall_id].width);
 	else
 		*col = (int)((ray->intersect_x - (int)ray->intersect_x)
-				* (float)p->txt[0].width);
+				* (float)p->txt[wall_id].width);
+	if (*col >= p->txt[wall_id].width)
+		*col = p->txt[wall_id].width - 1;
 	return (wall_id);
 }
 
@@ -75,7 +77,7 @@ static void	draw_vert_line(t_param *p, t_ray *ray, int i, float angle)
 	draw_floor_ceiling(p, ray, i);
 	row = 0.0;
 	wall_id = get_col(p, ray, &col, angle);
-	step = p->txt[wall_id].height / ray->line_height;
+	step = (p->txt[wall_id].height - 1) / ray->line_height;
 	j = (int)((WIN_HEIGHT / 2.0) - (ray->line_height / 2.0));
 	while (j < (int)((WIN_HEIGHT / 2.0) + (ray->line_height / 2.0)))
 	{

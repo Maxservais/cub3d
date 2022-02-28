@@ -57,6 +57,7 @@ fclean: clean
 	rm -rf $(MLX_LIB)
 	rm -rf $(LIBFT_LIB)
 	$(MAKE) fclean -C get_next_line
+	$(MAKE) fclean -C libft
 
 re: fclean all
 
