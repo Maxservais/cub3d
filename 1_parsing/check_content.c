@@ -41,6 +41,10 @@ static void	color_in(int *get, char **str, t_list *lstmap, t_param *param)
 		if (get[i] > 255)
 			free_texture(lstmap, param, FILE_ER, 1);
 	}
+	i = -1;
+	while (str[++i])
+		free(str[i]);
+	free(str);
 }
 
 static void	get_the_color(t_list *lstmap, t_param *param, int identifier)
@@ -59,7 +63,7 @@ static void	get_the_color(t_list *lstmap, t_param *param, int identifier)
 		&& !(ft_is_wspace(line[i])) && line[i] != '-')
 			free_texture(lstmap, param, FILE_ER, 1);
 	}
-	i = j;
+	i = ++j;
 	str = ft_split(&line[i], ',');
 	if (!str)
 		free_texture(lstmap, param, FILE_ER, 1);
